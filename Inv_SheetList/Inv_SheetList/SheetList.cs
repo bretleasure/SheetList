@@ -3,40 +3,40 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Inventor;
 
 namespace Inv_SheetList
 {
-    class SheetList
+    public class SheetList
     {
-        string Title;
-        bool ShowTitle;
+        public string Title;
+        public bool ShowTitle;
 
-        string SheetNoColName;
-        string SheetNameColName;
-
-        /// <summary>
-        /// Bottom/Top
-        /// Add new rows to bottom or top of list
-        /// </summary>
-        string Direction;
+        public string SheetNoColName;
+        public string SheetNameColName;
 
         /// <summary>
-        /// Top/Bottom/None
+        /// kTopDownDirection = 46081,
+        /// kBottomUpDirection = 46082
         /// </summary>
-        string Heading;
+        public TableDirectionEnum Direction;
 
         /// <summary>
-        /// Left/Right
+        /// kHeadingAtTop = 46337,
+        /// kHeadingAtBottom = 46338,
+        /// kNoHeading = 46339
         /// </summary>
-        string WrapDirection;
+        public HeadingPlacementEnum HeadingPlacement;
 
-        bool EnableAutoWrap;
+        /// <summary>
+        /// Wrap Direction.  Default is Wrap Right
+        /// </summary>
+        public bool WrapLeft;
 
-        bool WrapByMaxRows;
-        bool WrapByNumberOfSections;
+        public bool EnableAutoWrap;
 
-        int MaxRows;
-        int NumberOfSections;
+        public int MaxRows;
+        public int NumberOfSections;
 
     }
 }

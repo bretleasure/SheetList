@@ -46,12 +46,18 @@ namespace Inv_SheetList
 
                 Icon icon1 = new Icon(this.GetType(), "Resources.addin.ico"); //Change it if necessary but make sure it's embedded.
 
-                InventorButton button1 = new InventorButton("Button 1", "InventorAddinServer.Button_" + Guid.NewGuid().ToString(), 
-                                                            "Button 1 description", "Button 1 tooltip", icon1, icon1,
-                                                            CommandTypesEnum.kShapeEditCmdType, ButtonDisplayEnum.kDisplayTextInLearningMode);
+                //InventorButton button1 = new InventorButton("Button 1", "InventorAddinServer.Button_" + Guid.NewGuid().ToString(), 
+                //                                            "Button 1 description", "Button 1 tooltip", icon1, icon1,
+                //                                            CommandTypesEnum.kShapeEditCmdType, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
-                button1.SetBehavior(true, true, true);
-                button1.Execute = ButtonActions.Button1_Execute;
+                InventorButton CreateUpdate = new InventorButton("Create/Update Sheet List", icon1, icon1);
+                
+                CreateUpdate.SetBehavior(true, true, true);
+                CreateUpdate.Execute = SheetList_Actions.CreateUpdate_SheetList;
+
+                InventorButton Config = new InventorButton("Configure", icon1, icon1);
+                Config.SetBehavior(false, true, true);
+                Config.Execute = SheetList_Actions.ShowConfig;
 
                 if (loaded1stTime == true)
                 {
@@ -65,7 +71,8 @@ namespace Inv_SheetList
                         AddinGlobal.RibbonPanel = tab.RibbonPanels.Add("Sheet List", "InventorAddinServer.RibbonPanel_" + Guid.NewGuid().ToString(), AddinGlobal.RibbonPanelId, String.Empty, true);
 
                         CommandControls cmdCtrls = AddinGlobal.RibbonPanel.CommandControls;
-                        cmdCtrls.AddButton(button1.ButtonDef, button1.DisplayBigIcon, button1.DisplayText, "", button1.InsertBeforeTarget);
+                        cmdCtrls.AddButton(CreateUpdate.ButtonDef, CreateUpdate.DisplayBigIcon, CreateUpdate.DisplayText, "", CreateUpdate.InsertBeforeTarget);
+                        cmdCtrls.AddButton(Config.ButtonDef, Config.DisplayBigIcon, Config.DisplayText, "", Config.InsertBeforeTarget);
                     }
                 }
             }

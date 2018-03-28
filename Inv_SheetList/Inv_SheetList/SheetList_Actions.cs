@@ -22,15 +22,14 @@ using Inventor;
 
 namespace Inv_SheetList
 {
-    public class ButtonActions
+    public class SheetList_Actions
     {
         static Inventor.Application InvApp;
 
         static DrawingDocument dwgDoc;
 
-        public static void Button1_Execute()
+        public static void CreateUpdate_SheetList()
         {
-
 
             InvApp = AddinGlobal.InventorApp;
 
@@ -62,89 +61,14 @@ namespace Inv_SheetList
                 }
             }
 
-
-
-//Dim Page As Integer
-// Page = 0 'Reset Page Count
-//Dim Row As Integer
-
-// Row = 0 'Reset Row Count
-//Dim TableRows As Integer
-
-// TableRows = 0 'Reset Table Rows
-
-
-//oSheetlist.MaximumRows = 40 'Set Maxium Rows Per Column
-//TableRows = oSheetlist.Rows.Count
-
-
-//For Each oSheet In oSheets
-// Row += 1
-
-// Page += 1
-
-// fposition = InStr(oSheet.Name, ":") ' Count Number of Characters to the :
-
-// fposition = fposition - 1 ' Minus 1 to get everything before :
-
-// If TableRows<TotalPages Then ' If There arent enough Table Rows, Add More
-
-// oSheetlist.Rows.Add
-// End If
-// If oSheet.ExcludeFromCount = False Then
-
-// oSheetlist.Rows.Item(Row).Item(1).Value = Page
-
-// oSheetlist.Rows.Item(Row).Item(2).Value = Left(oSheet.Name, fposition) 'Get Sheetname before the :
-
-// End If
-//Next
-
-//TableRows = oSheetlist.Rows.Count
-
-
-//If TableRows > TotalPages Then ' If there are more Table Rows than Pages, Delete Until They Match
-
-// Do Until TableRows = TotalPages
-
-// TableRows -= 1
-
-// oSheetlist.Rows.Item(TotalPages + 1).Delete
-
-// Loop
-//End If
-
-
-//'Set Location for SheetList
-//Dim oBorder As Border = oDoc.Sheets.Item(1).Border
-//Dim oPoint As Point2d
-
-
-//Dim SheetList As CustomTable
-//SheetList = ActiveSheet.Sheet.CustomTables.Item(1)
-
-
-//Dim YVal As Double
-//YVal = oBorder.RangeBox.MinPoint.Y + (SheetList.Rows.Item(1).Height * (SheetList.Rows.Count + 1)) + 2.2225
-
-
-
-//oPoint = ThisApplication.TransientGeometry.Createpoint2d(oBorder.RangeBox.MinPoint.X, YVal)
-
-
-//SheetList.ShowTitle = False
-//SheetList.Position = oPoint
-
-
-//ActiveSheet = ThisDrawing.Sheet(CurrentSheet)
-
-
-//Catch
-//End Try
-
-//End Sub
-
         }
+
+        public static void ShowConfig()
+        {
+            ConfigureUI config = new ConfigureUI();
+            config.ShowDialog();
+        }
+
 
         static void Clear_SheetList(CustomTable table)
         {
@@ -184,14 +108,8 @@ namespace Inv_SheetList
         {
             string[] col = new string[] { "SHEET #", "SHEET NAME" };
 
-            List<string> n = new List<string>();
-            n.ToArray();
-
-            
-
             TransientGeometry oTG = InvApp.TransientGeometry;
             Point2d loc = oTG.CreatePoint2d();
-
 
             CustomTable newTable = dwgDoc.Sheets[1].CustomTables.Add("Sheet List", loc, 2, 0, col);
 
@@ -200,6 +118,8 @@ namespace Inv_SheetList
 
             //Assign Table Name
             newTable.Title = "SHEET LIST";
+
+            
 
             return newTable;
         }

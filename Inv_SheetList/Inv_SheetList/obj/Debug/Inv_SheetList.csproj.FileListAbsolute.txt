@@ -4,3 +4,11 @@ C:\Visual Studio Projects\CAD Apps Plus\Inv_SheetList\Inv_SheetList\bin\Debug\In
 C:\Visual Studio Projects\CAD Apps Plus\Inv_SheetList\Inv_SheetList\obj\Debug\Inv_SheetList.dll
 C:\Visual Studio Projects\CAD Apps Plus\Inv_SheetList\Inv_SheetList\obj\Debug\Inv_SheetList.pdb
 C:\Visual Studio Projects\CAD Apps Plus\Inv_SheetList\Inv_SheetList\obj\Debug\Inv_SheetList.csprojResolveAssemblyReference.cache
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\Inv_SheetList\Inv_SheetList\bin\Debug\Inv_SheetList.dll
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\Inv_SheetList\Inv_SheetList\bin\Debug\Inv_SheetList.pdb
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\Inv_SheetList\Inv_SheetList\obj\Debug\Inv_SheetList.csprojResolveAssemblyReference.cache
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\Inv_SheetList\Inv_SheetList\obj\Debug\Inv_SheetList.csproj.CoreCompileInputs.cache
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\Inv_SheetList\Inv_SheetList\obj\Debug\Inv_SheetList.dll
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\Inv_SheetList\Inv_SheetList\obj\Debug\Inv_SheetList.pdb
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\Inv_SheetList\Inv_SheetList\obj\Debug\Inv_SheetList.ConfigureUI.resources
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\Inv_SheetList\Inv_SheetList\obj\Debug\Inv_SheetList.csproj.GenerateResource.cache
