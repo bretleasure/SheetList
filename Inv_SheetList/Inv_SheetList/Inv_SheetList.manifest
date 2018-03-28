@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+  <assemblyIdentity
+    name="InventorAddinServer"
+    version="1.0.0.0">
+  </assemblyIdentity>
+  <clrClass
+    clsid="{3dc3068f-5de4-4b85-9efe-44b7ece560f3}"
+    progid="InventorNetAddinCS1.InventorAddinServer"
+    threadingModel="Both"
+    name="InventorNetAddinCS1.InventorAddinServer"
+    runtimeVersion="">
+  </clrClass>
+  <file name="InventorNetAddinCS1.dll"></file>
+</assembly>
