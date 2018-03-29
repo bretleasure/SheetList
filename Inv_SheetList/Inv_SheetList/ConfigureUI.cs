@@ -16,9 +16,9 @@ namespace Inv_SheetList
 {
     public partial class ConfigureUI : Form
     {
+        string AppFolder = AddinGlobal.AppFolder;
 
-        string UserFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData);
-        string AppFolder = @"\S5H3E1E2T1L2I6S2T";
+        string SettingsFile = AddinGlobal.SettingsFile;
 
         string Title;
         bool ShowTitle;
@@ -47,12 +47,53 @@ namespace Inv_SheetList
 
         private void ConfigureUI_Load(object sender, EventArgs e)
         {
-
+            ImportInputs();
         }
 
         private void btn_Cancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        void ImportInputs()
+        {
+            SheetList oSheetList = new SheetList();
+            oSheetList = (SheetList)XMLTools.Get_ObjectFromXML(AppFolder + SettingsFile, oSheetList);
+
+            ckb_ShowTitle.Checked = oSheetList.ShowTitle;
+            txb_Title.Text = oSheetList.Title;
+
+            if (oSheetList.Direction == TableDirectionEnum.kTopDownDirection)
+                rad_DirectionBtm.Checked = true;
+            else
+                rad_DirectionTop.Checked = true;
+
+            switch (oSheetList.HeadingPlacement)
+            {
+                case HeadingPlacementEnum.kHeadingAtBottom:
+                    rad_ColHeadingBtm.Checked = true;
+                    break;
+                case HeadingPlacementEnum.kHeadingAtTop:
+                    rad_ColHeadingTop.Checked = true;
+                    break;
+                case HeadingPlacementEnum.kNoHeading:
+                    rad_ColHeadingHide.Checked = true;
+                    break;
+            }
+
+            txb_SheetNoColName.Text = oSheetList.SheetNoColName;
+            txb_SheetNameColName.Text = oSheetList.SheetNameColName;
+
+            ckb_EnableAutoWrap.Checked = oSheetList.EnableAutoWrap;
+
+            if (oSheetList.WrapLeft)
+                rad_WrapDirectionLeft.Checked = true;
+            else
+                rad_WrapDirectionRight.Checked = true;
+
+            txb_MaxRows.Text = oSheetList.MaxRows.ToString();
+            txb_SectionNumber.Text = oSheetList.NumberOfSections.ToString();
+
         }
 
         void CollectInputs()
@@ -104,9 +145,20 @@ namespace Inv_SheetList
             oSheetList.MaxRows = MaxRows;
             oSheetList.NumberOfSections = NumberOfSections;
 
-            //Export Object to XML in User Folder
-            CreateXML(oSheetList, UserFolder + AppFolder + "SLSettings.xml");
+            //Create App Folder if it doesnt already exists
+            if (!System.IO.Directory.Exists(AppFolder))
+            {
+                DirectoryInfo di = System.IO.Directory.CreateDirectory(AppFolder);
+                di.Attributes = FileAttributes.Hidden;
+            }
 
+            //Save SheetList Object to AddinGlobal
+            AddinGlobal.oSheetList = oSheetList;
+
+            //Export Object to XML in User Folder
+            XMLTools.CreateXML(oSheetList, AppFolder + SettingsFile);
+
+            this.Close();
         }
 
         private void ckb_ShowTitle_CheckedChanged(object sender, EventArgs e)
@@ -119,57 +171,6 @@ namespace Inv_SheetList
             pnl_AutoWrap.Enabled = ckb_EnableAutoWrap.Checked;
         }
 
-        public static void CreateXML(Object YourClassObject, string path)
-        {
-            XmlDocument xmlDoc = new XmlDocument();   //Represents an XML document, 
-                                                      // Initializes a new instance of the XmlDocument class.   
-
-            List<Type> Types = new List<Type>() { typeof(SheetList) };
-
-            XmlSerializer xmlSerializer = new XmlSerializer(YourClassObject.GetType(), Types.ToArray());
-            // Creates a stream whose backing store is memory. 
-            using (MemoryStream xmlStream = new MemoryStream())
-            {
-                xmlSerializer.Serialize(xmlStream, YourClassObject);
-                xmlStream.Position = 0;
-                //Loads the XML document from the specified string.
-                xmlDoc.Load(xmlStream);
-
-                System.IO.File.WriteAllText(path, xmlDoc.InnerXml);
-            }
-        }
-
-        /// <summary>
-        /// Returns an Object from a specified XML file.  You are required to pass it the object type you want to receive
-        /// </summary>
-        /// <param name="path"></param>
-        /// <param name="MyClassObject"></param>
-        /// <returns></returns>
-        public static Object get_ObjectFromXML(string path, Object MyClassObject)
-        {
-            string xmlString = get_TextFromXML(path);
-
-            XmlSerializer oXmlSerializer = new XmlSerializer(MyClassObject.GetType());
-            //XmlSerializer oXmlSerializer = new XmlSerializer(MyClassObject.GetType());
-
-            //The StringReader will be the stream holder for the existing XML file 
-            MyClassObject = oXmlSerializer.Deserialize(new StringReader(xmlString));
-            //initially deserialized, the data is represented by an object without a defined type 
-
-            return MyClassObject;
-        }
-
-        private static string get_TextFromXML(string filepath)
-        {
-            XmlDocument doc = new XmlDocument();
-            doc.Load(filepath);
-
-            StringWriter sw = new StringWriter();
-            XmlTextWriter tx = new XmlTextWriter(sw);
-            doc.WriteTo(tx);
-
-            string str = sw.ToString();
-            return str;
-        }
+        
     }
 }

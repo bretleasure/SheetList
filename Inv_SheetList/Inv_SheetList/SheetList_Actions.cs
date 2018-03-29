@@ -12,6 +12,7 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Xml.Serialization;
 using System.IO;
 using System.Runtime.InteropServices;
 using Microsoft.Win32;
@@ -35,17 +36,26 @@ namespace Inv_SheetList
 
             dwgDoc = (DrawingDocument)InvApp.ActiveDocument;
 
-            Sheets oSheets = dwgDoc.Sheets;
+            Sheets oSheets = dwgDoc.Sheets;            
 
-            CustomTable oSheetList = Get_SheetList();
+            CustomTable SLTable = Get_SheetList();
 
-            int TotalSheets = Get_TotalSheets();
+            Point2d CurrentPosition = SLTable.Position;
+
+            SLTable = Get_SheetListSettings(SLTable);
+
+            int CurrentRowQty = SLTable.Rows.Count;
 
             //Clear Table
-            Clear_SheetList(oSheetList);
+            Clear_SheetList(SLTable);
+
+            //Reset Position, in case of bottom up scenario
+            SLTable.Position = CurrentPosition;
 
             int count = 1;
             string name = "";
+
+            double runningheight = 0;
 
             foreach (Sheet oSheet in oSheets)
             {
@@ -53,12 +63,29 @@ namespace Inv_SheetList
 
                 if (!oSheet.ExcludeFromCount)
                 {
-                    Row row = oSheetList.Rows.Add();
+                    Row row = SLTable.Rows.Add();
                     row[1].Value = count.ToString();
                     row[2].Value = name;
 
+                    runningheight += row.Height;
                     count++;
                 }
+            }
+
+            double heightdiff = (SLTable.Rows.Count - CurrentRowQty) * SLTable.Rows[1].Height;
+
+            runningheight += SLTable.ColumnHeaderTextStyle.FontSize + (SLTable.RowGap * 2);
+
+            //Adjust Table Location if table is bottom up
+            if (SLTable.TableDirection == TableDirectionEnum.kBottomUpDirection)
+            {
+                Point2d newloc = InvApp.TransientGeometry.CreatePoint2d(CurrentPosition.X, CurrentPosition.Y + heightdiff);
+
+                SLTable.Position = newloc;
+            }
+            else
+            {
+                SLTable.Position = CurrentPosition;
             }
 
         }
@@ -74,6 +101,7 @@ namespace Inv_SheetList
         {
             foreach (Row r in table.Rows)
             {
+
                 r.Delete();
             }
         }
@@ -106,22 +134,39 @@ namespace Inv_SheetList
 
         static CustomTable Create_NewSheetList()
         {
-            string[] col = new string[] { "SHEET #", "SHEET NAME" };
+            SheetList oSL = AddinGlobal.oSheetList;
+
+            string[] col = new string[] { oSL.SheetNoColName, oSL.SheetNameColName };
 
             TransientGeometry oTG = InvApp.TransientGeometry;
-            Point2d loc = oTG.CreatePoint2d();
+            Point2d loc = oTG.CreatePoint2d(dwgDoc.ActiveSheet.Width / 2, dwgDoc.ActiveSheet.Height / 2);
 
-            CustomTable newTable = dwgDoc.Sheets[1].CustomTables.Add("Sheet List", loc, 2, 0, col);
+            CustomTable newTable = dwgDoc.Sheets[1].CustomTables.Add(oSL.Title, loc, 2, 0, col);
 
             //Assign Table ID
             newTable.AttributeSets.Add("Table_id", true).Add("Name", ValueTypeEnum.kStringType, "SHEET LIST");
 
-            //Assign Table Name
-            newTable.Title = "SHEET LIST";
-
-            
+            newTable = Get_SheetListSettings(newTable);
 
             return newTable;
+        }
+
+        static CustomTable Get_SheetListSettings(CustomTable table)
+        {
+            SheetList oSL = AddinGlobal.oSheetList;
+
+            table.Columns[1].Title = oSL.SheetNoColName;
+            table.Columns[2].Title = oSL.SheetNameColName;
+            table.ShowTitle = oSL.ShowTitle;
+            table.Title = oSL.Title;
+            table.TableDirection = oSL.Direction;
+            table.HeadingPlacement = oSL.HeadingPlacement;
+            table.WrapAutomatically = oSL.EnableAutoWrap;
+            table.WrapLeft = oSL.WrapLeft;
+            table.MaximumRows = oSL.MaxRows;
+            table.NumberOfSections = oSL.NumberOfSections;
+
+            return table;
         }
 
         static int Get_TotalSheets()
@@ -136,5 +181,16 @@ namespace Inv_SheetList
 
             return Total;
         }
+
+        public static SheetList Get_SavedSheetListObject()
+        {
+            SheetList oSheetList = new SheetList();
+
+            oSheetList = (SheetList)XMLTools.Get_ObjectFromXML(AddinGlobal.AppFolder + AddinGlobal.SettingsFile, oSheetList);
+
+            return oSheetList;
+        }
+
+        
     }
 }

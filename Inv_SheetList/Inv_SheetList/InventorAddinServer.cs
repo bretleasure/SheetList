@@ -40,6 +40,8 @@ namespace Inv_SheetList
         {
             AddinGlobal.InventorApp = siteObj.Application;
 
+            AddinGlobal.oSheetList = SheetList_Actions.Get_SavedSheetListObject();
+
             try
             {
                 AddinGlobal.GetAddinClassId(this.GetType());
@@ -50,7 +52,7 @@ namespace Inv_SheetList
                 //                                            "Button 1 description", "Button 1 tooltip", icon1, icon1,
                 //                                            CommandTypesEnum.kShapeEditCmdType, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
-                InventorButton CreateUpdate = new InventorButton("Create/Update Sheet List", icon1, icon1);
+                InventorButton CreateUpdate = new InventorButton("Create/Update", icon1, icon1);
                 
                 CreateUpdate.SetBehavior(true, true, true);
                 CreateUpdate.Execute = SheetList_Actions.CreateUpdate_SheetList;

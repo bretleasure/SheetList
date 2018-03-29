@@ -10,6 +10,12 @@ namespace Inv_SheetList
     {
         public static Inventor.Application InventorApp;
 
+        public static SheetList oSheetList;
+
+        public static string AppFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData) + @"\CAP\S5H3E1E2T1L2I6S2T\";
+
+        public static string SettingsFile = "SLSettings.xml";
+
         public static string RibbonPanelId;
         public static RibbonPanel RibbonPanel;
         public static List<InventorButton> ButtonList = new List<InventorButton>();
