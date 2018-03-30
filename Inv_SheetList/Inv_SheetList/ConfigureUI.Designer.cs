@@ -28,45 +28,46 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigureUI));
             this.btn_SaveSettings = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
             this.ckb_ShowTitle = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txb_Title = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.rad_DirectionBtm = new System.Windows.Forms.RadioButton();
-            this.rad_DirectionTop = new System.Windows.Forms.RadioButton();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.rad_ColHeadingBtm = new System.Windows.Forms.RadioButton();
-            this.rad_ColHeadingTop = new System.Windows.Forms.RadioButton();
-            this.rad_ColHeadingHide = new System.Windows.Forms.RadioButton();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.ckb_EnableAutoWrap = new System.Windows.Forms.CheckBox();
-            this.pnl_AutoWrap = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.rad_WrapDirectionLeft = new System.Windows.Forms.RadioButton();
-            this.rad_WrapDirectionRight = new System.Windows.Forms.RadioButton();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.txb_MaxRows = new System.Windows.Forms.TextBox();
-            this.txb_SectionNumber = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txb_SheetNoColName = new System.Windows.Forms.TextBox();
             this.txb_SheetNameColName = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.txb_SheetNoColName = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.rad_ColHeadingHide = new System.Windows.Forms.RadioButton();
+            this.rad_ColHeadingBtm = new System.Windows.Forms.RadioButton();
+            this.rad_ColHeadingTop = new System.Windows.Forms.RadioButton();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.rad_DirectionTop = new System.Windows.Forms.RadioButton();
+            this.rad_DirectionBtm = new System.Windows.Forms.RadioButton();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txb_Title = new System.Windows.Forms.TextBox();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.pnl_AutoWrap = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txb_SectionNumber = new System.Windows.Forms.TextBox();
+            this.txb_MaxRows = new System.Windows.Forms.TextBox();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.rad_WrapDirectionRight = new System.Windows.Forms.RadioButton();
+            this.rad_WrapDirectionLeft = new System.Windows.Forms.RadioButton();
+            this.label3 = new System.Windows.Forms.Label();
+            this.ckb_EnableAutoWrap = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.panel4.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.pnl_AutoWrap.SuspendLayout();
-            this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_SaveSettings
@@ -121,73 +122,39 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Headings and Sheet List Settings";
             // 
-            // txb_Title
+            // txb_SheetNameColName
             // 
-            this.txb_Title.Location = new System.Drawing.Point(16, 54);
-            this.txb_Title.Name = "txb_Title";
-            this.txb_Title.Size = new System.Drawing.Size(124, 20);
-            this.txb_Title.TabIndex = 3;
-            this.txb_Title.Text = "SHEET LIST";
+            this.txb_SheetNameColName.Location = new System.Drawing.Point(16, 322);
+            this.txb_SheetNameColName.Name = "txb_SheetNameColName";
+            this.txb_SheetNameColName.Size = new System.Drawing.Size(141, 20);
+            this.txb_SheetNameColName.TabIndex = 11;
+            this.txb_SheetNameColName.Text = "SHEET NAME";
             // 
-            // label1
+            // label5
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 85);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(49, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Direction";
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(13, 306);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(135, 13);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "Sheet Name Column Name";
             // 
-            // panel1
+            // txb_SheetNoColName
             // 
-            this.panel1.Controls.Add(this.rad_DirectionTop);
-            this.panel1.Controls.Add(this.rad_DirectionBtm);
-            this.panel1.Location = new System.Drawing.Point(16, 101);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(135, 48);
-            this.panel1.TabIndex = 5;
+            this.txb_SheetNoColName.Location = new System.Drawing.Point(16, 275);
+            this.txb_SheetNoColName.Name = "txb_SheetNoColName";
+            this.txb_SheetNoColName.Size = new System.Drawing.Size(141, 20);
+            this.txb_SheetNoColName.TabIndex = 9;
+            this.txb_SheetNoColName.Text = "SHEET NO.";
             // 
-            // rad_DirectionBtm
+            // label4
             // 
-            this.rad_DirectionBtm.AutoSize = true;
-            this.rad_DirectionBtm.Checked = true;
-            this.rad_DirectionBtm.Location = new System.Drawing.Point(3, 3);
-            this.rad_DirectionBtm.Name = "rad_DirectionBtm";
-            this.rad_DirectionBtm.Size = new System.Drawing.Size(122, 17);
-            this.rad_DirectionBtm.TabIndex = 0;
-            this.rad_DirectionBtm.TabStop = true;
-            this.rad_DirectionBtm.Text = "Add Rows to Bottom";
-            this.rad_DirectionBtm.UseVisualStyleBackColor = true;
-            // 
-            // rad_DirectionTop
-            // 
-            this.rad_DirectionTop.AutoSize = true;
-            this.rad_DirectionTop.Location = new System.Drawing.Point(3, 26);
-            this.rad_DirectionTop.Name = "rad_DirectionTop";
-            this.rad_DirectionTop.Size = new System.Drawing.Size(112, 17);
-            this.rad_DirectionTop.TabIndex = 1;
-            this.rad_DirectionTop.TabStop = true;
-            this.rad_DirectionTop.Text = "Add Rows To Top";
-            this.rad_DirectionTop.UseVisualStyleBackColor = true;
-            // 
-            // panel3
-            // 
-            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel3.Controls.Add(this.btn_SaveSettings);
-            this.panel3.Controls.Add(this.btn_Cancel);
-            this.panel3.Location = new System.Drawing.Point(201, 389);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(225, 28);
-            this.panel3.TabIndex = 4;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 160);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(95, 13);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Column Placement";
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(13, 259);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(144, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Sheet Number Column Name";
             // 
             // panel4
             // 
@@ -198,6 +165,17 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(90, 75);
             this.panel4.TabIndex = 7;
+            // 
+            // rad_ColHeadingHide
+            // 
+            this.rad_ColHeadingHide.AutoSize = true;
+            this.rad_ColHeadingHide.Location = new System.Drawing.Point(3, 49);
+            this.rad_ColHeadingHide.Name = "rad_ColHeadingHide";
+            this.rad_ColHeadingHide.Size = new System.Drawing.Size(47, 17);
+            this.rad_ColHeadingHide.TabIndex = 8;
+            this.rad_ColHeadingHide.TabStop = true;
+            this.rad_ColHeadingHide.Text = "Hide";
+            this.rad_ColHeadingHide.UseVisualStyleBackColor = true;
             // 
             // rad_ColHeadingBtm
             // 
@@ -222,16 +200,73 @@
             this.rad_ColHeadingTop.Text = "Top";
             this.rad_ColHeadingTop.UseVisualStyleBackColor = true;
             // 
-            // rad_ColHeadingHide
+            // label2
             // 
-            this.rad_ColHeadingHide.AutoSize = true;
-            this.rad_ColHeadingHide.Location = new System.Drawing.Point(3, 49);
-            this.rad_ColHeadingHide.Name = "rad_ColHeadingHide";
-            this.rad_ColHeadingHide.Size = new System.Drawing.Size(47, 17);
-            this.rad_ColHeadingHide.TabIndex = 8;
-            this.rad_ColHeadingHide.TabStop = true;
-            this.rad_ColHeadingHide.Text = "Hide";
-            this.rad_ColHeadingHide.UseVisualStyleBackColor = true;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(16, 160);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(95, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Column Placement";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.rad_DirectionTop);
+            this.panel1.Controls.Add(this.rad_DirectionBtm);
+            this.panel1.Location = new System.Drawing.Point(16, 101);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(135, 48);
+            this.panel1.TabIndex = 5;
+            // 
+            // rad_DirectionTop
+            // 
+            this.rad_DirectionTop.AutoSize = true;
+            this.rad_DirectionTop.Location = new System.Drawing.Point(3, 26);
+            this.rad_DirectionTop.Name = "rad_DirectionTop";
+            this.rad_DirectionTop.Size = new System.Drawing.Size(112, 17);
+            this.rad_DirectionTop.TabIndex = 1;
+            this.rad_DirectionTop.TabStop = true;
+            this.rad_DirectionTop.Text = "Add Rows To Top";
+            this.rad_DirectionTop.UseVisualStyleBackColor = true;
+            // 
+            // rad_DirectionBtm
+            // 
+            this.rad_DirectionBtm.AutoSize = true;
+            this.rad_DirectionBtm.Checked = true;
+            this.rad_DirectionBtm.Location = new System.Drawing.Point(3, 3);
+            this.rad_DirectionBtm.Name = "rad_DirectionBtm";
+            this.rad_DirectionBtm.Size = new System.Drawing.Size(122, 17);
+            this.rad_DirectionBtm.TabIndex = 0;
+            this.rad_DirectionBtm.TabStop = true;
+            this.rad_DirectionBtm.Text = "Add Rows to Bottom";
+            this.rad_DirectionBtm.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 85);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(49, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Direction";
+            // 
+            // txb_Title
+            // 
+            this.txb_Title.Location = new System.Drawing.Point(16, 54);
+            this.txb_Title.Name = "txb_Title";
+            this.txb_Title.Size = new System.Drawing.Size(124, 20);
+            this.txb_Title.TabIndex = 3;
+            this.txb_Title.Text = "SHEET LIST";
+            // 
+            // panel3
+            // 
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.Controls.Add(this.btn_SaveSettings);
+            this.panel3.Controls.Add(this.btn_Cancel);
+            this.panel3.Location = new System.Drawing.Point(201, 389);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(225, 28);
+            this.panel3.TabIndex = 4;
             // 
             // groupBox2
             // 
@@ -243,6 +278,102 @@
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Table Wrapping";
+            // 
+            // pnl_AutoWrap
+            // 
+            this.pnl_AutoWrap.Controls.Add(this.panel6);
+            this.pnl_AutoWrap.Controls.Add(this.panel5);
+            this.pnl_AutoWrap.Controls.Add(this.label3);
+            this.pnl_AutoWrap.Location = new System.Drawing.Point(6, 52);
+            this.pnl_AutoWrap.Name = "pnl_AutoWrap";
+            this.pnl_AutoWrap.Size = new System.Drawing.Size(202, 115);
+            this.pnl_AutoWrap.TabIndex = 1;
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.label7);
+            this.panel6.Controls.Add(this.label6);
+            this.panel6.Controls.Add(this.txb_SectionNumber);
+            this.panel6.Controls.Add(this.txb_MaxRows);
+            this.panel6.Location = new System.Drawing.Point(3, 52);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(194, 57);
+            this.panel6.TabIndex = 2;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(4, 32);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(100, 13);
+            this.label7.TabIndex = 9;
+            this.label7.Text = "Number of Sections";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(4, 6);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(81, 13);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "Maximum Rows";
+            // 
+            // txb_SectionNumber
+            // 
+            this.txb_SectionNumber.Location = new System.Drawing.Point(132, 29);
+            this.txb_SectionNumber.Name = "txb_SectionNumber";
+            this.txb_SectionNumber.Size = new System.Drawing.Size(53, 20);
+            this.txb_SectionNumber.TabIndex = 7;
+            this.txb_SectionNumber.Text = "1";
+            // 
+            // txb_MaxRows
+            // 
+            this.txb_MaxRows.Enabled = false;
+            this.txb_MaxRows.Location = new System.Drawing.Point(132, 3);
+            this.txb_MaxRows.Name = "txb_MaxRows";
+            this.txb_MaxRows.Size = new System.Drawing.Size(53, 20);
+            this.txb_MaxRows.TabIndex = 6;
+            this.txb_MaxRows.Text = "10";
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.rad_WrapDirectionRight);
+            this.panel5.Controls.Add(this.rad_WrapDirectionLeft);
+            this.panel5.Location = new System.Drawing.Point(3, 26);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(142, 22);
+            this.panel5.TabIndex = 1;
+            // 
+            // rad_WrapDirectionRight
+            // 
+            this.rad_WrapDirectionRight.AutoSize = true;
+            this.rad_WrapDirectionRight.Checked = true;
+            this.rad_WrapDirectionRight.Location = new System.Drawing.Point(67, 3);
+            this.rad_WrapDirectionRight.Name = "rad_WrapDirectionRight";
+            this.rad_WrapDirectionRight.Size = new System.Drawing.Size(50, 17);
+            this.rad_WrapDirectionRight.TabIndex = 1;
+            this.rad_WrapDirectionRight.TabStop = true;
+            this.rad_WrapDirectionRight.Text = "Right";
+            this.rad_WrapDirectionRight.UseVisualStyleBackColor = true;
+            // 
+            // rad_WrapDirectionLeft
+            // 
+            this.rad_WrapDirectionLeft.AutoSize = true;
+            this.rad_WrapDirectionLeft.Location = new System.Drawing.Point(7, 3);
+            this.rad_WrapDirectionLeft.Name = "rad_WrapDirectionLeft";
+            this.rad_WrapDirectionLeft.Size = new System.Drawing.Size(43, 17);
+            this.rad_WrapDirectionLeft.TabIndex = 0;
+            this.rad_WrapDirectionLeft.Text = "Left";
+            this.rad_WrapDirectionLeft.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(7, 10);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(120, 13);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Direction to Wrap Table";
             // 
             // ckb_EnableAutoWrap
             // 
@@ -257,136 +388,6 @@
             this.ckb_EnableAutoWrap.UseVisualStyleBackColor = true;
             this.ckb_EnableAutoWrap.CheckedChanged += new System.EventHandler(this.ckb_EnableAutoWrap_CheckedChanged);
             // 
-            // pnl_AutoWrap
-            // 
-            this.pnl_AutoWrap.Controls.Add(this.panel6);
-            this.pnl_AutoWrap.Controls.Add(this.panel5);
-            this.pnl_AutoWrap.Controls.Add(this.label3);
-            this.pnl_AutoWrap.Location = new System.Drawing.Point(6, 52);
-            this.pnl_AutoWrap.Name = "pnl_AutoWrap";
-            this.pnl_AutoWrap.Size = new System.Drawing.Size(202, 115);
-            this.pnl_AutoWrap.TabIndex = 1;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 10);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(120, 13);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Direction to Wrap Table";
-            // 
-            // panel5
-            // 
-            this.panel5.Controls.Add(this.rad_WrapDirectionRight);
-            this.panel5.Controls.Add(this.rad_WrapDirectionLeft);
-            this.panel5.Location = new System.Drawing.Point(3, 26);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(142, 22);
-            this.panel5.TabIndex = 1;
-            // 
-            // rad_WrapDirectionLeft
-            // 
-            this.rad_WrapDirectionLeft.AutoSize = true;
-            this.rad_WrapDirectionLeft.Location = new System.Drawing.Point(7, 3);
-            this.rad_WrapDirectionLeft.Name = "rad_WrapDirectionLeft";
-            this.rad_WrapDirectionLeft.Size = new System.Drawing.Size(43, 17);
-            this.rad_WrapDirectionLeft.TabIndex = 0;
-            this.rad_WrapDirectionLeft.Text = "Left";
-            this.rad_WrapDirectionLeft.UseVisualStyleBackColor = true;
-            // 
-            // rad_WrapDirectionRight
-            // 
-            this.rad_WrapDirectionRight.AutoSize = true;
-            this.rad_WrapDirectionRight.Checked = true;
-            this.rad_WrapDirectionRight.Location = new System.Drawing.Point(67, 3);
-            this.rad_WrapDirectionRight.Name = "rad_WrapDirectionRight";
-            this.rad_WrapDirectionRight.Size = new System.Drawing.Size(50, 17);
-            this.rad_WrapDirectionRight.TabIndex = 1;
-            this.rad_WrapDirectionRight.TabStop = true;
-            this.rad_WrapDirectionRight.Text = "Right";
-            this.rad_WrapDirectionRight.UseVisualStyleBackColor = true;
-            // 
-            // panel6
-            // 
-            this.panel6.Controls.Add(this.label7);
-            this.panel6.Controls.Add(this.label6);
-            this.panel6.Controls.Add(this.txb_SectionNumber);
-            this.panel6.Controls.Add(this.txb_MaxRows);
-            this.panel6.Location = new System.Drawing.Point(3, 52);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(194, 57);
-            this.panel6.TabIndex = 2;
-            // 
-            // txb_MaxRows
-            // 
-            this.txb_MaxRows.Enabled = false;
-            this.txb_MaxRows.Location = new System.Drawing.Point(132, 3);
-            this.txb_MaxRows.Name = "txb_MaxRows";
-            this.txb_MaxRows.Size = new System.Drawing.Size(53, 20);
-            this.txb_MaxRows.TabIndex = 6;
-            this.txb_MaxRows.Text = "10";
-            // 
-            // txb_SectionNumber
-            // 
-            this.txb_SectionNumber.Location = new System.Drawing.Point(132, 29);
-            this.txb_SectionNumber.Name = "txb_SectionNumber";
-            this.txb_SectionNumber.Size = new System.Drawing.Size(53, 20);
-            this.txb_SectionNumber.TabIndex = 7;
-            this.txb_SectionNumber.Text = "1";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 259);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(144, 13);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "Sheet Number Column Name";
-            // 
-            // txb_SheetNoColName
-            // 
-            this.txb_SheetNoColName.Location = new System.Drawing.Point(16, 275);
-            this.txb_SheetNoColName.Name = "txb_SheetNoColName";
-            this.txb_SheetNoColName.Size = new System.Drawing.Size(141, 20);
-            this.txb_SheetNoColName.TabIndex = 9;
-            this.txb_SheetNoColName.Text = "SHEET NO.";
-            // 
-            // txb_SheetNameColName
-            // 
-            this.txb_SheetNameColName.Location = new System.Drawing.Point(16, 322);
-            this.txb_SheetNameColName.Name = "txb_SheetNameColName";
-            this.txb_SheetNameColName.Size = new System.Drawing.Size(141, 20);
-            this.txb_SheetNameColName.TabIndex = 11;
-            this.txb_SheetNameColName.Text = "SHEET NAME";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 306);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(135, 13);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "Sheet Name Column Name";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(4, 6);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(81, 13);
-            this.label6.TabIndex = 8;
-            this.label6.Text = "Maximum Rows";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(4, 32);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(100, 13);
-            this.label7.TabIndex = 9;
-            this.label7.Text = "Number of Sections";
-            // 
             // ConfigureUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -396,25 +397,26 @@
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ConfigureUI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sheet List - Configure";
             this.Load += new System.EventHandler(this.ConfigureUI_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel3.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.pnl_AutoWrap.ResumeLayout(false);
             this.pnl_AutoWrap.PerformLayout();
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.ResumeLayout(false);
 
         }

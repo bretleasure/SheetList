@@ -46,18 +46,22 @@ namespace Inv_SheetList
             {
                 AddinGlobal.GetAddinClassId(this.GetType());
 
-                Icon icon1 = new Icon(this.GetType(), "Resources.addin.ico"); //Change it if necessary but make sure it's embedded.
+                Icon icon = new Icon(this.GetType(), "Resources.sheetlist_icon32.ico"); //Change it if necessary but make sure it's embedded.
+                Icon icon_sm = new Icon(icon, 16, 16);
+
+                Icon settings = new Icon(this.GetType(), "Resources.gear.ico");
+                Icon settings_sm = new Icon(settings, 16, 16);
 
                 //InventorButton button1 = new InventorButton("Button 1", "InventorAddinServer.Button_" + Guid.NewGuid().ToString(), 
                 //                                            "Button 1 description", "Button 1 tooltip", icon1, icon1,
                 //                                            CommandTypesEnum.kShapeEditCmdType, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
-                InventorButton CreateUpdate = new InventorButton("Create/Update", icon1, icon1);
+                InventorButton CreateUpdate = new InventorButton("Create/Update", icon_sm, icon);
                 
                 CreateUpdate.SetBehavior(true, true, true);
                 CreateUpdate.Execute = SheetList_Actions.CreateUpdate_SheetList;
 
-                InventorButton Config = new InventorButton("Configure", icon1, icon1);
+                InventorButton Config = new InventorButton("Configure", settings_sm, settings);
                 Config.SetBehavior(false, true, true);
                 Config.Execute = SheetList_Actions.ShowConfig;
 

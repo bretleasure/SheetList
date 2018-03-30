@@ -4,7 +4,7 @@
   <ClientId>{3dc3068f-5de4-4b85-9efe-44b7ece560f3}</ClientId>
   <DisplayName>CADAppsPlus_SheetList</DisplayName>
   <Description>Creates a sheet list as a table for a drawing set.</Description>
-  <Assembly>Inv_SheetList.dll</Assembly>
+  <Assembly>C:\Visual Studio Projects\CAD Apps Plus\Sheet List\Inv_SheetList\Inv_SheetList\bin\Debug\Inv_SheetList.dll</Assembly>
   <LoadBehavior>0</LoadBehavior>
   <UserUnloadable>1</UserUnloadable>
   <Hidden>0</Hidden>

@@ -29,6 +29,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autodesk.Inventor.Interop, Version=19.0.0.0, Culture=neutral, PublicKeyToken=d84147f8b4276564, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -70,7 +73,12 @@
     <EmbeddedResource Include="Resources\addin.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Inv_SheetList.Addin" />
+    <Content Include="Inv_SheetList - Debug.Addin" />
+    <Content Include="Inv_SheetList.Addin">
+      <SubType>Designer</SubType>
+    </Content>
+    <EmbeddedResource Include="Resources\gear.ico" />
+    <EmbeddedResource Include="Resources\sheetlist_icon32.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Inv_SheetList.manifest" />

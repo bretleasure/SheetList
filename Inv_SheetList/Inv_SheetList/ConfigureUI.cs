@@ -57,42 +57,49 @@ namespace Inv_SheetList
 
         void ImportInputs()
         {
-            SheetList oSheetList = new SheetList();
-            oSheetList = (SheetList)XMLTools.Get_ObjectFromXML(AppFolder + SettingsFile, oSheetList);
+            //SheetList oSheetList = new SheetList();
+            //oSheetList = (SheetList)XMLTools.Get_ObjectFromXML(AppFolder + SettingsFile, oSheetList);
 
-            ckb_ShowTitle.Checked = oSheetList.ShowTitle;
-            txb_Title.Text = oSheetList.Title;
+            SheetList oSheetList = AddinGlobal.oSheetList;
 
-            if (oSheetList.Direction == TableDirectionEnum.kTopDownDirection)
-                rad_DirectionBtm.Checked = true;
-            else
-                rad_DirectionTop.Checked = true;
-
-            switch (oSheetList.HeadingPlacement)
+            if (oSheetList != null)
             {
-                case HeadingPlacementEnum.kHeadingAtBottom:
-                    rad_ColHeadingBtm.Checked = true;
-                    break;
-                case HeadingPlacementEnum.kHeadingAtTop:
-                    rad_ColHeadingTop.Checked = true;
-                    break;
-                case HeadingPlacementEnum.kNoHeading:
-                    rad_ColHeadingHide.Checked = true;
-                    break;
+                ckb_ShowTitle.Checked = oSheetList.ShowTitle;
+                txb_Title.Text = oSheetList.Title;
+
+                if (oSheetList.Direction == TableDirectionEnum.kTopDownDirection)
+                    rad_DirectionBtm.Checked = true;
+                else
+                    rad_DirectionTop.Checked = true;
+
+                switch (oSheetList.HeadingPlacement)
+                {
+                    case HeadingPlacementEnum.kHeadingAtBottom:
+                        rad_ColHeadingBtm.Checked = true;
+                        break;
+                    case HeadingPlacementEnum.kHeadingAtTop:
+                        rad_ColHeadingTop.Checked = true;
+                        break;
+                    case HeadingPlacementEnum.kNoHeading:
+                        rad_ColHeadingHide.Checked = true;
+                        break;
+                }
+
+                txb_SheetNoColName.Text = oSheetList.SheetNoColName;
+                txb_SheetNameColName.Text = oSheetList.SheetNameColName;
+
+                ckb_EnableAutoWrap.Checked = oSheetList.EnableAutoWrap;
+
+                if (oSheetList.WrapLeft)
+                    rad_WrapDirectionLeft.Checked = true;
+                else
+                    rad_WrapDirectionRight.Checked = true;
+
+                txb_MaxRows.Text = oSheetList.MaxRows.ToString();
+                txb_SectionNumber.Text = oSheetList.NumberOfSections.ToString();
             }
 
-            txb_SheetNoColName.Text = oSheetList.SheetNoColName;
-            txb_SheetNameColName.Text = oSheetList.SheetNameColName;
-
-            ckb_EnableAutoWrap.Checked = oSheetList.EnableAutoWrap;
-
-            if (oSheetList.WrapLeft)
-                rad_WrapDirectionLeft.Checked = true;
-            else
-                rad_WrapDirectionRight.Checked = true;
-
-            txb_MaxRows.Text = oSheetList.MaxRows.ToString();
-            txb_SectionNumber.Text = oSheetList.NumberOfSections.ToString();
+            
 
         }
 

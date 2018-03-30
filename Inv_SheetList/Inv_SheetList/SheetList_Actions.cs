@@ -31,6 +31,12 @@ namespace Inv_SheetList
 
         public static void CreateUpdate_SheetList()
         {
+            //Check to make sure settings have been set
+            if (AddinGlobal.oSheetList == null)
+            {
+                MessageBox.Show("Sheet List needs to be configured before being used.", "Configure Sheet List", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                return;
+            }
 
             InvApp = AddinGlobal.InventorApp;
 
@@ -186,7 +192,14 @@ namespace Inv_SheetList
         {
             SheetList oSheetList = new SheetList();
 
-            oSheetList = (SheetList)XMLTools.Get_ObjectFromXML(AddinGlobal.AppFolder + AddinGlobal.SettingsFile, oSheetList);
+            try
+            {
+                oSheetList = (SheetList)XMLTools.Get_ObjectFromXML(AddinGlobal.AppFolder + AddinGlobal.SettingsFile, oSheetList);
+            }
+            catch
+            {
+                oSheetList = null;
+            }
 
             return oSheetList;
         }
