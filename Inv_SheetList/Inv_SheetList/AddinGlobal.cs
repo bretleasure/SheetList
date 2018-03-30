@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 using Inventor;
+using CAP.Utilities;
 
 namespace Inv_SheetList
 {
@@ -12,9 +13,12 @@ namespace Inv_SheetList
 
         public static SheetList oSheetList;
 
-        public static string AppFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData) + @"\CAP\S5H3E1E2T1L2I6S2T\";
+        public static string AppFolder = Tools.GetAppFolder("Sheet List");
 
-        public static string SettingsFile = "SLSettings.xml";
+        public static string SettingsFile = Tools.GetHexString("Sheet List Settings") + ".xml";
+
+        public static string AppId = "8806627657910928543";
+
 
         public static string RibbonPanelId;
         public static RibbonPanel RibbonPanel;

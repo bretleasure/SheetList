@@ -15,6 +15,7 @@ using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 using Microsoft.Win32;
+using CAP.Utilities;
 
 using Inventor;
 
@@ -40,6 +41,15 @@ namespace Inv_SheetList
         {
             AddinGlobal.InventorApp = siteObj.Application;
 
+            //Create AppData Folder
+            //Create App Folder if it doesnt already exists
+            if (!System.IO.Directory.Exists(AddinGlobal.AppFolder))
+            {
+                DirectoryInfo di = System.IO.Directory.CreateDirectory(AddinGlobal.AppFolder);
+                di.Attributes = FileAttributes.Hidden;
+            }
+
+            //Get Saved Settings
             AddinGlobal.oSheetList = SheetList_Actions.Get_SavedSheetListObject();
 
             try
@@ -79,6 +89,9 @@ namespace Inv_SheetList
                         CommandControls cmdCtrls = AddinGlobal.RibbonPanel.CommandControls;
                         cmdCtrls.AddButton(CreateUpdate.ButtonDef, CreateUpdate.DisplayBigIcon, CreateUpdate.DisplayText, "", CreateUpdate.InsertBeforeTarget);
                         cmdCtrls.AddButton(Config.ButtonDef, Config.DisplayBigIcon, Config.DisplayText, "", Config.InsertBeforeTarget);
+
+                        //Check for Entitlement
+                        //CheckEntitlement();
                     }
                 }
             }
@@ -89,6 +102,13 @@ namespace Inv_SheetList
 
             // TODO: Add more initialization code below.
 
+        }
+
+        void CheckEntitlement()
+        {
+
+            if (Tools.CheckForValidUser("Sheet List", "5865579890990954428"))
+                MessageBox.Show("Valid User");
         }
 
         /// <summary>

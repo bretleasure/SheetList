@@ -1,0 +1,12 @@
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\Inv_SheetList\Inv_SheetList\bin\Release\Inv_SheetList.dll
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\Inv_SheetList\Inv_SheetList\bin\Release\Inv_SheetList.pdb
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\Inv_SheetList\Inv_SheetList\bin\Release\AddinNETFramework.AdWebServicesWrapper.dll
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\Inv_SheetList\Inv_SheetList\bin\Release\RestSharp.dll
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\Inv_SheetList\Inv_SheetList\bin\Release\System.ValueTuple.dll
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\Inv_SheetList\Inv_SheetList\bin\Release\System.ValueTuple.xml
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\Inv_SheetList\Inv_SheetList\obj\Release\Inv_SheetList.ConfigureUI.resources
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\Inv_SheetList\Inv_SheetList\obj\Release\Inv_SheetList.csproj.GenerateResource.cache
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\Inv_SheetList\Inv_SheetList\obj\Release\Inv_SheetList.csproj.CoreCompileInputs.cache
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\Inv_SheetList\Inv_SheetList\obj\Release\Inv_SheetList.csproj.CopyComplete
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\Inv_SheetList\Inv_SheetList\obj\Release\Inv_SheetList.dll
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\Inv_SheetList\Inv_SheetList\obj\Release\Inv_SheetList.pdb

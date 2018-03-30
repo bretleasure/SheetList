@@ -11,6 +11,7 @@ using System.Xml.Serialization;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Inventor;
+using CAP.Utilities;
 
 namespace Inv_SheetList
 {
@@ -152,13 +153,6 @@ namespace Inv_SheetList
             oSheetList.MaxRows = MaxRows;
             oSheetList.NumberOfSections = NumberOfSections;
 
-            //Create App Folder if it doesnt already exists
-            if (!System.IO.Directory.Exists(AppFolder))
-            {
-                DirectoryInfo di = System.IO.Directory.CreateDirectory(AppFolder);
-                di.Attributes = FileAttributes.Hidden;
-            }
-
             //Save SheetList Object to AddinGlobal
             AddinGlobal.oSheetList = oSheetList;
 
@@ -178,6 +172,6 @@ namespace Inv_SheetList
             pnl_AutoWrap.Enabled = ckb_EnableAutoWrap.Checked;
         }
 
-        
+
     }
 }

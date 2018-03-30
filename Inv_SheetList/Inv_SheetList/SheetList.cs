@@ -9,6 +9,8 @@ namespace Inv_SheetList
 {
     public class SheetList
     {
+        public bool ValidId;
+
         public string Title;
         public bool ShowTitle;
 

@@ -16,6 +16,7 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Runtime.InteropServices;
 using Microsoft.Win32;
+using CAP.Utilities;
 
 using Inventor;
 
@@ -31,6 +32,13 @@ namespace Inv_SheetList
 
         public static void CreateUpdate_SheetList()
         {
+            //Check Entitlement
+            if (!Tools.CheckForValidUser("Sheet List", AddinGlobal.AppId))
+            {
+                return;
+            }
+                
+
             //Check to make sure settings have been set
             if (AddinGlobal.oSheetList == null)
             {
@@ -98,6 +106,13 @@ namespace Inv_SheetList
 
         public static void ShowConfig()
         {
+            //Check Entitlement
+            if (!Tools.CheckForValidUser("Sheet List", AddinGlobal.AppId))
+            {
+                return;
+            }
+                
+
             ConfigureUI config = new ConfigureUI();
             config.ShowDialog();
         }
