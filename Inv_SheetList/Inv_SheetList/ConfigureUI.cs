@@ -40,6 +40,8 @@ namespace Inv_SheetList
 
         int MaxRows;
         int NumberOfSections;
+        public bool ControlMaxRows;
+        public bool ControlNumberOfSections;
 
         public ConfigureUI()
         {
@@ -98,6 +100,8 @@ namespace Inv_SheetList
 
                 txb_MaxRows.Text = oSheetList.MaxRows.ToString();
                 txb_SectionNumber.Text = oSheetList.NumberOfSections.ToString();
+                rad_MaxRows.Checked = oSheetList.ControlMaxRows;
+                rad_NumberOfSections.Checked = oSheetList.ControlNumberOfSections;
             }
 
             
@@ -133,6 +137,8 @@ namespace Inv_SheetList
 
             MaxRows = Convert.ToInt32(txb_MaxRows.Text);
             NumberOfSections = Convert.ToInt32(txb_SectionNumber.Text);
+            ControlMaxRows = rad_MaxRows.Checked;
+            ControlNumberOfSections = rad_NumberOfSections.Checked;
 
         }
 
@@ -152,6 +158,8 @@ namespace Inv_SheetList
             oSheetList.EnableAutoWrap = EnableAutoWrap;
             oSheetList.MaxRows = MaxRows;
             oSheetList.NumberOfSections = NumberOfSections;
+            oSheetList.ControlMaxRows = ControlMaxRows;
+            oSheetList.ControlNumberOfSections = ControlNumberOfSections;
 
             //Save SheetList Object to AddinGlobal
             AddinGlobal.oSheetList = oSheetList;
@@ -170,8 +178,27 @@ namespace Inv_SheetList
         private void ckb_EnableAutoWrap_CheckedChanged(object sender, EventArgs e)
         {
             pnl_AutoWrap.Enabled = ckb_EnableAutoWrap.Checked;
+            if (!ckb_EnableAutoWrap.Checked)
+            {
+                rad_NumberOfSections.Checked = true;
+                txb_SectionNumber.Text = "1";
+            }
+                           
         }
 
+        private void rad_NumberOfSections_CheckedChanged(object sender, EventArgs e)
+        {
+            txb_SectionNumber.Enabled = true;
+            txb_MaxRows.Enabled = false;
+            if (Convert.ToInt32(txb_SectionNumber.Text) == 0)
+                txb_SectionNumber.Text = "1";
+        }
 
+        private void rad_MaxRows_CheckedChanged(object sender, EventArgs e)
+        {
+            txb_MaxRows.Enabled = true;
+            txb_SectionNumber.Enabled = false;
+            txb_SectionNumber.Text = "0";
+        }
     }
 }

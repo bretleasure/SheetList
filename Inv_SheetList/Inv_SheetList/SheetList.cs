@@ -39,6 +39,8 @@ namespace Inv_SheetList
 
         public int MaxRows;
         public int NumberOfSections;
+        public bool ControlMaxRows;
+        public bool ControlNumberOfSections;
 
     }
 }

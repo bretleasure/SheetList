@@ -185,7 +185,8 @@ namespace Inv_SheetList
             table.WrapAutomatically = oSL.EnableAutoWrap;
             table.WrapLeft = oSL.WrapLeft;
             table.MaximumRows = oSL.MaxRows;
-            table.NumberOfSections = oSL.NumberOfSections;
+            if (oSL.NumberOfSections != 0)
+                table.NumberOfSections = oSL.NumberOfSections;
 
             return table;
         }

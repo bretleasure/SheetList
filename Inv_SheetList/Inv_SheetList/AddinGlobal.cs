@@ -17,7 +17,7 @@ namespace Inv_SheetList
 
         public static string SettingsFile = Tools.GetHexString("Sheet List Settings") + ".xml";
 
-        public static string AppId = "8806627657910928543";
+        public static string AppId = "5342673156831821071";
 
 
         public static string RibbonPanelId;

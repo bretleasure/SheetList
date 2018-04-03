@@ -51,8 +51,8 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.pnl_AutoWrap = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.rad_NumberOfSections = new System.Windows.Forms.RadioButton();
+            this.rad_MaxRows = new System.Windows.Forms.RadioButton();
             this.txb_SectionNumber = new System.Windows.Forms.TextBox();
             this.txb_MaxRows = new System.Windows.Forms.TextBox();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -205,9 +205,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(16, 160);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(95, 13);
+            this.label2.Size = new System.Drawing.Size(138, 13);
             this.label2.TabIndex = 6;
-            this.label2.Text = "Column Placement";
+            this.label2.Text = "Column Heading Placement";
             // 
             // panel1
             // 
@@ -284,6 +284,7 @@
             this.pnl_AutoWrap.Controls.Add(this.panel6);
             this.pnl_AutoWrap.Controls.Add(this.panel5);
             this.pnl_AutoWrap.Controls.Add(this.label3);
+            this.pnl_AutoWrap.Enabled = false;
             this.pnl_AutoWrap.Location = new System.Drawing.Point(6, 52);
             this.pnl_AutoWrap.Name = "pnl_AutoWrap";
             this.pnl_AutoWrap.Size = new System.Drawing.Size(202, 115);
@@ -291,8 +292,8 @@
             // 
             // panel6
             // 
-            this.panel6.Controls.Add(this.label7);
-            this.panel6.Controls.Add(this.label6);
+            this.panel6.Controls.Add(this.rad_NumberOfSections);
+            this.panel6.Controls.Add(this.rad_MaxRows);
             this.panel6.Controls.Add(this.txb_SectionNumber);
             this.panel6.Controls.Add(this.txb_MaxRows);
             this.panel6.Location = new System.Drawing.Point(3, 52);
@@ -300,23 +301,29 @@
             this.panel6.Size = new System.Drawing.Size(194, 57);
             this.panel6.TabIndex = 2;
             // 
-            // label7
+            // rad_NumberOfSections
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(4, 32);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(100, 13);
-            this.label7.TabIndex = 9;
-            this.label7.Text = "Number of Sections";
+            this.rad_NumberOfSections.AutoSize = true;
+            this.rad_NumberOfSections.Checked = true;
+            this.rad_NumberOfSections.Location = new System.Drawing.Point(7, 30);
+            this.rad_NumberOfSections.Name = "rad_NumberOfSections";
+            this.rad_NumberOfSections.Size = new System.Drawing.Size(120, 17);
+            this.rad_NumberOfSections.TabIndex = 7;
+            this.rad_NumberOfSections.TabStop = true;
+            this.rad_NumberOfSections.Text = "Number Of Sections";
+            this.rad_NumberOfSections.UseVisualStyleBackColor = true;
+            this.rad_NumberOfSections.CheckedChanged += new System.EventHandler(this.rad_NumberOfSections_CheckedChanged);
             // 
-            // label6
+            // rad_MaxRows
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(4, 6);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(81, 13);
-            this.label6.TabIndex = 8;
-            this.label6.Text = "Maximum Rows";
+            this.rad_MaxRows.AutoSize = true;
+            this.rad_MaxRows.Location = new System.Drawing.Point(7, 4);
+            this.rad_MaxRows.Name = "rad_MaxRows";
+            this.rad_MaxRows.Size = new System.Drawing.Size(99, 17);
+            this.rad_MaxRows.TabIndex = 6;
+            this.rad_MaxRows.Text = "Maximum Rows";
+            this.rad_MaxRows.UseVisualStyleBackColor = true;
+            this.rad_MaxRows.CheckedChanged += new System.EventHandler(this.rad_MaxRows_CheckedChanged);
             // 
             // txb_SectionNumber
             // 
@@ -378,8 +385,6 @@
             // ckb_EnableAutoWrap
             // 
             this.ckb_EnableAutoWrap.AutoSize = true;
-            this.ckb_EnableAutoWrap.Checked = true;
-            this.ckb_EnableAutoWrap.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ckb_EnableAutoWrap.Location = new System.Drawing.Point(16, 29);
             this.ckb_EnableAutoWrap.Name = "ckb_EnableAutoWrap";
             this.ckb_EnableAutoWrap.Size = new System.Drawing.Size(138, 17);
@@ -452,7 +457,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txb_SheetNoColName;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.RadioButton rad_NumberOfSections;
+        private System.Windows.Forms.RadioButton rad_MaxRows;
     }
 }

@@ -44,7 +44,7 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="CAP.Utilities">
-      <HintPath>..\..\..\CAP.Utilities\CAP.Utilities\bin\Debug\CAP.Utilities.dll</HintPath>
+      <HintPath>..\..\..\CAP Utilities\CAP.Utilities\CAP.Utilities\bin\Debug\CAP.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="RestSharp, Version=106.2.1.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
