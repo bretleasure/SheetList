@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Addin Type="Standard">
+  <ClassId>{3dc3068f-5de4-4b85-9efe-44b7ece560f3}</ClassId>
+  <ClientId>{3dc3068f-5de4-4b85-9efe-44b7ece560f3}</ClientId>
+  <DisplayName>CADAppsPlus_SheetList</DisplayName>
+  <Description>Sheet List Add-in by CAD Apps Plus</Description>
+  <Assembly>C:\Visual Studio Projects\CAD Apps Plus\Sheet List\CAP.Apps.SheetList\CAP.Apps.SheetList\bin\Debug\CAP.Apps.SheetList.dll</Assembly>
+  <LoadBehavior>0</LoadBehavior>
+  <UserUnloadable>1</UserUnloadable>
+  <Hidden>0</Hidden>
+  <SupportedSoftwareVersionGreaterThan>19..</SupportedSoftwareVersionGreaterThan>
+  <DataVersion>1</DataVersion>
+  <UserInterfaceVersion>1</UserInterfaceVersion>
+</Addin>

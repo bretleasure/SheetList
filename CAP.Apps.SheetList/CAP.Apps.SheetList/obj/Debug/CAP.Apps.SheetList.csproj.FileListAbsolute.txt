@@ -1,0 +1,13 @@
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\CAP.Apps.SheetList\CAP.Apps.SheetList\bin\Debug\CAP.Apps.SheetList.dll
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\CAP.Apps.SheetList\CAP.Apps.SheetList\bin\Debug\CAP.Apps.SheetList.pdb
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\CAP.Apps.SheetList\CAP.Apps.SheetList\bin\Debug\CAP.Utilities.dll
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\CAP.Apps.SheetList\CAP.Apps.SheetList\bin\Debug\RestSharp.dll
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\CAP.Apps.SheetList\CAP.Apps.SheetList\bin\Debug\System.ValueTuple.dll
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\CAP.Apps.SheetList\CAP.Apps.SheetList\bin\Debug\CAP.Utilities.pdb
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\CAP.Apps.SheetList\CAP.Apps.SheetList\bin\Debug\System.ValueTuple.xml
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\CAP.Apps.SheetList\CAP.Apps.SheetList\obj\Debug\CAP.Apps.SheetList.ConfigureUI.resources
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\CAP.Apps.SheetList\CAP.Apps.SheetList\obj\Debug\CAP.Apps.SheetList.csproj.GenerateResource.cache
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\CAP.Apps.SheetList\CAP.Apps.SheetList\obj\Debug\CAP.Apps.SheetList.csproj.CoreCompileInputs.cache
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\CAP.Apps.SheetList\CAP.Apps.SheetList\obj\Debug\CAP.Apps.SheetList.csproj.CopyComplete
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\CAP.Apps.SheetList\CAP.Apps.SheetList\obj\Debug\CAP.Apps.SheetList.dll
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\CAP.Apps.SheetList\CAP.Apps.SheetList\obj\Debug\CAP.Apps.SheetList.pdb
