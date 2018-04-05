@@ -37,7 +37,7 @@ namespace CAP.Apps.SheetList
             {
                 return;
             }
-                
+            
 
             //Check to make sure settings have been set
             if (AddinGlobal.oSheetList == null)

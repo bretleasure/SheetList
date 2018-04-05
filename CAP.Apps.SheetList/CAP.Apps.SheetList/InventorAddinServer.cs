@@ -66,7 +66,7 @@ namespace CAP.Apps.SheetList
                 //                                            "Button 1 description", "Button 1 tooltip", icon1, icon1,
                 //                                            CommandTypesEnum.kShapeEditCmdType, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
-                InventorButton CreateUpdate = new InventorButton("Create/Update", icon_sm, icon);
+                InventorButton CreateUpdate = new InventorButton("Create /\rUpdate", icon_sm, icon);
                 
                 CreateUpdate.SetBehavior(true, true, true);
                 CreateUpdate.Execute = SheetList_Actions.CreateUpdate_SheetList;
