@@ -42,5 +42,7 @@ namespace CAP.Apps.SheetList
         public bool ControlMaxRows;
         public bool ControlNumberOfSections;
 
+		public bool UpdateBeforeSave;
+
     }
 }

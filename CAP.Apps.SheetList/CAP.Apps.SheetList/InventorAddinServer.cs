@@ -52,6 +52,9 @@ namespace CAP.Apps.SheetList
             //Get Saved Settings
             AddinGlobal.oSheetList = SheetList_Actions.Get_SavedSheetListObject();
 
+			//Create Event Listener
+			SheetList_Actions.CreateUpdateEventListener();
+
             try
             {
                 AddinGlobal.GetAddinClassId(this.GetType());

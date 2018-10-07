@@ -11,4 +11,4 @@ C:\Visual Studio Projects\CAD Apps Plus\Sheet List\CAP.Apps.SheetList\CAP.Apps.S
 C:\Visual Studio Projects\CAD Apps Plus\Sheet List\CAP.Apps.SheetList\CAP.Apps.SheetList\obj\Debug\CAP.Apps.SheetList.csproj.CopyComplete
 C:\Visual Studio Projects\CAD Apps Plus\Sheet List\CAP.Apps.SheetList\CAP.Apps.SheetList\obj\Debug\CAP.Apps.SheetList.dll
 C:\Visual Studio Projects\CAD Apps Plus\Sheet List\CAP.Apps.SheetList\CAP.Apps.SheetList\obj\Debug\CAP.Apps.SheetList.pdb
-C:\Visual Studio Projects\CAD Apps Plus\Sheet List\CAP.Apps.SheetList\CAP.Apps.SheetList\obj\Debug\CAP.Apps.SheetList.csprojResolveAssemblyReference.cache
+C:\Visual Studio Projects\CAD Apps Plus\Sheet List\CAP.Apps.SheetList\CAP.Apps.SheetList\obj\Debug\CAP.Apps.SheetList.csprojAssemblyReference.cache

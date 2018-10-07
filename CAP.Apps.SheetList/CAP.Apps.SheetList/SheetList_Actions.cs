@@ -50,6 +50,8 @@ namespace CAP.Apps.SheetList
 
             dwgDoc = (DrawingDocument)InvApp.ActiveDocument;
 
+			InvApp.AssemblyOptions.DeferUpdate = true;
+
             Sheets oSheets = dwgDoc.Sheets;            
 
             CustomTable SLTable = Get_SheetList();
@@ -102,7 +104,8 @@ namespace CAP.Apps.SheetList
                 SLTable.Position = CurrentPosition;
             }
 
-        }
+			InvApp.AssemblyOptions.DeferUpdate = false;
+		}
 
         public static void ShowConfig()
         {
@@ -133,6 +136,26 @@ namespace CAP.Apps.SheetList
 
             return oSheet.Name.Substring(0, name.IndexOf(":"));
         }
+
+		static bool SheetListExists()
+		{
+			bool Exists = false;
+
+			InvApp = AddinGlobal.InventorApp;
+
+			dwgDoc = (DrawingDocument)InvApp.ActiveDocument;
+
+			foreach (CustomTable table in dwgDoc.Sheets[1].CustomTables)
+			{
+				if (table.AttributeSets["Table_id"]["Name"].Value == "SHEET LIST")
+				{
+					Exists = true;
+					break;
+				}
+			}
+
+			return Exists;
+		}
 
         static CustomTable Get_SheetList()
         {
@@ -220,6 +243,28 @@ namespace CAP.Apps.SheetList
             return oSheetList;
         }
 
-        
-    }
+        public static void CreateUpdateEventListener()
+		{
+			if (AddinGlobal.oSheetList.UpdateBeforeSave)
+				AddinGlobal.InventorApp.ApplicationEvents.OnSaveDocument += ApplicationEvents_OnSaveDocument;
+			else
+				AddinGlobal.InventorApp.ApplicationEvents.OnSaveDocument -= ApplicationEvents_OnSaveDocument;
+		}
+
+		private static void ApplicationEvents_OnSaveDocument(_Document DocumentObject, EventTimingEnum BeforeOrAfter, NameValueMap Context, out HandlingCodeEnum HandlingCode)
+		{
+			if (BeforeOrAfter == EventTimingEnum.kBefore)
+			{
+				if (DocumentObject.DocumentType == DocumentTypeEnum.kDrawingDocumentObject)
+				{
+					if (SheetListExists())
+					{
+						CreateUpdate_SheetList();
+					}
+				}
+			}			
+
+			HandlingCode = HandlingCodeEnum.kEventHandled;
+		}
+	}
 }

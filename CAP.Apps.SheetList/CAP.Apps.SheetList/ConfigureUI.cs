@@ -43,6 +43,8 @@ namespace CAP.Apps.SheetList
         public bool ControlMaxRows;
         public bool ControlNumberOfSections;
 
+		bool UpdateBeforeSave;
+
         public ConfigureUI()
         {
             InitializeComponent();
@@ -102,6 +104,8 @@ namespace CAP.Apps.SheetList
                 txb_SectionNumber.Text = oSheetList.NumberOfSections.ToString();
                 rad_MaxRows.Checked = oSheetList.ControlMaxRows;
                 rad_NumberOfSections.Checked = oSheetList.ControlNumberOfSections;
+
+				ckb_UpdateBeforeSave.Checked = oSheetList.UpdateBeforeSave;
             }
 
             
@@ -140,6 +144,8 @@ namespace CAP.Apps.SheetList
             ControlMaxRows = rad_MaxRows.Checked;
             ControlNumberOfSections = rad_NumberOfSections.Checked;
 
+			UpdateBeforeSave = ckb_UpdateBeforeSave.Checked;
+
         }
 
         private void btn_SaveSettings_Click(object sender, EventArgs e)
@@ -160,12 +166,15 @@ namespace CAP.Apps.SheetList
             oSheetList.NumberOfSections = NumberOfSections;
             oSheetList.ControlMaxRows = ControlMaxRows;
             oSheetList.ControlNumberOfSections = ControlNumberOfSections;
+			oSheetList.UpdateBeforeSave = UpdateBeforeSave;
 
             //Save SheetList Object to AddinGlobal
             AddinGlobal.oSheetList = oSheetList;
 
             //Export Object to XML in User Folder
             XMLTools.CreateXML(oSheetList, AppFolder + SettingsFile);
+
+			SheetList_Actions.CreateUpdateEventListener();
 
             this.Close();
         }
