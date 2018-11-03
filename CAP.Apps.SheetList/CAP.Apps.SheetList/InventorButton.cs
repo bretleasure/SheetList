@@ -1,208 +1,89 @@
 ﻿using System;
-using System.Windows.Forms;
 using System.Drawing;
-
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Inventor;
+using System.Windows.Forms;
+using stdole;
 
 namespace CAP.Apps.SheetList
 {
-    /// <summary>
-    /// The class wrapps up Inventor Button creation stuffs and is easy to use.
-    /// No need to derive. Create an instance using either constructor and assign the Action.
-    /// </summary>
-    public class InventorButton
-    {
-        #region Fields & Properties
+	public class InventorButton
+	{
+		private ButtonDefinition oButtonDef;
+		public Action Execute;
 
-        private ButtonDefinition mButtonDef;
-        public ButtonDefinition ButtonDef
-        {
-            get { return mButtonDef; }
-            set { mButtonDef = value; }
-        }
+		public InventorButton(string DisplayName, string InternalName, string DescriptionText, string ToolTipText, Icon LargeIcon, Icon SmallIcon)
+		{
+			Create(DisplayName, InternalName, DescriptionText, ToolTipText, LargeIcon, SmallIcon);
+		}
 
-        #endregion
+		void Create(string DisplayName, string InternalName, string DescriptionText, string ToolTipText, Icon LargeIcon, Icon SmallIcon)
+		{
 
-        #region Constructors
 
-        /// <summary>
-        /// The most comprehensive signature.
-        /// </summary>
-        public InventorButton(string displayName, string internalName, string description, string tooltip,
-                                Icon standardIcon, Icon largeIcon,
-                                CommandTypesEnum commandType, ButtonDisplayEnum buttonDisplayType)
-        {
-            Create(displayName, internalName, description, tooltip, AddinGlobal.ClassId,
-                standardIcon, largeIcon, commandType, buttonDisplayType);
-        }
+			stdole.IPictureDisp LargeIconIPictureDisp = null;
+			stdole.IPictureDisp SmallIconIpictureDisp = null;
 
-        /// <summary>
-        /// The signature does not care about Command Type (always editing) and Button Display (always with text).
-        /// </summary>
-        public InventorButton(string displayName, string internalName, string description, string tooltip,
-                                Icon standardIcon, Icon largeIcon)
-        {
-            Create(displayName, internalName, description, tooltip, AddinGlobal.ClassId,
-                null, null, CommandTypesEnum.kEditMaskCmdType, ButtonDisplayEnum.kAlwaysDisplayText);
-        }
+			if (LargeIcon != null)
+			{
+				LargeIconIPictureDisp = IconToPicture(LargeIcon);
+				SmallIconIpictureDisp = IconToPicture(SmallIcon);
+			}
 
-        /// <summary>
-        /// The signature does not care about icons.
-        /// </summary>
-        public InventorButton(string displayName, string internalName, string description, string tooltip,
-                                CommandTypesEnum commandType, ButtonDisplayEnum buttonDisplayType)
-        {
-            Create(displayName, internalName, description, tooltip, AddinGlobal.ClassId,
-                null, null, commandType, buttonDisplayType);
-        }
+			oButtonDef = AddinGlobal.InventorApp.CommandManager.ControlDefinitions.AddButtonDefinition(DisplayName, InternalName, CommandTypesEnum.kEditMaskCmdType, null, DescriptionText, ToolTipText, SmallIconIpictureDisp, LargeIconIPictureDisp);
 
-        /// <summary>
-        /// This signature only cares about display name and icons.
-        /// </summary>
-        /// <param name="displayName"></param>
-        /// <param name="standardIcon"></param>
-        /// <param name="largeIcon"></param>
-        public InventorButton(string displayName, Icon standardIcon, Icon largeIcon)
-        {
-            Create(displayName, displayName, displayName, displayName, AddinGlobal.ClassId,
-                standardIcon, largeIcon, CommandTypesEnum.kEditMaskCmdType, ButtonDisplayEnum.kAlwaysDisplayText);
-        }
 
-        /// <summary>
-        /// The simplest signature, which can be good for prototyping.
-        /// </summary>
-        public InventorButton(string displayName)
-        {
-            Create(displayName, displayName, displayName, displayName, AddinGlobal.ClassId,
-                    null, null, CommandTypesEnum.kEditMaskCmdType, ButtonDisplayEnum.kAlwaysDisplayText);
-        }
+			oButtonDef.Enabled = true;
+			oButtonDef.OnExecute += oButtonDef_OnExecute;
 
-        /// <summary>
-        /// The helper method for constructors to call to avoid duplicate code.
-        /// </summary>
-        public void Create(
-            string displayName, string internalName, string description, string tooltip,
-            string clientId,
-            Icon standardIcon, Icon largeIcon,
-            CommandTypesEnum commandType, ButtonDisplayEnum buttonDisplayType)
-        {
-            if (string.IsNullOrEmpty(clientId))
-                clientId = AddinGlobal.ClassId;
+		}
 
-            stdole.IPictureDisp standardIconIPictureDisp = null;
-            stdole.IPictureDisp largeIconIPictureDisp = null;
-            if (standardIcon != null)
-            {
-                standardIconIPictureDisp = IconToPicture(standardIcon);
-                largeIconIPictureDisp = IconToPicture(largeIcon);
-            }
+		private static stdole.IPictureDisp IconToPicture(Icon Icon)
+		{
+			return ImageConverter.ImageToPicture(Icon.ToBitmap());
+		}
 
-            mButtonDef = AddinGlobal.InventorApp.CommandManager.ControlDefinitions.AddButtonDefinition(
-                displayName, internalName, commandType,
-                clientId, description, tooltip,
-                standardIconIPictureDisp, largeIconIPictureDisp, buttonDisplayType);
+		private void oButtonDef_OnExecute(NameValueMap Context)
+		{
+			//throw new NotImplementedException();
+			if (Execute != null)
+				Execute();
+			else
+				MessageBox.Show("Nothing to execute");
+		}
 
-            mButtonDef.Enabled = true;
-            mButtonDef.OnExecute += ButtonDefinition_OnExecute;
+		public ButtonDefinition ButtonDef()
+		{
+			return oButtonDef;
+		}
 
-            DisplayText = true;
+		private class ImageConverter : AxHost
+		{
+			public ImageConverter() : base(String.Empty) { }
 
-            AddinGlobal.ButtonList.Add(this);
-        }
+			public static stdole.IPictureDisp ImageToPicture(Image image)
+			{
+				return (stdole.IPictureDisp)GetIPictureDispFromPicture(image);
+			}
 
-        #endregion
+			public static stdole.IPictureDisp IconToPicture(Icon icon)
+			{
+				return ImageToPicture(icon.ToBitmap());
+			}
 
-        #region Behavior 
+			public static Image PictureToImage(stdole.IPictureDisp picture)
+			{
+				return GetPictureFromIPicture(picture);
+			}
 
-        public bool DisplayBigIcon { get; set; }
-        public bool DisplayText { get; set; }
-        public bool InsertBeforeTarget { get; set; }
-
-        public void SetBehavior(bool displayBigIcon, bool displayText, bool insertBeforeTarget)
-        {
-            DisplayBigIcon = displayBigIcon;
-            DisplayText = displayText;
-            InsertBeforeTarget = insertBeforeTarget;
-        }
-
-        public void CopyBehaviorFrom(InventorButton button)
-        {
-            this.DisplayBigIcon = button.DisplayBigIcon;
-            this.DisplayText = button.DisplayText;
-            this.InsertBeforeTarget = this.InsertBeforeTarget;
-        }
-
-        #endregion
-
-        #region Actions
-
-        /// <summary>
-        /// The button callback method.
-        /// </summary>
-        /// <param name="context"></param>
-        private void ButtonDefinition_OnExecute(NameValueMap context)
-        {
-            if (Execute != null)
-                Execute();
-            else
-                MessageBox.Show("Nothing to execute.");
-        }
-
-        /// <summary>
-        /// The button action to be assigned from anywhere outside.
-        /// </summary>
-        public Action Execute;
-
-        #endregion
-
-        #region Image Converters
-
-        public static stdole.IPictureDisp ImageToPicture(Image image)
-        {
-            return ImageConverter.ImageToPicture(image);
-        }
-
-        public static stdole.IPictureDisp IconToPicture(Icon icon)
-        {
-            return ImageConverter.ImageToPicture(icon.ToBitmap());
-        }
-
-        public static Image PictureToImage(stdole.IPictureDisp picture)
-        {
-            return ImageConverter.PictureToImage(picture);
-        }
-
-        public static Icon PictureToIcon(stdole.IPictureDisp picture)
-        {
-            return ImageConverter.PictureToIcon(picture);
-        }
-
-        private class ImageConverter : AxHost
-        {
-            public ImageConverter() : base(String.Empty) { }
-
-            public static stdole.IPictureDisp ImageToPicture(Image image)
-            {
-                return (stdole.IPictureDisp)GetIPictureDispFromPicture(image);
-            }
-
-            public static stdole.IPictureDisp IconToPicture(Icon icon)
-            {
-                return ImageToPicture(icon.ToBitmap());
-            }
-
-            public static Image PictureToImage(stdole.IPictureDisp picture)
-            {
-                return GetPictureFromIPicture(picture);
-            }
-
-            public static Icon PictureToIcon(stdole.IPictureDisp picture)
-            {
-                Bitmap bitmap = new Bitmap(PictureToImage(picture));
-                return System.Drawing.Icon.FromHandle(bitmap.GetHicon());
-            }
-        }
-
-        #endregion
-    }
+			public static Icon PictureToIcon(stdole.IPictureDisp picture)
+			{
+				Bitmap bitmap = new Bitmap(PictureToImage(picture));
+				return System.Drawing.Icon.FromHandle(bitmap.GetHicon());
+			}
+		}
+	}
 }

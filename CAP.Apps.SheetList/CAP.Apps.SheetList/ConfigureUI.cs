@@ -62,14 +62,12 @@ namespace CAP.Apps.SheetList
 
         void ImportInputs()
         {
-            //SheetList oSheetList = new SheetList();
-            //oSheetList = (SheetList)XMLTools.Get_ObjectFromXML(AppFolder + SettingsFile, oSheetList);
 
-            SheetList oSheetList = AddinGlobal.oSheetList;
-
-            if (oSheetList != null)
+            if (AddinGlobal.AppSettings != null)
             {
-                ckb_ShowTitle.Checked = oSheetList.ShowTitle;
+				SheetList_Settings oSheetList = AddinGlobal.AppSettings;
+
+				ckb_ShowTitle.Checked = oSheetList.ShowTitle;
                 txb_Title.Text = oSheetList.Title;
 
                 if (oSheetList.Direction == TableDirectionEnum.kTopDownDirection)
@@ -152,7 +150,7 @@ namespace CAP.Apps.SheetList
         {
             CollectInputs();
 
-            SheetList oSheetList = new SheetList();
+            SheetList_Settings oSheetList = new SheetList_Settings();
 
             oSheetList.Title = Title;
             oSheetList.ShowTitle = ShowTitle;
@@ -169,12 +167,12 @@ namespace CAP.Apps.SheetList
 			oSheetList.UpdateBeforeSave = UpdateBeforeSave;
 
             //Save SheetList Object to AddinGlobal
-            AddinGlobal.oSheetList = oSheetList;
+            AddinGlobal.AppSettings = oSheetList;
 
             //Export Object to XML in User Folder
             XMLTools.CreateXML(oSheetList, AppFolder + SettingsFile);
 
-			SheetList_Actions.CreateUpdateEventListener();
+			SheetList_Tools.CreateUpdateEventListener();
 
             this.Close();
         }

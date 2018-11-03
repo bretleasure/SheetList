@@ -7,7 +7,7 @@ using Inventor;
 
 namespace CAP.Apps.SheetList
 {
-    public class SheetList
+    public class SheetList_Settings
     {
         public bool ValidId;
 
