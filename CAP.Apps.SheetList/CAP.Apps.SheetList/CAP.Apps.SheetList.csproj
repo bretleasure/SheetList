@@ -82,15 +82,15 @@
     <AssemblyName>CAP.Apps.SheetList</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="autodesk.inventor.interop, Version=22.0.0.0, Culture=neutral, PublicKeyToken=d84147f8b4276564, processorArchitecture=MSIL">
+    <Reference Include="Autodesk.Inventor.Interop, Version=24.0.0.0, Culture=neutral, PublicKeyToken=d84147f8b4276564, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_MSIL\Autodesk.Inventor.Interop\v4.0_22.0.0.0__d84147f8b4276564\autodesk.inventor.interop.dll</HintPath>
-      <Private>False</Private>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\Program Files\Autodesk\Inventor 2020\Bin\Public Assemblies\Autodesk.Inventor.Interop.dll</HintPath>
     </Reference>
     <Reference Include="CAP.Utilities">
       <HintPath>..\..\..\CAP Utilities\CAP.Utilities\CAP.Utilities\bin\Debug\CAP.Utilities.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
