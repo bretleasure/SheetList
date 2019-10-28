@@ -47,16 +47,27 @@ namespace CAP.Apps.SheetList
 
 			AddinGlobal.oDwgDoc = (DrawingDocument)AddinGlobal.InventorApp.ActiveDocument;
 
-			foreach (CustomTable table in AddinGlobal.oDwgDoc.Sheets[1].CustomTables)
-			{
-				if ((string)table.AttributeSets["Table_id"]["Name"].Value == "SHEET LIST")
-				{
-					Exists = true;
-					break;
-				}
-			}
+            foreach (CustomTable table in AddinGlobal.oDwgDoc.Sheets[1].CustomTables)
+            {
+                foreach (AttributeSet oSet in table.AttributeSets)
+                {
+                    if (oSet.Name == "Table_id")
+                    {
+                        if (oSet.NameIsUsed["Name"])
+                        {
+                            if (oSet["Name"].Value == "SHEET LIST")
+                            {
+                                Exists = true;
+                                goto BreakOut;                              
+                            }
+                        }
+                    }
+                }
+            }
 
-			return Exists;
+            BreakOut:
+
+            return Exists;
 		}
 
 		public static CustomTable Get_SheetList()
@@ -64,11 +75,21 @@ namespace CAP.Apps.SheetList
 
 			CustomTable oTable = null;
 
-			foreach (CustomTable table in AddinGlobal.oDwgDoc.Sheets[1].CustomTables)
-			{
-				if ((string)table.AttributeSets["Table_id"]["Name"].Value == "SHEET LIST")
-					oTable = table;
-			}
+            if (SheetListExists())
+            {
+                foreach (CustomTable table in AddinGlobal.oDwgDoc.Sheets[1].CustomTables)
+                {
+                    try
+                    {
+                        if (table.AttributeSets["Table_id"]["Name"].Value == "SHEET LIST")
+                            oTable = table;
+                    }
+                    catch
+                    {
+                        //shitty I know...
+                    }
+                }
+            }
 
 			if (oTable != null)
 				return oTable;
