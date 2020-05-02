@@ -16,10 +16,9 @@ namespace SheetList
 
 		public static void CreateUpdate_SheetList()
 		{
-			AddinGlobal.InventorApp.Login();
 
 			//Check Entitlement
-			if (!Tools.CheckForValidUser("SheetList", AddinGlobal.AppId))
+			if (!Tools.CheckForValidUser(AddinGlobal.InventorApp, "SheetList", AddinGlobal.AppId))
 			{
 				return;
 			}
@@ -96,10 +95,9 @@ namespace SheetList
 
 		public static void Configure_SheetList()
 		{
-			AddinGlobal.InventorApp.Login();
 
 			//Check Entitlement
-			if (!Tools.CheckForValidUser("SheetList", AddinGlobal.AppId))
+			if (!Tools.CheckForValidUser(AddinGlobal.InventorApp, "SheetList", AddinGlobal.AppId))
 			{
 				return;
 			}
