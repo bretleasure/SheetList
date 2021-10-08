@@ -16,13 +16,6 @@ namespace SheetList
 
 		public static void CreateUpdate_SheetList()
 		{
-
-			//Check Entitlement
-			if (!Tools.CheckForValidUser(AddinGlobal.InventorApp, "SheetList", AddinGlobal.AppId))
-			{
-				return;
-			}
-
 			//Check to make sure settings have been set
 			if (AddinGlobal.AppSettings == null)
 			{
@@ -95,13 +88,6 @@ namespace SheetList
 
 		public static void Configure_SheetList()
 		{
-
-			//Check Entitlement
-			if (!Tools.CheckForValidUser(AddinGlobal.InventorApp, "SheetList", AddinGlobal.AppId))
-			{
-				return;
-			}
-
 			ConfigureUI oConfig = new ConfigureUI();
 			oConfig.ShowDialog();
 		}

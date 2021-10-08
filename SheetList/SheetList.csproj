@@ -8,7 +8,7 @@
     <EmbeddedResource Include="Resources\SheetList.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="iAD.Utilities" Version="1.2.0" />
+    <PackageReference Include="iAD.Utilities" Version="2.0.2" />
     <PackageReference Include="stdole" Version="16.9.31023.347" />
   </ItemGroup>
   <ItemGroup>

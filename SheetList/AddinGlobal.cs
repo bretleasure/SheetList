@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Inventor;
 using iAD.Utilities;
+using Path = System.IO.Path;
+using System.Reflection;
 
 namespace SheetList
 {
@@ -14,9 +16,7 @@ namespace SheetList
 
 		public static DrawingDocument oDwgDoc;
 
-		public static string AppFolder = Tools.GetAppFolder("SheetList");
-
-		public static string SettingsFile = Tools.GetHexString("SheetList Settings") + ".xml";
+		public static string SettingsFilePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "appsettings.json");
 
 		public static string AppId = "5342673156831821071";
 

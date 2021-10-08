@@ -11,6 +11,10 @@ namespace SheetList
 {
 	public abstract class SheetList_Tools
     {
+		private static readonly string TableAttributeSetName = "Table_id";
+		private static readonly string AttributeName = "Name";
+		private static readonly string TableId = "SHEET LIST";
+
         public static void Get_SavedSettings()
 		{
 			string SettingsFilePath = AddinGlobal.AppFolder + AddinGlobal.SettingsFile;
@@ -43,64 +47,23 @@ namespace SheetList
 
 		public static bool SheetListExists()
 		{
-			bool Exists = false;
+			return GetExistingSheetList() != null;
+		}
 
-			AddinGlobal.oDwgDoc = (DrawingDocument)AddinGlobal.InventorApp.ActiveDocument;
-
-            foreach (CustomTable table in AddinGlobal.oDwgDoc.Sheets[1].CustomTables)
-            {
-                foreach (AttributeSet oSet in table.AttributeSets)
-                {
-                    if (oSet.Name == "Table_id")
-                    {
-                        if (oSet.NameIsUsed["Name"])
-                        {
-                            if (oSet["Name"].Value == "SHEET LIST")
-                            {
-                                Exists = true;
-                                goto BreakOut;                              
-                            }
-                        }
-                    }
-                }
-            }
-
-            BreakOut:
-
-            return Exists;
+		public static CustomTable GetExistingSheetList()
+        {
+			var sheet1Tables = AddinGlobal.oDwgDoc.Sheets[1].CustomTables.Cast<CustomTable>();
+			return sheet1Tables.FirstOrDefault(t => t.AttributeSets.Cast<AttributeSet>()
+				.Where(set => set.Name == TableAttributeSetName)
+				.Any(n => n[AttributeName]?.Value.ToString() == TableId));
 		}
 
 		public static CustomTable Get_SheetList()
 		{
-
-			CustomTable oTable = null;
-
-            if (SheetListExists())
-            {
-                foreach (CustomTable table in AddinGlobal.oDwgDoc.Sheets[1].CustomTables)
-                {
-                    try
-                    {
-                        if (table.AttributeSets["Table_id"]["Name"].Value == "SHEET LIST")
-                            oTable = table;
-                    }
-                    catch
-                    {
-                        //shitty I know...
-                    }
-                }
-            }
-
-			if (oTable != null)
-				return oTable;
-			else
-			{
-				return Create_NewSheetList();
-			}
-
+			return GetExistingSheetList() ?? CreateNewSheetList();
 		}
 
-		public static CustomTable Create_NewSheetList()
+		public static CustomTable CreateNewSheetList()
 		{
 			SheetList_Settings oSL = AddinGlobal.AppSettings;
 
@@ -112,7 +75,7 @@ namespace SheetList
 			CustomTable newTable = AddinGlobal.oDwgDoc.Sheets[1].CustomTables.Add(oSL.Title, loc, 2, 0, col);
 
 			//Assign Table ID
-			newTable.AttributeSets.Add("Table_id", true).Add("Name", ValueTypeEnum.kStringType, "SHEET LIST");
+			newTable.AttributeSets.Add(TableAttributeSetName, true).Add(AttributeName, ValueTypeEnum.kStringType, TableId);
 
 			newTable = Get_SheetListSettings(newTable);
 
@@ -185,6 +148,8 @@ namespace SheetList
 			{
 				if (DocumentObject.DocumentType == DocumentTypeEnum.kDrawingDocumentObject)
 				{
+					AddinGlobal.oDwgDoc = (DrawingDocument)AddinGlobal.InventorApp.ActiveDocument;
+
 					if (SheetListExists())
 					{
 						SheetList_ButtonEvents.CreateUpdate_SheetList();
