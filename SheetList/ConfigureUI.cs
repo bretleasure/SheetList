@@ -16,11 +16,7 @@ using iAD.Utilities;
 namespace SheetList
 {
     public partial class ConfigureUI : Form
-    {
-        string AppFolder = AddinGlobal.AppFolder;
-
-        string SettingsFile = AddinGlobal.SettingsFile;
-
+    { 
         string Title;
         bool ShowTitle;
 
@@ -65,7 +61,7 @@ namespace SheetList
 
             if (AddinGlobal.AppSettings != null)
             {
-				SheetList_Settings oSheetList = AddinGlobal.AppSettings;
+				SheetListSettings oSheetList = AddinGlobal.AppSettings;
 
 				ckb_ShowTitle.Checked = oSheetList.ShowTitle;
                 txb_Title.Text = oSheetList.Title;
@@ -150,29 +146,28 @@ namespace SheetList
         {
             CollectInputs();
 
-            SheetList_Settings oSheetList = new SheetList_Settings();
+            SheetListSettings settings = new SheetListSettings();
 
-            oSheetList.Title = Title;
-            oSheetList.ShowTitle = ShowTitle;
-            oSheetList.SheetNoColName = SheetNoColName;
-            oSheetList.SheetNameColName = SheetNameColName;
-            oSheetList.Direction = Direction;
-            oSheetList.HeadingPlacement = HeadingPlacement;
-            oSheetList.WrapLeft = WrapLeft;
-            oSheetList.EnableAutoWrap = EnableAutoWrap;
-            oSheetList.MaxRows = MaxRows;
-            oSheetList.NumberOfSections = NumberOfSections;
-            oSheetList.ControlMaxRows = ControlMaxRows;
-            oSheetList.ControlNumberOfSections = ControlNumberOfSections;
-			oSheetList.UpdateBeforeSave = UpdateBeforeSave;
+            settings.Title = Title;
+            settings.ShowTitle = ShowTitle;
+            settings.SheetNoColName = SheetNoColName;
+            settings.SheetNameColName = SheetNameColName;
+            settings.Direction = Direction;
+            settings.HeadingPlacement = HeadingPlacement;
+            settings.WrapLeft = WrapLeft;
+            settings.EnableAutoWrap = EnableAutoWrap;
+            settings.MaxRows = MaxRows;
+            settings.NumberOfSections = NumberOfSections;
+            settings.ControlMaxRows = ControlMaxRows;
+            settings.ControlNumberOfSections = ControlNumberOfSections;
+			settings.UpdateBeforeSave = UpdateBeforeSave;
 
             //Save SheetList Object to AddinGlobal
-            AddinGlobal.AppSettings = oSheetList;
+            AddinGlobal.AppSettings = settings;
 
-            //Export Object to XML in User Folder
-            XMLTools.CreateXML(oSheetList, AppFolder + SettingsFile);
+            Tools.SaveSettings();
 
-			SheetList_Tools.CreateUpdateEventListener();
+			Tools.CreateEventListener();
 
             this.Close();
         }

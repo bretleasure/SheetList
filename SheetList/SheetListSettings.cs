@@ -7,7 +7,7 @@ using Inventor;
 
 namespace SheetList
 {
-    public class SheetList_Settings
+    public class SheetListSettings
     {
         public bool ValidId;
 
