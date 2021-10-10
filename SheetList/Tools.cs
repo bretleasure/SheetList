@@ -55,13 +55,25 @@ namespace SheetList
 			return sheetList != null;
         }
 
+		public static double GetSheetListHeight(CustomTable sheetList)
+        {
+			return sheetList.Rows.Cast<Row>()
+				.Sum(row => row.Height);
+		}
+
 		public static string[] GetSheetListData()
 		{
-			return AddinGlobal.oDwgDoc.Sheets.Cast<Sheet>()
-				.Where(sh => !sh.ExcludeFromCount)
-				.Select(s => new string[] { GetSheetNumber(s), GetSheetName(s) })
+			var sheetsToAdd = AddinGlobal.oDwgDoc.Sheets.Cast<Sheet>()
+				.Where(sh => !sh.ExcludeFromCount);
+
+			var eachSheetArray = sheetsToAdd
+				.Select(s => new string[] { GetSheetNumber(s), GetSheetName(s) });
+
+			var totalArray = eachSheetArray
 				.SelectMany(value => value)
 				.ToArray();
+
+			return totalArray;
         }
 
 		public static CustomTable GetExistingSheetList()
@@ -72,13 +84,14 @@ namespace SheetList
 				.Any(n => n[AttributeName]?.Value.ToString() == TableId));
 		}
 
-		public static CustomTable CreateSheetList(Point2d position)
+		public static CustomTable CreateSheetList(Point2d position, string[] tableData, double[] columnWidths)
 		{
 			SheetListSettings settings = AddinGlobal.AppSettings;
 
 			string[] columnNames = new string[] { settings.SheetNoColName, settings.SheetNameColName };
 
-			CustomTable newTable = AddinGlobal.oDwgDoc.Sheets[1].CustomTables.Add(settings.Title, position, 2, 0, columnNames, Contents: GetSheetListData());
+			CustomTable newTable = AddinGlobal.oDwgDoc.Sheets[1].CustomTables.Add(settings.Title, position, 2, tableData.Count() / columnNames.Count(), columnNames, 
+				Contents: tableData, ColumnWidths: columnWidths);
 
 			//Assign Table ID
 			newTable.AttributeSets.Add(TableAttributeSetName, true).Add(AttributeName, ValueTypeEnum.kStringType, TableId);

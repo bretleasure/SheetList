@@ -37,7 +37,7 @@ namespace SheetList
 			// Initialize AddIn members.
 			AddinGlobal.InventorApp = addInSiteObject.Application;
 
-			AddinGlobal.Logger = Logging.GetLogger<StandardAddInServer>();
+			AddinGlobal.Logger = Logging.GetLogger<SheetList.StandardAddInServer>();
 
 			AddinGlobal.Logger.LogInformation("Initializing Addin");
 

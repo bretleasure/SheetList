@@ -11,7 +11,7 @@ namespace SheetList
 	public class ButtonEvents
 	{
 
-		static Inventor.Application InvApp;
+		static Inventor.Application invApp;
 
 		public static void CreateUpdate_SheetList()
 		{
@@ -22,86 +22,47 @@ namespace SheetList
 				return;
 			}
 
-			InvApp = AddinGlobal.InventorApp;
+			invApp = AddinGlobal.InventorApp;
 
-			AddinGlobal.oDwgDoc = (DrawingDocument)InvApp.ActiveDocument;
+			var transientGeometry = AddinGlobal.InventorApp.TransientGeometry;
 
-			InvApp.AssemblyOptions.DeferUpdate = true;
+			AddinGlobal.oDwgDoc = (DrawingDocument)invApp.ActiveDocument;
 
-			Point2d position = null;
+			invApp.AssemblyOptions.DeferUpdate = true;
+
+			var data = Tools.GetSheetListData();
 
 			if (Tools.TryGetExistingSheetList(out var existingSheetList))
             {
-				position = existingSheetList.Position;
+				var position = existingSheetList.Position;
+				var existingTableHeight = Tools.GetSheetListHeight(existingSheetList);
+
+				var col1Width = existingSheetList.Columns[1].Width;
+				var col2Width = existingSheetList.Columns[2].Width;
+
 				existingSheetList.Delete();
-            }
+
+				var sheetList = Tools.CreateSheetList(position, data, new double[] { col1Width, col2Width });
+
+				//Adjust Table Location if table is bottom up
+				if (sheetList.TableDirection == TableDirectionEnum.kBottomUpDirection)
+				{
+					var tableHeight = Tools.GetSheetListHeight(sheetList);
+					var oldNewHeightDiff = tableHeight - existingTableHeight;
+
+					var newPosition = transientGeometry.CreatePoint2d(position.X, position.Y + oldNewHeightDiff);
+					sheetList.Position = newPosition;
+				}
+			}
             else
-            {
-				TransientGeometry oTG = AddinGlobal.InventorApp.TransientGeometry;
-				position = oTG.CreatePoint2d(AddinGlobal.oDwgDoc.ActiveSheet.Width / 2, AddinGlobal.oDwgDoc.ActiveSheet.Height / 2);
+            {				
+				var position = transientGeometry.CreatePoint2d(AddinGlobal.oDwgDoc.ActiveSheet.Width / 2, AddinGlobal.oDwgDoc.ActiveSheet.Height / 2);
+
+				Tools.CreateSheetList(position, data, new double[] { 2.5, 5 });
 			}
 
-			var sheetList = Tools.CreateSheetList(position);				
 
-			//Adjust Table Location if table is bottom up
-			if (sheetList.TableDirection == TableDirectionEnum.kBottomUpDirection)
-			{
-				//Point2d newloc = InvApp.TransientGeometry.CreatePoint2d(CurrentPosition.X, CurrentPosition.Y + heightdiff);
-				var tableHeight = (sheetList.Rows.Count - sheetList.Rows.Count) * sheetList.Rows[1].Height;
-				sheetList.Position.Y += tableHeight;
-			}
-
-			//CustomTable SLTable = SheetList_Tools.Get_SheetList();
-
-			//Point2d CurrentPosition = SLTable.Position;
-
-			//SLTable = SheetList_Tools.Get_SheetListSettings(SLTable);
-
-			//int CurrentRowQty = SLTable.Rows.Count;
-
-			////Clear Table
-			//SheetList_Tools.Clear_SheetList(SLTable);
-
-			////Reset Position, in case of bottom up scenario
-			//SLTable.Position = CurrentPosition;
-
-			//int count = 1;
-			//string name = "";
-
-			//double runningheight = 0;
-			
-			//foreach (Sheet oSheet in oSheets)
-			//{
-			//	name = SheetList_Tools.GetSheetName(oSheet);
-
-			//	if (!oSheet.ExcludeFromCount)
-			//	{
-			//		Row row = SLTable.Rows.Add();
-			//		row[1].Value = count.ToString();
-			//		row[2].Value = name;
-
-			//		runningheight += row.Height;
-			//		count++;
-			//	}
-			//}
-
-			//double heightdiff = (SLTable.Rows.Count - CurrentRowQty) * SLTable.Rows[1].Height;
-
-			//runningheight += SLTable.ColumnHeaderTextStyle.FontSize + (SLTable.RowGap * 2);
-
-			////Adjust Table Location if table is bottom up
-			//if (SLTable.TableDirection == TableDirectionEnum.kBottomUpDirection)
-			//{
-			//	Point2d newloc = InvApp.TransientGeometry.CreatePoint2d(CurrentPosition.X, CurrentPosition.Y + heightdiff);
-
-			//	SLTable.Position = newloc;
-			//}
-			//else
-			//{
-			//	SLTable.Position = CurrentPosition;
-			//}
-
-			InvApp.AssemblyOptions.DeferUpdate = false;
+			invApp.AssemblyOptions.DeferUpdate = false;
 		}
 
 		public static void Configure_SheetList()

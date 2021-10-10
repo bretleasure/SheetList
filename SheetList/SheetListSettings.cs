@@ -9,40 +9,38 @@ namespace SheetList
 {
     public class SheetListSettings
     {
-        public bool ValidId;
+        public string Title { get; set; }
+        public bool ShowTitle { get; set; }
 
-        public string Title;
-        public bool ShowTitle;
-
-        public string SheetNoColName;
-        public string SheetNameColName;
+        public string SheetNoColName { get; set; }
+        public string SheetNameColName { get; set; }
 
         /// <summary>
         /// kTopDownDirection = 46081,
         /// kBottomUpDirection = 46082
         /// </summary>
-        public TableDirectionEnum Direction;
+        public TableDirectionEnum Direction { get; set; }
 
         /// <summary>
         /// kHeadingAtTop = 46337,
         /// kHeadingAtBottom = 46338,
         /// kNoHeading = 46339
         /// </summary>
-        public HeadingPlacementEnum HeadingPlacement;
+        public HeadingPlacementEnum HeadingPlacement { get; set; }
 
         /// <summary>
         /// Wrap Direction.  Default is Wrap Right
         /// </summary>
-        public bool WrapLeft;
+        public bool WrapLeft { get; set; }
 
-        public bool EnableAutoWrap;
+        public bool EnableAutoWrap { get; set; }
 
-        public int MaxRows;
-        public int NumberOfSections;
-        public bool ControlMaxRows;
-        public bool ControlNumberOfSections;
+        public int MaxRows { get; set; }
+        public int NumberOfSections { get; set; }
+        public bool ControlMaxRows { get; set; }
+        public bool ControlNumberOfSections { get; set; }
 
-		public bool UpdateBeforeSave;
+        public bool UpdateBeforeSave { get; set; }
 
     }
 }
