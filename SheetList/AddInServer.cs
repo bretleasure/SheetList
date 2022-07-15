@@ -35,11 +35,11 @@ namespace SheetList
 
 
 			// Initialize AddIn members.
-			AddinGlobal.InventorApp = addInSiteObject.Application;
+			//AddinGlobal.InventorApp = addInSiteObject.Application;
 
-			AddinGlobal.Logger = Logging.GetLogger<SheetList.StandardAddInServer>();
+			//AddinGlobal.Logger = Logging.GetLogger<SheetList.StandardAddInServer>();
 
-			AddinGlobal.Logger.LogInformation("Initializing Addin");
+			//AddinGlobal.Logger.LogInformation("Initializing Addin");
 
 			//if (!LicTools.CheckForValidUser(AddinGlobal.InventorApp, "Sheet List", AddinGlobal.AppId))
 			//{
@@ -48,11 +48,11 @@ namespace SheetList
 			//}
 
 			//Get User Settings
-			AddinGlobal.Logger.LogInformation("Getting saved settings");
+			//AddinGlobal.Logger.LogInformation("Getting saved settings");
 			Tools.GetSavedSettings();
 
 			//Create Event Listener
-			AddinGlobal.Logger.LogInformation("Adding Event Listeners");
+			//AddinGlobal.Logger.LogInformation("Adding Event Listeners");
 			Tools.CreateEventListener();
 
 			try
