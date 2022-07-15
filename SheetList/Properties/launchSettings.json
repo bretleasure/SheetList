@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SheetList": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Program Files\\Autodesk\\Inventor 2022\\Bin\\Inventor.exe"
+    }
+  }
+}

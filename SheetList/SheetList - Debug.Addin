@@ -4,7 +4,7 @@
   <ClientId>{3dc3068f-5de4-4b85-9efe-44b7ece560f3}</ClientId>
   <DisplayName>Sheet List</DisplayName>
   <Description>Sheet List Add-in by iAutomate Design</Description>
-  <Assembly>C:\Projects\sheet-list\SheetList\bin\Debug\SheetList.dll</Assembly>
+  <Assembly>C:\Projects\Sheet List\SheetList\bin\Debug\net472\SheetList.dll</Assembly>
   <LoadOnStartUp>1</LoadOnStartUp>
   <UserUnloadable>1</UserUnloadable>
   <Hidden>0</Hidden>

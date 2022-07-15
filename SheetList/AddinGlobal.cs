@@ -4,25 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Inventor;
-using CAP.Utilities;
+using iAD.Utilities;
+using Path = System.IO.Path;
+using System.Reflection;
+using Microsoft.Extensions.Logging;
 
 namespace SheetList
 {
 	public class AddinGlobal
 	{
-		public static Inventor.Application InventorApp;
+		public static Inventor.Application InventorApp { get; set; }
 
-		public static DrawingDocument oDwgDoc;
+		public static DrawingDocument oDwgDoc { get; set; }
 
-		public static string AppFolder = Tools.GetAppFolder("SheetList");
+		public static string SettingsFilePath { get; set; } = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "appsettings.json");
 
-		public static string SettingsFile = Tools.GetHexString("SheetList Settings") + ".xml";
+		public static string AppId { get; } = "5342673156831821071";
 
-		public static string AppId = "5342673156831821071";
+		public static SheetListSettings AppSettings { get; set; }
 
-		public static SheetList_Settings AppSettings;
-
-		
-
-	}
+        public static ILogger Logger { get; internal set; }
+    }
 }

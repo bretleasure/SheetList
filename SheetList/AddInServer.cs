@@ -1,4 +1,6 @@
+using iAD.Utilities;
 using Inventor;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Drawing;
 using System.IO;
@@ -33,32 +35,37 @@ namespace SheetList
 
 
 			// Initialize AddIn members.
-			AddinGlobal.InventorApp = addInSiteObject.Application;
+			//AddinGlobal.InventorApp = addInSiteObject.Application;
 
-			//Create App Folder if it doesnt exist
-			if (!System.IO.Directory.Exists(AddinGlobal.AppFolder))
-			{
-				DirectoryInfo di = System.IO.Directory.CreateDirectory(AddinGlobal.AppFolder);
-				di.Attributes = FileAttributes.Hidden;
-			}
+			//AddinGlobal.Logger = Logging.GetLogger<SheetList.StandardAddInServer>();
+
+			//AddinGlobal.Logger.LogInformation("Initializing Addin");
+
+			//if (!LicTools.CheckForValidUser(AddinGlobal.InventorApp, "Sheet List", AddinGlobal.AppId))
+			//{
+			//	AddinGlobal.Logger.LogWarning("Invalid License");
+			//	return;
+			//}
 
 			//Get User Settings
-			SheetList_Tools.Get_SavedSettings();
+			//AddinGlobal.Logger.LogInformation("Getting saved settings");
+			Tools.GetSavedSettings();
 
 			//Create Event Listener
-			SheetList_Tools.CreateUpdateEventListener();
+			//AddinGlobal.Logger.LogInformation("Adding Event Listeners");
+			Tools.CreateEventListener();
 
 			try
 			{
 				Icon icon1 = new Icon(this.GetType(), "Resources.SheetList.ico");
 				Icon icon1_sm = new Icon(icon1, 16, 16);
 				InventorButton CreateUpdate_Button = new InventorButton("Create /\rUpdate", "cap_Create/Update", "Create / Update Sheet List", "Click to create / update the Sheet List in this document.", icon1, icon1_sm);
-				CreateUpdate_Button.Execute = SheetList_ButtonEvents.CreateUpdate_SheetList;
+				CreateUpdate_Button.Execute = ButtonEvents.CreateUpdate_SheetList;
 
 				Icon icon2 = new Icon(this.GetType(), "Resources.gear.ico");
 				Icon icon2_sm = new Icon(icon2, 16, 16);
 				InventorButton Configure_Button = new InventorButton("Configure", "cap_Configure", "Configure Sheet List", "Click to configure Sheet List", icon2_sm, icon2_sm);
-				Configure_Button.Execute = SheetList_ButtonEvents.Configure_SheetList;
+				Configure_Button.Execute = ButtonEvents.Configure_SheetList;
 
 				if (firstTime)
 				{
