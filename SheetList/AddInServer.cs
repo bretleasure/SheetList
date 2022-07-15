@@ -41,11 +41,11 @@ namespace SheetList
 
 			AddinGlobal.Logger.LogInformation("Initializing Addin");
 
-			if (!LicTools.CheckForValidUser(AddinGlobal.InventorApp, "Sheet List", AddinGlobal.AppId))
-			{
-				AddinGlobal.Logger.LogWarning("Invalid License");
-				return;
-			}
+			//if (!LicTools.CheckForValidUser(AddinGlobal.InventorApp, "Sheet List", AddinGlobal.AppId))
+			//{
+			//	AddinGlobal.Logger.LogWarning("Invalid License");
+			//	return;
+			//}
 
 			//Get User Settings
 			AddinGlobal.Logger.LogInformation("Getting saved settings");
