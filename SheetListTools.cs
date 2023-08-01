@@ -49,10 +49,10 @@ namespace SheetList
 		{
 			if (beforeOrAfter == EventTimingEnum.kBefore)
 			{
-				if (documentObject is DrawingDocument dwgDoc && dwgDoc.GetExistingSheetList() != null)
-				{
-					AddinGlobal.Automation.CreateSheetList(AddinGlobal.AppSettings);
-				}
+				if (documentObject is DrawingDocument dwgDoc && AddinGlobal.AppSettings.UpdateBeforeSave && dwgDoc.GetExistingSheetList() != null)
+                {
+                    AddinGlobal.Automation.UpdateSheetList(AddinGlobal.AppSettings, dwgDoc);
+                }
 			}
 
 			handlingCode = HandlingCodeEnum.kEventHandled;

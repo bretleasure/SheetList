@@ -10,31 +10,45 @@ namespace SheetList
 {
     public class SheetListAutomation : AddInAutomation
     {
-        public Task<CustomTable> CreateSheetList() => CreateSheetList(SheetListSettings.Default);
-        public Task<CustomTable> CreateSheetList(SheetListSettings settings)
+        public Task<CustomTable> CreateSheetList(Sheet sheet, Point2d position) => CreateSheetList(SheetListSettings.Default, sheet, position);
+        public Task<CustomTable> CreateSheetList(SheetListSettings settings, Sheet sheet, Point2d position)
         {
-            var dwgDoc = (DrawingDocument)AddinGlobal.InventorApp.ActiveDocument;
+            if (sheet.Parent is DrawingDocument dwgDoc)
+            {
+                var data = dwgDoc.GetSheetListData();
 
-            AddinGlobal.InventorApp.AssemblyOptions.DeferUpdate = true;
+                SheetList sheetList;
+                if (dwgDoc.TryGetExistingSheetList(out var existingSheetList))
+                {
+                    sheetList = new SheetList(existingSheetList, settings, data);
 
-            var data = dwgDoc.GetSheetListData();
+                    //Delete Existing Sheet List to be replaced by a new one
+                    existingSheetList.Delete();
+                }
+                else
+                {
+                    sheetList = new SheetList(settings, sheet, position, data);
+                }
 
-            SheetList sheetList;
+                return Task.Run(sheetList.Create);
+            }
+
+            return Task.FromException<CustomTable>(new Exception("Active document is no a drawing document"));
+        }
+
+        public Task<CustomTable> UpdateSheetList(SheetListSettings settings, DrawingDocument dwgDoc)
+        {
             if (dwgDoc.TryGetExistingSheetList(out var existingSheetList))
             {
-                sheetList = new SheetList(existingSheetList, settings, data);
+                var sheetList = new SheetList(existingSheetList, settings, dwgDoc.GetSheetListData());
 
                 //Delete Existing Sheet List to be replaced by a new one
                 existingSheetList.Delete();
-            }
-            else
-            {
-                sheetList = new SheetList(settings, dwgDoc.ActiveSheet, data);
+
+                return Task.Run(sheetList.Create);
             }
 
-            AddinGlobal.InventorApp.AssemblyOptions.DeferUpdate = false;
-
-            return Task.Run(sheetList.Create);
+            return Task.FromException<CustomTable>(new Exception("Existing sheet list not found"));
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SheetList.Extensions;
 
 namespace SheetList.Buttons
 {
@@ -19,7 +20,19 @@ namespace SheetList.Buttons
                 return;
             }
 
-            AddinGlobal.Automation.CreateSheetList(AddinGlobal.AppSettings);
+            if (AddinGlobal.InventorApp.ActiveDocument is DrawingDocument dwgDoc)
+            {
+                if (dwgDoc.TryGetExistingSheetList(out var _))
+                {
+                    AddinGlobal.Automation.UpdateSheetList(AddinGlobal.AppSettings, dwgDoc);
+                }
+                else
+                {
+                    var sheet = dwgDoc.ActiveSheet;
+                    var position = AddinGlobal.InventorApp.TransientGeometry.CreatePoint2d(sheet.Width / 2, sheet.Height / 2);
+                    AddinGlobal.Automation.CreateSheetList(AddinGlobal.AppSettings, sheet, position);
+                }
+            }
         }
 
         public override string GetButtonName() => "Create /\rUpdate";

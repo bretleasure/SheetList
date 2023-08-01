@@ -42,10 +42,11 @@ namespace SheetList
 
         public int MaxRows { get; set; }
         public int NumberOfSections { get; set; }
-        public bool ControlMaxRows { get; set; }
-        public bool ControlNumberOfSections { get; set; }
+        public bool ControlMaxRows { get; set; } = false;
+        public bool ControlNumberOfSections { get; set; } = true;
 
-        public bool UpdateBeforeSave { get; set; }
+        //TODO: CREATE SEPARATE SHEET LIST SETTINGS FROM ADDIN SETTINGS (UPDATE BEFORE SAVE, CONTROL MAX ROWS, CONTROLNUMBEROFSECTIONS SHOULD BE APP SETTINGS)
+        public bool UpdateBeforeSave { get; set; } = false;
 
         public static readonly SheetListSettings Default = new SheetListSettings
         {

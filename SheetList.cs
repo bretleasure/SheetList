@@ -30,9 +30,9 @@ namespace SheetList
             Initialize(settings, data);
         }
 
-        public SheetList(SheetListSettings settings, Sheet sheet, string[] data)
+        public SheetList(SheetListSettings settings, Sheet sheet, Point2d position, string[] data)
         {
-            Position = AddinGlobal.InventorApp.TransientGeometry.CreatePoint2d(sheet.Width / 2, sheet.Height / 2);
+            Position = position;
             ParentSheet = sheet;
             ColumnWidths = settings.ColumnWidths.Split(',')
                 .Select(s => s.Trim())
