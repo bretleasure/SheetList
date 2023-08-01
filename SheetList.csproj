@@ -4,8 +4,8 @@
     <TargetFramework>net472</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\gear.ico" />
-    <EmbeddedResource Include="Resources\SheetList.ico" />
+    <EmbeddedResource Include="Buttons\Icons\gear.ico" />
+    <EmbeddedResource Include="Buttons\Icons\SheetList.ico" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="iAD.Utilities" Version="2.0.2" />

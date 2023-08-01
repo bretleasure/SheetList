@@ -16,6 +16,11 @@ namespace SheetList
         public string SheetNameColName { get; set; }
 
         /// <summary>
+        /// Columns widths provided in centimeters as a comma delimited string
+        /// </summary>
+        public string ColumnWidths { get; set; } = "2.5,5";
+
+        /// <summary>
         /// kTopDownDirection = 46081,
         /// kBottomUpDirection = 46082
         /// </summary>
@@ -41,6 +46,24 @@ namespace SheetList
         public bool ControlNumberOfSections { get; set; }
 
         public bool UpdateBeforeSave { get; set; }
+
+        public static readonly SheetListSettings Default = new SheetListSettings
+        {
+            Title = "SHEET LIST",
+            ShowTitle = true,
+            SheetNoColName = "SHEET #",
+            SheetNameColName = "SHEET NAME",
+            ColumnWidths = "2.5,5",
+            Direction = TableDirectionEnum.kTopDownDirection,
+            HeadingPlacement = HeadingPlacementEnum.kHeadingAtTop,
+            WrapLeft = false,
+            EnableAutoWrap = false,
+            MaxRows = 10,
+            NumberOfSections = 1,
+            ControlMaxRows = false,
+            ControlNumberOfSections = true,
+            UpdateBeforeSave = false
+        };
 
     }
 }

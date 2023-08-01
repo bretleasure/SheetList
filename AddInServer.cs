@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using SheetList.Buttons;
 
 namespace SheetList
 {
@@ -33,39 +34,21 @@ namespace SheetList
 			// The AddInSiteObject provides access to the Inventor Application object.
 			// The FirstTime flag indicates if the addin is loaded for the first time.
 
-
-			// Initialize AddIn members.
+            // Initialize AddIn members.
 			AddinGlobal.InventorApp = addInSiteObject.Application;
 
-			//AddinGlobal.Logger = Logging.GetLogger<SheetList.StandardAddInServer>();
-
-			//AddinGlobal.Logger.LogInformation("Initializing Addin");
-
-			//if (!LicTools.CheckForValidUser(AddinGlobal.InventorApp, "Sheet List", AddinGlobal.AppId))
-			//{
-			//	AddinGlobal.Logger.LogWarning("Invalid License");
-			//	return;
-			//}
+			AddinGlobal.Automation = new SheetListAutomation();
 
 			//Get User Settings
-			//AddinGlobal.Logger.LogInformation("Getting saved settings");
-			Tools.GetSavedSettings();
+			SheetListTools.LoadSavedSettings();
 
 			//Create Event Listener
-			//AddinGlobal.Logger.LogInformation("Adding Event Listeners");
-			Tools.CreateEventListener();
+			SheetListTools.CreateEventListener();
 
 			try
-			{
-				Icon icon1 = new Icon(this.GetType(), "Resources.SheetList.ico");
-				Icon icon1_sm = new Icon(icon1, 16, 16);
-				InventorButton CreateUpdate_Button = new InventorButton("Create /\rUpdate", "cap_Create/Update", "Create / Update Sheet List", "Click to create / update the Sheet List in this document.", icon1, icon1_sm);
-				CreateUpdate_Button.Execute = ButtonEvents.CreateUpdate_SheetList;
-
-				Icon icon2 = new Icon(this.GetType(), "Resources.gear.ico");
-				Icon icon2_sm = new Icon(icon2, 16, 16);
-				InventorButton Configure_Button = new InventorButton("Configure", "cap_Configure", "Configure Sheet List", "Click to configure Sheet List", icon2_sm, icon2_sm);
-				Configure_Button.Execute = ButtonEvents.Configure_SheetList;
+            {
+                var createButton = new CreateSheetListButton();
+                var configureButton = new ConfigureButton();
 
 				if (firstTime)
 				{
@@ -76,11 +59,11 @@ namespace SheetList
 						Ribbon ribbon = uiMan.Ribbons["Drawing"];
 						RibbonTab tab = ribbon.RibbonTabs["id_TabAnnotate"];
 
-						RibbonPanel panel = tab.RibbonPanels.Add("Sheet List", "cap_SheetListPanel", Guid.NewGuid().ToString());
+						RibbonPanel panel = tab.RibbonPanels.Add("Sheet List", "sl_Panel", Guid.NewGuid().ToString());
 						CommandControls controls = panel.CommandControls;
 
-						controls.AddButton(CreateUpdate_Button.ButtonDef(), true, true);
-						controls.AddButton(Configure_Button.ButtonDef(), false, true);
+						controls.AddButton(createButton.Definition, true, true);
+						controls.AddButton(configureButton.Definition, false, true);
 
 					}
 				}
@@ -90,8 +73,7 @@ namespace SheetList
 				MessageBox.Show(e.ToString());
 			}
 
-
-		}
+        }
 
 		public void Deactivate()
 		{
@@ -123,8 +105,7 @@ namespace SheetList
 
 			get
 			{
-
-				return null;
+				return AddinGlobal.Automation;
 			}
 		}
 
