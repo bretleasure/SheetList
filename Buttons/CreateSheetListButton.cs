@@ -1,11 +1,6 @@
 ﻿using Inventor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using SheetList.Extensions;
+using System.Windows.Forms;
 
 namespace SheetList.Buttons
 {
