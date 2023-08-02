@@ -30,7 +30,7 @@ namespace SheetList
                 return Task.Run(sheetList.Create);
             }
 
-            return Task.FromException<CustomTable>(new Exception("Active document is no a drawing document"));
+            return Task.FromException<CustomTable>(new Exception("Active document is not a drawing document"));
         }
 
         public Task<CustomTable> UpdateSheetList(SheetListSettings settings, DrawingDocument dwgDoc)
