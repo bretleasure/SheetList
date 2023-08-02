@@ -102,7 +102,7 @@ namespace SheetList
                 NumberOfSections = Convert.ToInt32(txb_SectionNumber.Text)
             };
 
-            AddinGlobal.AppSettings = new AddinSettings
+            AddinGlobal.AppSettings = new SheetListAddinSettings
             {
                 ControlMaxRows = rad_MaxRows.Checked,
                 ControlNumberOfSections = rad_NumberOfSections.Checked,

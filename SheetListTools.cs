@@ -12,11 +12,11 @@ namespace SheetList
 			if (System.IO.File.Exists(AddinGlobal.SettingsFilePath))
 			{
 				var settingsJson = File.ReadAllText(AddinGlobal.SettingsFilePath);
-				AddinGlobal.AppSettings = JsonConvert.DeserializeObject<AddinSettings>(settingsJson);
+				AddinGlobal.AppSettings = JsonConvert.DeserializeObject<SheetListAddinSettings>(settingsJson);
 			}
             else
 			{
-				AddinGlobal.AppSettings = new AddinSettings
+				AddinGlobal.AppSettings = new SheetListAddinSettings
 				{
 					SheetListSettings = SheetListSettings.Default
 				};

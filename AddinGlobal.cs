@@ -7,7 +7,7 @@ namespace SheetList
 	{
 		public static Inventor.Application InventorApp { get; set; }
 		public static string SettingsFilePath { get; set; } = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "appsettings.json");
-		public static AddinSettings AppSettings { get; set; }
+		public static SheetListAddinSettings AppSettings { get; set; }
 		public static SheetListAutomation Automation { get; set; }
     }
 }
