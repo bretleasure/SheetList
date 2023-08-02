@@ -36,17 +36,17 @@ namespace SheetList
 
             if (AddinGlobal.AppSettings != null)
             {
-				SheetListSettings settings = AddinGlobal.AppSettings;
+				var sheetListSettings = AddinGlobal.AppSettings.SheetListSettings;
 
-				ckb_ShowTitle.Checked = settings.ShowTitle;
-                txb_Title.Text = settings.Title;
+				ckb_ShowTitle.Checked = sheetListSettings.ShowTitle;
+                txb_Title.Text = sheetListSettings.Title;
 
-                if (settings.Direction == TableDirectionEnum.kTopDownDirection)
+                if (sheetListSettings.Direction == TableDirectionEnum.kTopDownDirection)
                     rad_DirectionBtm.Checked = true;
                 else
                     rad_DirectionTop.Checked = true;
 
-                switch (settings.HeadingPlacement)
+                switch (sheetListSettings.HeadingPlacement)
                 {
                     case HeadingPlacementEnum.kHeadingAtBottom:
                         rad_ColHeadingBtm.Checked = true;
@@ -59,22 +59,22 @@ namespace SheetList
                         break;
                 }
 
-                txb_SheetNoColName.Text = settings.SheetNoColName;
-                txb_SheetNameColName.Text = settings.SheetNameColName;
+                txb_SheetNoColName.Text = sheetListSettings.SheetNoColName;
+                txb_SheetNameColName.Text = sheetListSettings.SheetNameColName;
 
-                ckb_EnableAutoWrap.Checked = settings.EnableAutoWrap;
+                ckb_EnableAutoWrap.Checked = sheetListSettings.EnableAutoWrap;
 
-                if (settings.WrapLeft)
+                if (sheetListSettings.WrapLeft)
                     rad_WrapDirectionLeft.Checked = true;
                 else
                     rad_WrapDirectionRight.Checked = true;
 
-                txb_MaxRows.Text = settings.MaxRows.ToString();
-                txb_SectionNumber.Text = settings.NumberOfSections.ToString();
-                rad_MaxRows.Checked = settings.ControlMaxRows;
-                rad_NumberOfSections.Checked = settings.ControlNumberOfSections;
+                txb_MaxRows.Text = sheetListSettings.MaxRows.ToString();
+                txb_SectionNumber.Text = sheetListSettings.NumberOfSections.ToString();
+                rad_MaxRows.Checked = AddinGlobal.AppSettings.ControlMaxRows;
+                rad_NumberOfSections.Checked = AddinGlobal.AppSettings.ControlNumberOfSections;
 
-				ckb_UpdateBeforeSave.Checked = settings.UpdateBeforeSave;
+				ckb_UpdateBeforeSave.Checked = AddinGlobal.AppSettings.UpdateBeforeSave;
             }
         }
 
@@ -88,7 +88,7 @@ namespace SheetList
             else
                 headingPlacement = HeadingPlacementEnum.kNoHeading;
 
-            AddinGlobal.AppSettings = new SheetListSettings
+            var sheetListSettings = new SheetListSettings
             {
                 Title = txb_Title.Text,
                 ShowTitle = ckb_ShowTitle.Checked,
@@ -99,11 +99,16 @@ namespace SheetList
                 WrapLeft = rad_WrapDirectionLeft.Checked,
                 EnableAutoWrap = ckb_EnableAutoWrap.Checked,
                 MaxRows = Convert.ToInt32(txb_MaxRows.Text),
-                NumberOfSections = Convert.ToInt32(txb_SectionNumber.Text),
+                NumberOfSections = Convert.ToInt32(txb_SectionNumber.Text)
+            };
+
+            AddinGlobal.AppSettings = new AddinSettings
+            {
                 ControlMaxRows = rad_MaxRows.Checked,
                 ControlNumberOfSections = rad_NumberOfSections.Checked,
                 UpdateBeforeSave = ckb_UpdateBeforeSave.Checked,
-        };
+                SheetListSettings = sheetListSettings
+            };
 
             SheetListTools.SaveSettings();
 

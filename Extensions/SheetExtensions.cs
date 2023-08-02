@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace SheetList.Extensions
 {
-    public static class SheetExtensions
+    internal static class SheetExtensions
     {
         public static string GetSheetName(this Sheet oSheet)
         {

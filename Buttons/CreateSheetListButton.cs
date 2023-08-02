@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace SheetList.Buttons
 {
-    public class CreateSheetListButton : InventorButton
+    internal class CreateSheetListButton : InventorButton
     {
         public override void Execute(NameValueMap context)
         {
@@ -19,13 +19,13 @@ namespace SheetList.Buttons
             {
                 if (dwgDoc.TryGetExistingSheetList(out var _))
                 {
-                    AddinGlobal.Automation.UpdateSheetList(AddinGlobal.AppSettings, dwgDoc);
+                    AddinGlobal.Automation.UpdateSheetList(AddinGlobal.AppSettings.SheetListSettings, dwgDoc);
                 }
                 else
                 {
                     var sheet = dwgDoc.ActiveSheet;
                     var position = AddinGlobal.InventorApp.TransientGeometry.CreatePoint2d(sheet.Width / 2, sheet.Height / 2);
-                    AddinGlobal.Automation.CreateSheetList(AddinGlobal.AppSettings, sheet, position);
+                    AddinGlobal.Automation.CreateSheetList(AddinGlobal.AppSettings.SheetListSettings, sheet, position);
                 }
             }
         }

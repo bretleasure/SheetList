@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace SheetList.Extensions
 {
-    public static class DrawingDocumentExtensions
+    internal static class DrawingDocumentExtensions
     {
         public static bool TryGetExistingSheetList(this DrawingDocument dwgDoc, out CustomTable sheetList)
         {

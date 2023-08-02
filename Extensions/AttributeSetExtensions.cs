@@ -2,7 +2,7 @@
 
 namespace SheetList.Extensions
 {
-    public static class AttributeSetExtensions
+    internal static class AttributeSetExtensions
     {
         public static void AssignAttributeValue(this AttributeSet attributeSet, string attributeName, string attributeValue)
         {

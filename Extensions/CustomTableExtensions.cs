@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace SheetList.Extensions
 {
-    public static class CustomTableExtensions
+    internal static class CustomTableExtensions
     {
         public static bool IsSheetList(this CustomTable table)
         {

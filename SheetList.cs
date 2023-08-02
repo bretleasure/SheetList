@@ -5,7 +5,7 @@ using SheetList.Extensions;
 
 namespace SheetList
 {
-    public class SheetList
+    internal class SheetList
     {
         public SheetList(CustomTable existingSheetList, SheetListSettings settings, string[] data)
         {

@@ -1,6 +1,6 @@
 ﻿namespace SheetList
 {
-    public static class AppConstants
+    internal static class AppConstants
     {
         public const string TableAttributeSetName = "Table_id";
         public const string AttributeName = "Name";

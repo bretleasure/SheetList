@@ -7,7 +7,7 @@ namespace SheetList.Buttons
 {
     public abstract class InventorButton
     {
-        public InventorButton()
+        internal InventorButton()
         {
             var largeIcon = new Icon(GetType(), GetIconResourceName());
             var smallIcon = new Icon(largeIcon, 16, 16);

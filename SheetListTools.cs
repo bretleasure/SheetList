@@ -5,23 +5,26 @@ using SheetList.Extensions;
 
 namespace SheetList
 {
-	public abstract class SheetListTools
+	internal static class SheetListTools
     {
         public static void LoadSavedSettings()
 		{
 			if (System.IO.File.Exists(AddinGlobal.SettingsFilePath))
 			{
 				var settingsJson = File.ReadAllText(AddinGlobal.SettingsFilePath);
-				AddinGlobal.AppSettings = JsonConvert.DeserializeObject<SheetListSettings>(settingsJson);
+				AddinGlobal.AppSettings = JsonConvert.DeserializeObject<AddinSettings>(settingsJson);
 			}
             else
-            {
-				AddinGlobal.AppSettings = SheetListSettings.Default;
+			{
+				AddinGlobal.AppSettings = new AddinSettings
+				{
+					SheetListSettings = SheetListSettings.Default
+				};
 				SaveSettings();
             }
 		}
-
-		public static void SaveSettings()
+        
+        public static void SaveSettings()
         {
 			var json = JsonConvert.SerializeObject(AddinGlobal.AppSettings);
 			File.WriteAllText(AddinGlobal.SettingsFilePath, json);
@@ -44,7 +47,7 @@ namespace SheetList
 			{
 				if (documentObject is DrawingDocument dwgDoc && AddinGlobal.AppSettings.UpdateBeforeSave && dwgDoc.GetExistingSheetList() != null)
                 {
-                    AddinGlobal.Automation.UpdateSheetList(AddinGlobal.AppSettings, dwgDoc);
+                    AddinGlobal.Automation.UpdateSheetList(AddinGlobal.AppSettings.SheetListSettings, dwgDoc);
                 }
 			}
 

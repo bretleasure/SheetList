@@ -37,11 +37,6 @@ namespace SheetList
 
         public int MaxRows { get; set; }
         public int NumberOfSections { get; set; }
-        public bool ControlMaxRows { get; set; } = false;
-        public bool ControlNumberOfSections { get; set; } = true;
-
-        //TODO: CREATE SEPARATE SHEET LIST SETTINGS FROM ADDIN SETTINGS (UPDATE BEFORE SAVE, CONTROL MAX ROWS, CONTROLNUMBEROFSECTIONS SHOULD BE APP SETTINGS)
-        public bool UpdateBeforeSave { get; set; } = false;
 
         public static readonly SheetListSettings Default = new SheetListSettings
         {
@@ -56,9 +51,6 @@ namespace SheetList
             EnableAutoWrap = false,
             MaxRows = 10,
             NumberOfSections = 1,
-            ControlMaxRows = false,
-            ControlNumberOfSections = true,
-            UpdateBeforeSave = false
         };
 
     }
