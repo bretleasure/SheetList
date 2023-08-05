@@ -3,6 +3,16 @@
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+
+    <Authors>Bret Leasure</Authors>
+    <Copyright>2023</Copyright>
+    <PackageTags>Autodesk Inventor CAD "Sheet List"</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <RepositoryUrl>https://github.com/bretleasure/SheetList</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Description>Sheet List addin for Autodesk Inventor</Description>
+    <PackageReadmeFile>Readme.md</PackageReadmeFile>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="Buttons\Icons\gear.ico" />
@@ -16,9 +26,13 @@
   <ItemGroup>
     <Reference Include="Autodesk.Inventor.Interop">
       <HintPath>lib\Autodesk.Inventor.Interop.dll</HintPath>
-      <Private>False</Private>
+      <PackagePath>lib\net472\</PackagePath>
+      <Pack>true</Pack>
     </Reference>
     <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Readme.md" Pack="true" PackagePath="\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="SheetList.Addin">
