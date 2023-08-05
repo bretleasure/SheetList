@@ -1,6 +1,4 @@
-﻿using Inventor;
-
-namespace SheetList.Extensions
+﻿namespace Inventor
 {
     public static class InventorApplicationExtensions
     {

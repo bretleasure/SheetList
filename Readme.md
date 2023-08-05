@@ -16,7 +16,7 @@ The addin can either be used via the commmand buttons added to the Inventor UI o
 
 **If using the Addin's API outside of iLogic:**
 
-3. The SheetList.dll needs to be added as a reference to your project
+4. The SheetList.dll needs to be added as a reference to your project
     * NuGet package available on [NuGet.org](https://www.nuget.org/packages/SheetList) and [GitHub Packages](https://github.com/bretleasure/SheetList/pkgs/nuget/SheetList)
 
 ## Addin UI
