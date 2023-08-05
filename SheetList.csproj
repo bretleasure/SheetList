@@ -6,7 +6,7 @@
 
     <Authors>Bret Leasure</Authors>
     <Copyright>2023</Copyright>
-    <PackageTags>Autodesk Inventor CAD "Sheet List"</PackageTags>
+    <PackageTags>Autodesk Inventor CAD Sheet-List</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/bretleasure/SheetList</RepositoryUrl>
