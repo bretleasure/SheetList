@@ -7,8 +7,8 @@ namespace SheetList
 {
     public class SheetListAutomation : AddInAutomation
     {
-        public Task<CustomTable> CreateSheetList(Sheet sheet, Point2d position) => CreateSheetList(SheetListSettings.Default, sheet, position);
-        public Task<CustomTable> CreateSheetList(SheetListSettings settings, Sheet sheet, Point2d position)
+        public Task<CustomTable> CreateSheetList(Sheet sheet, Point2d position) => CreateSheetList(sheet, position, SheetListSettings.Default);
+        public Task<CustomTable> CreateSheetList(Sheet sheet, Point2d position, SheetListSettings settings)
         {
             if (sheet.Parent is DrawingDocument dwgDoc)
             {

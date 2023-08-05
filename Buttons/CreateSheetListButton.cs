@@ -25,7 +25,7 @@ namespace SheetList.Buttons
                 {
                     var sheet = dwgDoc.ActiveSheet;
                     var position = AddinGlobal.InventorApp.TransientGeometry.CreatePoint2d(sheet.Width / 2, sheet.Height / 2);
-                    AddinGlobal.Automation.CreateSheetList(AddinGlobal.AppSettings.SheetListSettings, sheet, position);
+                    AddinGlobal.Automation.CreateSheetList(sheet, position, AddinGlobal.AppSettings.SheetListSettings);
                 }
             }
         }
