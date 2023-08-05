@@ -59,8 +59,8 @@ namespace SheetList
                         break;
                 }
 
-                txb_SheetNoColName.Text = sheetListSettings.SheetNoColName;
-                txb_SheetNameColName.Text = sheetListSettings.SheetNameColName;
+                txb_SheetNoColName.Text = sheetListSettings.ColumnNames.First();
+                txb_SheetNameColName.Text = sheetListSettings.ColumnNames.Last();
 
                 ckb_EnableAutoWrap.Checked = sheetListSettings.EnableAutoWrap;
 
@@ -92,8 +92,7 @@ namespace SheetList
             {
                 Title = txb_Title.Text,
                 ShowTitle = ckb_ShowTitle.Checked,
-                SheetNoColName = txb_SheetNoColName.Text,
-                SheetNameColName = txb_SheetNameColName.Text,
+                ColumnNames = new string[] { txb_SheetNoColName.Text, txb_SheetNameColName.Text },
                 Direction = rad_DirectionBtm.Checked ? TableDirectionEnum.kTopDownDirection : TableDirectionEnum.kBottomUpDirection,
                 HeadingPlacement = headingPlacement,
                 WrapLeft = rad_WrapDirectionLeft.Checked,

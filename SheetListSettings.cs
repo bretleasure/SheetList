@@ -1,4 +1,8 @@
-﻿using Inventor;
+﻿using System;
+using System.Security.Cryptography;
+using Inventor;
+using Newtonsoft.Json;
+using SheetList.Extensions;
 
 namespace SheetList
 {
@@ -6,14 +10,12 @@ namespace SheetList
     {
         public string Title { get; set; }
         public bool ShowTitle { get; set; }
-
-        public string SheetNoColName { get; set; }
-        public string SheetNameColName { get; set; }
+        public string[] ColumnNames { get; set; } = new string[] { "SHEET #", "SHEET NAME" };
 
         /// <summary>
-        /// Columns widths provided in centimeters as a comma delimited string
+        /// Columns widths provided in centimeters
         /// </summary>
-        public string ColumnWidths { get; set; } = "2.5,5";
+        public double[] ColumnWidths { get; set; } = new double[] { 2.5, 5 };
 
         /// <summary>
         /// kTopDownDirection = 46081,
@@ -38,19 +40,22 @@ namespace SheetList
         public int MaxRows { get; set; }
         public int NumberOfSections { get; set; }
 
+        [JsonIgnore]
+        public Func<DrawingDocument, string[]> TableDataBuilder { get; set; } = dwgDoc => dwgDoc.GetSheetListData();
+
         public static readonly SheetListSettings Default = new SheetListSettings
         {
             Title = "SHEET LIST",
             ShowTitle = true,
-            SheetNoColName = "SHEET #",
-            SheetNameColName = "SHEET NAME",
-            ColumnWidths = "2.5,5",
+            ColumnNames = new string[] { "SHEET #", "SHEET NAME" },
+            ColumnWidths = new double[] { 2.5, 5 },
             Direction = TableDirectionEnum.kTopDownDirection,
             HeadingPlacement = HeadingPlacementEnum.kHeadingAtTop,
             WrapLeft = false,
             EnableAutoWrap = false,
             MaxRows = 10,
             NumberOfSections = 1,
+            TableDataBuilder = dwgDoc => dwgDoc.GetSheetListData()
         };
 
     }

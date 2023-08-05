@@ -11,6 +11,9 @@ namespace SheetList
         {
             Position = existingSheetList.Position;
             ParentSheet = existingSheetList.Parent as Sheet;
+            ColumnNames = existingSheetList.Columns.Cast<Column>()
+                .Select(c => c.Title)
+                .ToArray();
             ColumnWidths = existingSheetList.Columns.Cast<Column>()
                 .Select(c => c.Width).ToArray();
             TranslatePosition = (sheetList) =>
@@ -32,9 +35,7 @@ namespace SheetList
         {
             Position = position;
             ParentSheet = sheet;
-            ColumnWidths = settings.ColumnWidths.Split(',')
-                .Select(s => s.Trim())
-                .Select(double.Parse).ToArray();
+            ColumnWidths = settings.ColumnWidths;
             Initialize(settings, data);
         }
 
@@ -42,7 +43,7 @@ namespace SheetList
         {
             Data = data;
             Title = settings.Title;
-            ColumnNames = new string[]{ settings.SheetNoColName, settings.SheetNameColName };
+            ColumnNames = settings.ColumnNames;
             ShowTitle = settings.ShowTitle;
             TableDirection = settings.Direction;
             HeadingPlacement = settings.HeadingPlacement;
@@ -51,28 +52,25 @@ namespace SheetList
             MaxRows = settings.MaxRows;
             NumberOfSections = settings.NumberOfSections;
         }
-        
-        public string[] Data { get; set; }
-        public int RowQty => Data.Count() / ColumnNames.Count();
-        public double[] ColumnWidths { get; set; }
-        public string Title { get; set; }
-        public string[] ColumnNames { get; set; }
-        public bool ShowTitle { get; set; }
-        public TableDirectionEnum TableDirection { get; set; }
-        public HeadingPlacementEnum HeadingPlacement { get; set; }
-        public bool WrapLeft { get; set; }
-        public bool WrapAutomatically { get; set; }
-        public int MaxRows { get; set; }
-        public int NumberOfSections { get; set; }
-        public Point2d Position { get; set; }
-        public Sheet ParentSheet { get; }
+
+        private string[] Data { get; set; }
+        private int RowQty => Data.Count() / ColumnNames.Count();
+        private double[] ColumnWidths { get; set; }
+        private string Title { get; set; }
+        private string[] ColumnNames { get; set; }
+        private bool ShowTitle { get; set; }
+        private TableDirectionEnum TableDirection { get; set; }
+        private HeadingPlacementEnum HeadingPlacement { get; set; }
+        private bool WrapLeft { get; set; }
+        private bool WrapAutomatically { get; set; }
+        private int MaxRows { get; set; }
+        private int NumberOfSections { get; set; }
+        private Point2d Position { get; set; }
+        private Sheet ParentSheet { get; }
 
         private Action<CustomTable> TranslatePosition
         {
-            get
-            {
-                return (sheetList) => { };
-            }
+            get => sheetList => { };
             set { }
         }
 

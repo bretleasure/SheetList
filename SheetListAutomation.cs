@@ -12,7 +12,7 @@ namespace SheetList
         {
             if (sheet.Parent is DrawingDocument dwgDoc)
             {
-                var data = dwgDoc.GetSheetListData();
+                var data = settings.TableDataBuilder.Invoke(dwgDoc);
 
                 SheetList sheetList;
                 if (dwgDoc.TryGetExistingSheetList(out var existingSheetList))
