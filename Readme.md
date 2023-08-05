@@ -31,8 +31,8 @@ The `GetSheetListAddin()` extension method for `Inventor.Aplication` can be used
 
 | Method Name | Description |
 | - | --- |
-| CreateSheetList(`DrawingDocument`) | Creates a sheetlist using the detault settings |
-| CreateSheetList(`DrawingDocument`, `SheetListSettings`) | Creates a sheetlist using the provided settings |
+| CreateSheetList(`Sheet`, `Point2d`) | Creates a sheetlist using the detault settings |
+| CreateSheetList(`Sheet`, `Point2d`, `SheetListSettings`) | Creates a sheetlist using the provided settings |
 
 ### C#
 ```csharp
@@ -40,7 +40,7 @@ var dwgDoc = (DrawingDocument)inventorApp.Documents.Open(@"C:\Work\MyDrawing.idw
 
 var sheetListAddin = inventorApp.GetSheetListAddin();
 
-sheetListAddin.CreateSheetList(dwgDoc);
+sheetListAddin.CreateSheetList(dwgDoc.ActiveSheet);
 ```
 
 ### iLogic
@@ -51,7 +51,7 @@ Imports SheetList
 Dim sheetListAddin As SheetListAutomation
 sheetListAddin = ThisApplication.GetSheetListAddin()
 
-sheetListAddin.CreateSheetList(ThisDoc.Document)
+sheetListAddin.CreateSheetList(ThisDoc.Document.ActiveSheet)
 ```
 
 ## Configuration
