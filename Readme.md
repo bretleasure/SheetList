@@ -10,6 +10,9 @@ The addin can either be used via the commmand buttons added to the Inventor UI o
 
 1. Download the SheetListAddin-vX.X.X.zip file from the latest release
 2. Unzip the contents into `C:\ProgramData\Autodesk\ApplicationPlugins`
+3. First time starting Inventor the Addin may need to be unblocked.
+   * Go to Tools Tab > Options Panel > Add-ins
+     * Find the addin in the Available Add-Ins list and select it. Then Uncheck the *Block* checkbox and check *Load/Unloaded* and *Load Automatically*
 
 **If using the Addin's API outside of iLogic:**
 
