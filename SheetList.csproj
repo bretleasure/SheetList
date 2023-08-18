@@ -19,7 +19,7 @@
     <EmbeddedResource Include="Buttons\Icons\SheetList.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="stdole" Version="16.9.31023.347" />
     <PackageReference Include="System.Resources.Extensions" Version="4.7.1" />
   </ItemGroup>
