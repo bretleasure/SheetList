@@ -16,7 +16,7 @@ namespace SheetList.Buttons
 
         public override string GetToolTipText() => "Click to configure Sheet List.";
 
-        public override string GetIconResourceName() => "Icons.gear.ico";
+        public override string GetIconResourceName() => "Icons.edit-light.ico";
     }
 }
 

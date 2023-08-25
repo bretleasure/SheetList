@@ -15,6 +15,16 @@
     <PackageReadmeFile>Readme.md</PackageReadmeFile>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Buttons\Icons\add-dark.ico" />
+    <None Remove="Buttons\Icons\add-light.ico" />
+    <None Remove="Buttons\Icons\edit-dark.ico" />
+    <None Remove="Buttons\Icons\edit-light.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Buttons\Icons\add-dark.ico" />
+    <EmbeddedResource Include="Buttons\Icons\add-light.ico" />
+    <EmbeddedResource Include="Buttons\Icons\edit-dark.ico" />
+    <EmbeddedResource Include="Buttons\Icons\edit-light.ico" />
     <EmbeddedResource Include="Buttons\Icons\gear.ico" />
     <EmbeddedResource Include="Buttons\Icons\SheetList.ico" />
   </ItemGroup>

@@ -36,6 +36,6 @@ namespace SheetList.Buttons
 
         public override string GetToolTipText() => "Click to create / update the Sheet List in this document.";
 
-        public override string GetIconResourceName() => "Icons.SheetList.ico";
+        public override string GetIconResourceName() => "Icons.add-light.ico";
     }
 }
