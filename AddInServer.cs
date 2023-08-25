@@ -1,5 +1,6 @@
 using Inventor;
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using SheetList.Buttons;
 using System.Windows.Forms;
@@ -41,6 +42,8 @@ namespace SheetList
 			//Create Event Listener
 			SheetListTools.CreateEventListener();
 
+			// AddinGlobal.InventorApp.ApplicationEvents.OnApplicationOptionChange += UpdateButtons;
+
 			try
             {
                 var createButton = new CreateSheetListButton();
@@ -58,9 +61,14 @@ namespace SheetList
 						RibbonPanel panel = tab.RibbonPanels.Add("Sheet List", "sl_Panel", Guid.NewGuid().ToString());
 						CommandControls controls = panel.CommandControls;
 
-						controls.AddButton(createButton.Definition, true, true);
-						controls.AddButton(configureButton.Definition, false, true);
-
+						var create = controls.AddButton(createButton.Definition, true, true);
+						var config = controls.AddButton(configureButton.Definition, false, true);
+						
+						AddinGlobal.Buttons = new List<InventorButton>
+						{
+							createButton,
+							configureButton
+						};
 					}
 				}
 			}
@@ -70,6 +78,21 @@ namespace SheetList
 			}
 
         }
+		
+		// public void UpdateButtons(EventTimingEnum beforeOrAfter, NameValueMap context, out HandlingCodeEnum handlingCode)
+		// {
+		// 	if (beforeOrAfter == EventTimingEnum.kAfter)
+		// 	{
+		// 		foreach (var button in AddinGlobal.Buttons)
+		// 		{
+		// 			button.UpdateIcons();
+		// 		}
+  //               
+		// 		handlingCode = HandlingCodeEnum.kEventHandled;
+		// 	}
+  //           
+		// 	handlingCode = HandlingCodeEnum.kEventNotHandled;
+		// }
 
 		public void Deactivate()
 		{

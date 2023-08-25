@@ -35,7 +35,11 @@ namespace SheetList.Buttons
         public override string GetDescriptionText() => "Create / Update Sheet List";
 
         public override string GetToolTipText() => "Click to create / update the Sheet List in this document.";
+        
+        public override string GetLargeIconResourceName() => "SheetList.Buttons.Icons.add-light-32px.bmp";
+        public override string GetDarkThemeLargeIconResourceName() => "SheetList.Buttons.Icons.add-dark-32px.bmp";
 
-        public override string GetIconResourceName() => "Icons.add-light.ico";
+        public override string GetSmallIconResourceName() => "SheetList.Buttons.Icons.add-light-32px.bmp";
+        public override string GetDarkThemeSmallIconResourceName() => "SheetList.Buttons.Icons.add-dark-32px.bmp";
     }
 }

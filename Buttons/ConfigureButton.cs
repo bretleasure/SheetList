@@ -16,7 +16,13 @@ namespace SheetList.Buttons
 
         public override string GetToolTipText() => "Click to configure Sheet List.";
 
-        public override string GetIconResourceName() => "Icons.edit-light.ico";
+        public override string GetLargeIconResourceName() => "SheetList.Buttons.Icons.edit-light-32px.bmp";
+        
+        public override string GetDarkThemeLargeIconResourceName() => "SheetList.Buttons.Icons.edit-dark-32px.bmp";
+
+        public override string GetSmallIconResourceName() => "SheetList.Buttons.Icons.edit-light-32px.bmp";
+        
+        public override string GetDarkThemeSmallIconResourceName() => "SheetList.Buttons.Icons.edit-dark-32px.bmp";
     }
 }
 
