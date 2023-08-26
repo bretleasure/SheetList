@@ -49,7 +49,7 @@ namespace SheetList
             {
 				if (firstTime)
 				{
-					InitilializeUIComponents();
+					InitializeUIComponents();
 				}
 			}
 			catch (Exception e)
@@ -59,7 +59,7 @@ namespace SheetList
 
         }
 
-		private void InitilializeUIComponents()
+		private void InitializeUIComponents()
 		{
 			var createButton = new CreateSheetListButton();
 			var configureButton = new ConfigureButton();
@@ -89,7 +89,7 @@ namespace SheetList
 		{
 			if (beforeOrAfter == EventTimingEnum.kAfter)
 			{
-				InitilializeUIComponents();
+				InitializeUIComponents();
                 
 				handlingCode = HandlingCodeEnum.kEventHandled;
 			}
