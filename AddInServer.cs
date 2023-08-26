@@ -1,6 +1,7 @@
 using Inventor;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using SheetList.Buttons;
 using System.Windows.Forms;
@@ -42,34 +43,13 @@ namespace SheetList
 			//Create Event Listener
 			SheetListTools.CreateEventListener();
 
-			// AddinGlobal.InventorApp.ApplicationEvents.OnApplicationOptionChange += UpdateButtons;
+			AddinGlobal.InventorApp.ApplicationEvents.OnApplicationOptionChange += UpdateButtons;
 
 			try
             {
-                var createButton = new CreateSheetListButton();
-                var configureButton = new ConfigureButton();
-
 				if (firstTime)
 				{
-					UserInterfaceManager uiMan = AddinGlobal.InventorApp.UserInterfaceManager;
-
-					if (uiMan.InterfaceStyle == InterfaceStyleEnum.kRibbonInterface)
-					{
-						Ribbon ribbon = uiMan.Ribbons["Drawing"];
-						RibbonTab tab = ribbon.RibbonTabs["id_TabAnnotate"];
-
-						RibbonPanel panel = tab.RibbonPanels.Add("Sheet List", "sl_Panel", Guid.NewGuid().ToString());
-						CommandControls controls = panel.CommandControls;
-
-						var create = controls.AddButton(createButton.Definition, true, true);
-						var config = controls.AddButton(configureButton.Definition, false, true);
-						
-						AddinGlobal.Buttons = new List<InventorButton>
-						{
-							createButton,
-							configureButton
-						};
-					}
+					InitilializeUIComponents();
 				}
 			}
 			catch (Exception e)
@@ -78,21 +58,44 @@ namespace SheetList
 			}
 
         }
-		
-		// public void UpdateButtons(EventTimingEnum beforeOrAfter, NameValueMap context, out HandlingCodeEnum handlingCode)
-		// {
-		// 	if (beforeOrAfter == EventTimingEnum.kAfter)
-		// 	{
-		// 		foreach (var button in AddinGlobal.Buttons)
-		// 		{
-		// 			button.UpdateIcons();
-		// 		}
-  //               
-		// 		handlingCode = HandlingCodeEnum.kEventHandled;
-		// 	}
-  //           
-		// 	handlingCode = HandlingCodeEnum.kEventNotHandled;
-		// }
+
+		private void InitilializeUIComponents()
+		{
+			var createButton = new CreateSheetListButton();
+			var configureButton = new ConfigureButton();
+				
+			UserInterfaceManager uiMan = AddinGlobal.InventorApp.UserInterfaceManager;
+			
+			if (uiMan.InterfaceStyle == InterfaceStyleEnum.kRibbonInterface)
+			{
+				Ribbon ribbon = uiMan.Ribbons["Drawing"];
+				RibbonTab tab = ribbon.RibbonTabs["id_TabAnnotate"];
+
+				var existingPanel = tab.RibbonPanels.Cast<RibbonPanel>().FirstOrDefault(p => p.InternalName == AppConstants.UIPanelId);
+				if (existingPanel != null)
+				{
+					existingPanel.Delete();
+				}
+				
+				RibbonPanel panel = tab.RibbonPanels.Add("Sheet List", AppConstants.UIPanelId, Guid.NewGuid().ToString());
+				CommandControls controls = panel.CommandControls;
+
+				controls.AddButton(createButton.Definition, true, true);
+				controls.AddButton(configureButton.Definition, false, true);
+			}
+		}
+
+		private void UpdateButtons(EventTimingEnum beforeOrAfter, NameValueMap context, out HandlingCodeEnum handlingCode)
+		{
+			if (beforeOrAfter == EventTimingEnum.kAfter)
+			{
+				InitilializeUIComponents();
+                
+				handlingCode = HandlingCodeEnum.kEventHandled;
+			}
+            
+			handlingCode = HandlingCodeEnum.kEventNotHandled;
+		}
 
 		public void Deactivate()
 		{

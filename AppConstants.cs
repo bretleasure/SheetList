@@ -5,5 +5,6 @@
         public const string TableAttributeSetName = "Table_id";
         public const string AttributeName = "Name";
         public const string TableId = "SHEET LIST";
+        public const string UIPanelId = "sl_Panel";
     }
 }

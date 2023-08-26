@@ -80,12 +80,6 @@ namespace SheetList.Buttons
 
             return ImageConverter.BitmapToPicture(bitmap);
         }
-        
-        public void UpdateIcons()
-        {
-            Definition.LargeIcon = (stdole.IPictureDisp)LargeIcon;
-            Definition.StandardIcon = (stdole.IPictureDisp)SmallIcon;
-        }
     }
     
     internal class ImageConverter : AxHost
