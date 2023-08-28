@@ -39,7 +39,7 @@ namespace SheetList.Buttons
         public override string GetLargeIconResourceName() => "SheetList.Buttons.Icons.add-light-32px.bmp";
         public override string GetDarkThemeLargeIconResourceName() => "SheetList.Buttons.Icons.add-dark-32px.bmp";
 
-        public override string GetSmallIconResourceName() => "SheetList.Buttons.Icons.add-light-32px.bmp";
-        public override string GetDarkThemeSmallIconResourceName() => "SheetList.Buttons.Icons.add-dark-32px.bmp";
+        public override string GetSmallIconResourceName() => "SheetList.Buttons.Icons.add-light-16px.bmp";
+        public override string GetDarkThemeSmallIconResourceName() => "SheetList.Buttons.Icons.add-dark-16px.bmp";
     }
 }

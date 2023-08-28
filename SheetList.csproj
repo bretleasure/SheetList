@@ -15,9 +15,13 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="Buttons\Icons\add-dark-32px.bmp" />
+	<EmbeddedResource Include="Buttons\Icons\add-dark-16px.bmp" />
 	<EmbeddedResource Include="Buttons\Icons\add-light-32px.bmp" />
+	<EmbeddedResource Include="Buttons\Icons\add-light-16px.bmp" />
     <EmbeddedResource Include="Buttons\Icons\edit-dark-32px.bmp" />
+	<EmbeddedResource Include="Buttons\Icons\edit-dark-16px.bmp" />
     <EmbeddedResource Include="Buttons\Icons\edit-light-32px.bmp" />
+	<EmbeddedResource Include="Buttons\Icons\edit-light-16px.bmp" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
