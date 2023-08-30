@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
-
     <Authors>Bret Leasure</Authors>
     <Copyright>2023</Copyright>
     <PackageTags>Autodesk Inventor CAD Sheet-List</PackageTags>
@@ -15,12 +14,18 @@
     <PackageReadmeFile>Readme.md</PackageReadmeFile>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Buttons\Icons\gear.ico" />
-    <EmbeddedResource Include="Buttons\Icons\SheetList.ico" />
+    <EmbeddedResource Include="Buttons\Icons\add-dark-32px.bmp" />
+	<EmbeddedResource Include="Buttons\Icons\add-dark-16px.bmp" />
+	<EmbeddedResource Include="Buttons\Icons\add-light-32px.bmp" />
+	<EmbeddedResource Include="Buttons\Icons\add-light-16px.bmp" />
+    <EmbeddedResource Include="Buttons\Icons\edit-dark-32px.bmp" />
+	<EmbeddedResource Include="Buttons\Icons\edit-dark-16px.bmp" />
+    <EmbeddedResource Include="Buttons\Icons\edit-light-32px.bmp" />
+	<EmbeddedResource Include="Buttons\Icons\edit-light-16px.bmp" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="stdole" Version="16.9.31023.347" />
+    <PackageReference Include="stdole" Version="17.7.37355" />
     <PackageReference Include="System.Resources.Extensions" Version="4.7.1" />
   </ItemGroup>
   <ItemGroup>

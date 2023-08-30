@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Reflection;
 using System.Windows.Forms;
 using Inventor;
 
@@ -9,21 +10,10 @@ namespace SheetList.Buttons
     {
         internal InventorButton()
         {
-            var largeIcon = new Icon(GetType(), GetIconResourceName());
-            var smallIcon = new Icon(largeIcon, 16, 16);
-
-            var largeIconIPictureDisp = IconToPicture(largeIcon);
-            var smallIconIpictureDisp = IconToPicture(smallIcon);
-
             Definition = AddinGlobal.InventorApp.CommandManager.ControlDefinitions.AddButtonDefinition(GetButtonName(), GetInternalName(),
-                CommandType, null, GetDescriptionText(), GetToolTipText(), smallIconIpictureDisp, largeIconIPictureDisp);
+                CommandType, null, GetDescriptionText(), GetToolTipText(), SmallIcon, LargeIcon);
             Definition.Enabled = true;
             Definition.OnExecute += Execute;
-        }
-
-        private static stdole.IPictureDisp IconToPicture(Icon icon)
-        {
-            return ImageConverter.IconToPicture(icon);
         }
 
         public abstract void Execute(NameValueMap context);
@@ -31,41 +21,74 @@ namespace SheetList.Buttons
         public virtual string GetInternalName() => Guid.NewGuid().ToString();
         public abstract string GetDescriptionText();
         public abstract string GetToolTipText();
-        public abstract string GetIconResourceName();
+        public abstract string GetLargeIconResourceName();
+        public virtual string GetDarkThemeLargeIconResourceName() => GetLargeIconResourceName();
+        public abstract string GetSmallIconResourceName();
+        public virtual string GetDarkThemeSmallIconResourceName() => GetSmallIconResourceName();
         public virtual CommandTypesEnum CommandType => CommandTypesEnum.kEditMaskCmdType;
 
-        public ButtonDefinition Definition { get; private set; }
+        public ButtonDefinition Definition { get; }
         public bool Enabled
         {
             get => Definition.Enabled;
             set => Definition.Enabled = value;
         }
 
-        private class ImageConverter : AxHost
+        private IPictureDisp LightThemeLargeIcon => CreateIcon(GetLargeIconResourceName());
+        private IPictureDisp DarkThemeLargeIcon => CreateIcon(GetDarkThemeLargeIconResourceName());
+        private IPictureDisp LightThemeSmallIcon => CreateIcon(GetSmallIconResourceName());
+        private IPictureDisp DarkThemeSmallIcon => CreateIcon(GetDarkThemeSmallIconResourceName());
+        
+        private IPictureDisp LargeIcon
         {
-            public ImageConverter() : base(string.Empty) { }
-
-            public static stdole.IPictureDisp ImageToPicture(Image image)
+            get
             {
-                return (stdole.IPictureDisp)GetIPictureDispFromPicture(image);
+                if (AddinGlobal.ActiveTheme.Name == "LightTheme")
+                {
+                    return LightThemeLargeIcon;
+                }
+                else
+                {
+                    return DarkThemeLargeIcon;
+                }
             }
-
-            public static stdole.IPictureDisp IconToPicture(Icon icon)
+        }
+        
+        private IPictureDisp SmallIcon
+        {
+            get
             {
-                return ImageToPicture(icon.ToBitmap());
+                if (AddinGlobal.ActiveTheme.Name == "LightTheme")
+                {
+                    return LightThemeSmallIcon;
+                }
+                else
+                {
+                    return DarkThemeSmallIcon;
+                }
             }
+        }
 
-            public static Image PictureToImage(stdole.IPictureDisp picture)
-            {
-                return GetPictureFromIPicture(picture);
-            }
+        private IPictureDisp CreateIcon(string resourceName)
+        {
+            var resourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName);
+            
+            if (resourceStream == null)
+                throw new Exception($"Resource {resourceName} not found in assembly {Assembly.GetExecutingAssembly().FullName}");
+            
+            var bitmap = new Bitmap(resourceStream);
 
-            public static Icon PictureToIcon(stdole.IPictureDisp picture)
-            {
-                Bitmap bitmap = new Bitmap(PictureToImage(picture));
-                return Icon.FromHandle(bitmap.GetHicon());
-            }
+            return ImageConverter.BitmapToPicture(bitmap);
+        }
+    }
+    
+    internal class ImageConverter : AxHost
+    {
+        public ImageConverter() : base(string.Empty) { }
 
+        public static IPictureDisp BitmapToPicture(Bitmap bitmap)
+        {
+            return (IPictureDisp)GetIPictureDispFromPicture(bitmap);
         }
     }
 }
