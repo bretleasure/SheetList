@@ -1,6 +1,4 @@
-# Sheet List Add-in for Autodesk Inventor
-
-The Sheet List add-in creates a table that shows the sheet number and sheet name of all the sheets in and Autodesk Inventor drawing.
+![open-graph-preview-img](https://github.com/bretleasure/SheetList/assets/30269827/bf6b8535-7365-4d27-9147-a6ed896fbdfe)
 
 ## Usage
 
