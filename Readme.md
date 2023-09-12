@@ -1,4 +1,4 @@
-![open-graph-preview-img](https://github.com/bretleasure/SheetList/assets/30269827/bf6b8535-7365-4d27-9147-a6ed896fbdfe)
+![open-graph-preview-img](https://raw.githubusercontent.com/bretleasure/SheetList/82c43b4a4916f0fe861f9885fe8dba133a491d8a/img/open-graph-preview-img.png)
 
 ## Usage
 
