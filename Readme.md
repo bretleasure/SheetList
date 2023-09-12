@@ -75,3 +75,7 @@ If using the addin in the Inventor UI, settings can be set by clicking the Confi
 | EnableAutoWrap | boolean | Enables auto wrapping of the table base on MaxRows and NumberOfSections |
 | MaxRows | int | Maximum number of rows before the table is wrapped |
 | NumberOfSections | int | The number of vertical sections the table should wrap to |
+
+## Privacy Policy
+
+This application does not collect or store any personal data.
