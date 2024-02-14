@@ -6,16 +6,20 @@ The addin can either be used via the commmand buttons added to the Inventor UI o
 
 ## Installation
 
+### [Download and Install from the Autodesk App Store](https://apps.autodesk.com/INVNTOR/en/Detail/Index?id=5342673156831821071&appLang=en&os=Win64)
+
+### Install from GitHub
 1. Download the SheetListAddin-vX.X.X.zip file from the latest release
 2. Unzip the contents into `C:\ProgramData\Autodesk\ApplicationPlugins`
 3. First time starting Inventor the Addin may need to be unblocked.
    * Go to Tools Tab > Options Panel > Add-ins
      * Find the addin in the Available Add-Ins list and select it. Then Uncheck the *Block* checkbox and check *Load/Unloaded* and *Load Automatically*
 
-**If using the Addin's API outside of iLogic:**
+### If using the Addin's API outside of iLogic:
 
-4. The SheetList.dll needs to be added as a reference to your project
-    * NuGet package available on [NuGet.org](https://www.nuget.org/packages/SheetList) and [GitHub Packages](https://github.com/bretleasure/SheetList/pkgs/nuget/SheetList)
+The SheetList.dll needs to be added as a reference to your project
+
+* NuGet package available on [NuGet.org](https://www.nuget.org/packages/SheetList) and [GitHub Packages](https://github.com/bretleasure/SheetList/pkgs/nuget/SheetList)
 
 ## Addin UI
 
