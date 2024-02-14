@@ -21,7 +21,7 @@ namespace SheetList
         // The Inventor application instance
         public static Inventor.Application InventorApp;
         
-        public static Guid AddinGuid = new("25E7585D-00D9-47C6-8E1B-734A2186383A");
+        public static Guid AddinGuid = new("3dc3068f-5de4-4b85-9efe-44b7ece560f3");
         
         List<InventorButton> _buttons;
         
