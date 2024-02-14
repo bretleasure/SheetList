@@ -34,9 +34,9 @@ namespace SheetList
         void ImportInputs()
         {
 
-            if (AddinGlobal.AppSettings != null)
+            if (AddinServer.AppSettings != null)
             {
-				var sheetListSettings = AddinGlobal.AppSettings.SheetListSettings;
+				var sheetListSettings = AddinServer.AppSettings.SheetListSettings;
 
 				ckb_ShowTitle.Checked = sheetListSettings.ShowTitle;
                 txb_Title.Text = sheetListSettings.Title;
@@ -71,10 +71,10 @@ namespace SheetList
 
                 txb_MaxRows.Text = sheetListSettings.MaxRows.ToString();
                 txb_SectionNumber.Text = sheetListSettings.NumberOfSections.ToString();
-                rad_MaxRows.Checked = AddinGlobal.AppSettings.ControlMaxRows;
-                rad_NumberOfSections.Checked = AddinGlobal.AppSettings.ControlNumberOfSections;
+                rad_MaxRows.Checked = AddinServer.AppSettings.ControlMaxRows;
+                rad_NumberOfSections.Checked = AddinServer.AppSettings.ControlNumberOfSections;
 
-				ckb_UpdateBeforeSave.Checked = AddinGlobal.AppSettings.UpdateBeforeSave;
+				ckb_UpdateBeforeSave.Checked = AddinServer.AppSettings.UpdateBeforeSave;
             }
         }
 
@@ -101,7 +101,7 @@ namespace SheetList
                 NumberOfSections = Convert.ToInt32(txb_SectionNumber.Text)
             };
 
-            AddinGlobal.AppSettings = new SheetListAddinSettings
+            AddinServer.AppSettings = new SheetListAddinSettings
             {
                 ControlMaxRows = rad_MaxRows.Checked,
                 ControlNumberOfSections = rad_NumberOfSections.Checked,

@@ -2,9 +2,11 @@ using Inventor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using SheetList.Buttons;
 using System.Windows.Forms;
+using Path = System.IO.Path;
 
 namespace SheetList
 {
@@ -14,124 +16,123 @@ namespace SheetList
 	/// the AddIn is via the methods on this interface.
 	/// </summary>
 	[GuidAttribute("3dc3068f-5de4-4b85-9efe-44b7ece560f3")]
-	public class StandardAddInServer : Inventor.ApplicationAddInServer
-	{
+	public class AddinServer : Inventor.ApplicationAddInServer
+    {
+        // The Inventor application instance
+        public static Inventor.Application InventorApp;
+        
+        public static Guid AddinGuid = new("25E7585D-00D9-47C6-8E1B-734A2186383A");
+        
+        List<InventorButton> _buttons;
+        
+        internal static string SettingsFilePath { get; set; } = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "appsettings.json");
+        internal static SheetListAddinSettings AppSettings { get; set; }
+        internal static SheetListAutomation AppAutomation { get; set; }
 
-		// Inventor application object.
-		//private Inventor.Application m_inventorApplication;
+        #region ApplicationAddInServer Members
 
-		public StandardAddInServer()
-		{
-		}
+        /// <summary>
+        /// This method is called by Inventor when it loads the addin.
+        /// The AddInSiteObject provides access to the Inventor Application object.
+        /// The FirstTime flag indicates if the addin is loaded for the first time.
+        /// </summary>
+        public void Activate(Inventor.ApplicationAddInSite addInSiteObject, bool firstTime)
+        {
+            InventorApp = addInSiteObject.Application;
+            InventorApp.ApplicationEvents.OnApplicationOptionChange += UpdateButtons;
 
-		#region ApplicationAddInServer Members
+            AppAutomation = new SheetListAutomation();
 
-		public void Activate(Inventor.ApplicationAddInSite addInSiteObject, bool firstTime)
-		{
-			// This method is called by Inventor when it loads the addin.
-			// The AddInSiteObject provides access to the Inventor Application object.
-			// The FirstTime flag indicates if the addin is loaded for the first time.
+            //Get User Settings
+            SheetListTools.LoadSavedSettings();
 
-            // Initialize AddIn members.
-			AddinGlobal.InventorApp = addInSiteObject.Application;
+            //Create Event Listener
+            SheetListTools.CreateEventListener();
 
-			AddinGlobal.Automation = new SheetListAutomation();
-
-			//Get User Settings
-			SheetListTools.LoadSavedSettings();
-
-			//Create Event Listener
-			SheetListTools.CreateEventListener();
-
-			AddinGlobal.InventorApp.ApplicationEvents.OnApplicationOptionChange += UpdateButtons;
-
-			try
+            try
             {
-				if (firstTime)
-				{
-					InitializeUIComponents();
-				}
-			}
-			catch (Exception e)
-			{
-				MessageBox.Show(e.ToString());
-			}
+                // If the addin is loaded for the first time, initialize the UI components
+                if (firstTime)
+                {
+                    InitializeUIComponents();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Could not load Addin.");
+            }
 
         }
 
-		private void InitializeUIComponents()
-		{
-			var createButton = new CreateSheetListButton();
-			var configureButton = new ConfigureButton();
-				
-			UserInterfaceManager uiMan = AddinGlobal.InventorApp.UserInterfaceManager;
-			
-			if (uiMan.InterfaceStyle == InterfaceStyleEnum.kRibbonInterface)
-			{
-				Ribbon ribbon = uiMan.Ribbons["Drawing"];
-				RibbonTab tab = ribbon.RibbonTabs["id_TabAnnotate"];
+        /// <summary>
+        /// Initializes the UI components of the addin.
+        /// </summary>
+        private void InitializeUIComponents()
+        {
+            _buttons = Assembly.GetAssembly(typeof(InventorButton)).GetTypes()
+                .Where(type => type.IsClass && !type.IsAbstract && type.IsSubclassOf(typeof(InventorButton)))
+                .Select(Activator.CreateInstance)
+                .Cast<InventorButton>()
+                .Where(button => button.Enabled)
+                .OrderBy(button => button.SequenceNumber)
+                .ToList();
 
-				var existingPanel = tab.RibbonPanels.Cast<RibbonPanel>().FirstOrDefault(p => p.InternalName == AppConstants.UIPanelId);
-				if (existingPanel != null)
-				{
-					existingPanel.Delete();
-				}
-				
-				RibbonPanel panel = tab.RibbonPanels.Add("Sheet List", AppConstants.UIPanelId, Guid.NewGuid().ToString());
-				CommandControls controls = panel.CommandControls;
+            _buttons.ForEach(b => b.Initialize());
+        }
 
-				controls.AddButton(createButton.Definition, true, true);
-				controls.AddButton(configureButton.Definition, false, true);
-			}
-		}
-
-		private void UpdateButtons(EventTimingEnum beforeOrAfter, NameValueMap context, out HandlingCodeEnum handlingCode)
-		{
-			if (beforeOrAfter == EventTimingEnum.kAfter)
-			{
-				InitializeUIComponents();
+        /// <summary>
+        /// Updates the buttons when the application options change.
+        /// </summary>
+        private void UpdateButtons(EventTimingEnum beforeOrAfter, NameValueMap context, out HandlingCodeEnum handlingCode)
+        {
+            if (beforeOrAfter == EventTimingEnum.kAfter)
+            {
+                _buttons.ForEach(b => b.Dispose());
                 
-				handlingCode = HandlingCodeEnum.kEventHandled;
-			}
-            
-			handlingCode = HandlingCodeEnum.kEventNotHandled;
-		}
+                InitializeUIComponents();
 
-		public void Deactivate()
-		{
-			// This method is called by Inventor when the AddIn is unloaded.
-			// The AddIn will be unloaded either manually by the user or
-			// when the Inventor session is terminated
+                handlingCode = HandlingCodeEnum.kEventHandled;
+            }
 
+            handlingCode = HandlingCodeEnum.kEventNotHandled;
+        }
 
-			// Release objects.
-			AddinGlobal.InventorApp = null;
+        /// <summary>
+        /// This method is called by Inventor when the AddIn is unloaded.
+        /// The AddIn will be unloaded either manually by the user or
+        /// when the Inventor session is terminated.
+        /// </summary>
+        public void Deactivate()
+        {
+            InventorApp = null;
 
-			GC.Collect();
-			GC.WaitForPendingFinalizers();
-			GC.Collect();
-		}
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+        }
 
-		public void ExecuteCommand(int commandID)
-		{
-			// Note:this method is now obsolete, you should use the 
-			// ControlDefinition functionality for implementing commands.
-		}
+        /// <summary>
+        /// This method is now obsolete, you should use the
+        /// ControlDefinition functionality for implementing commands.
+        /// </summary>
+        public void ExecuteCommand(int commandID)
+        {
+        }
 
-		public object Automation
-		{
-			// This property is provided to allow the AddIn to expose an API 
-			// of its own to other programs. Typically, this  would be done by
-			// implementing the AddIn's API interface in a class and returning 
-			// that class object through this property.
+        /// <summary>
+        /// This property is provided to allow the AddIn to expose an API
+        /// of its own to other programs. Typically, this  would be done by
+        /// implementing the AddIn's API interface in a class and returning
+        /// that class object through this property.
+        /// </summary>
+        public object Automation
+        {
+            get
+            {
+	            return AppAutomation;
+            }
+        }
 
-			get
-			{
-				return AddinGlobal.Automation;
-			}
-		}
+        #endregion
 
-		#endregion
-
-	}
+    }
 }

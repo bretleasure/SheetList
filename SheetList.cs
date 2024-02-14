@@ -24,7 +24,7 @@ namespace SheetList
                     var tableHeight = sheetList.GetTableHeight();
                     var oldNewHeightDiff = tableHeight - existingSheetList.GetTableHeight();
 
-                    var newPosition = AddinGlobal.InventorApp.TransientGeometry.CreatePoint2d(Position.X, Position.Y + oldNewHeightDiff);
+                    var newPosition = AddinServer.InventorApp.TransientGeometry.CreatePoint2d(Position.X, Position.Y + oldNewHeightDiff);
                     sheetList.Position = newPosition;
                 }
             };
