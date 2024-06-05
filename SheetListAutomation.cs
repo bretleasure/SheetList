@@ -37,15 +37,20 @@ namespace SheetList
         {
             if (dwgDoc.TryGetExistingSheetList(out var existingSheetList))
             {
-                var sheetList = new SheetList(existingSheetList, settings, dwgDoc.GetSheetListData());
-
-                //Delete Existing Sheet List to be replaced by a new one
-                existingSheetList.Delete();
-
-                return Task.Run(sheetList.Create);
+                return UpdateSheetList(existingSheetList, settings, dwgDoc);
             }
-
+            
             return Task.FromException<CustomTable>(new Exception("Existing sheet list not found"));
+        }
+        
+        public Task<CustomTable> UpdateSheetList(CustomTable existingSheetList, SheetListSettings settings, DrawingDocument dwgDoc)
+        {
+            var sheetList = new SheetList(existingSheetList, settings, dwgDoc.GetSheetListData());
+            
+            //Delete Existing Sheet List to be replaced by a new one
+            existingSheetList.Delete();
+
+            return Task.Run(sheetList.Create);
         }
     }
 }

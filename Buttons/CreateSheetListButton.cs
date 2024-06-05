@@ -18,15 +18,15 @@ namespace SheetList.Buttons
 
             if (inventor.ActiveDocument is DrawingDocument dwgDoc)
             {
-                if (dwgDoc.TryGetExistingSheetList(out var _))
+                if (dwgDoc.TryGetExistingSheetList(out var existingSheetList))
                 {
-                    AddinServer.AppAutomation.UpdateSheetList(AddinServer.AppSettings.SheetListSettings, dwgDoc);
+                    _ = AddinServer.AppAutomation.UpdateSheetList(existingSheetList, AddinServer.AppSettings.SheetListSettings, dwgDoc).Result;
                 }
                 else
                 {
                     var sheet = dwgDoc.ActiveSheet;
                     var position = inventor.TransientGeometry.CreatePoint2d(sheet.Width / 2, sheet.Height / 2);
-                    AddinServer.AppAutomation.CreateSheetList(sheet, position, AddinServer.AppSettings.SheetListSettings);
+                    _ = AddinServer.AppAutomation.CreateSheetList(sheet, position, AddinServer.AppSettings.SheetListSettings).Result;
                 }
             }
         }

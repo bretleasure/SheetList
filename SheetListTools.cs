@@ -1,4 +1,5 @@
-﻿using Inventor;
+﻿using System.Threading.Tasks;
+using Inventor;
 using File = System.IO.File;
 using Newtonsoft.Json;
 using SheetList.Extensions;
@@ -45,10 +46,10 @@ namespace SheetList
 		{
 			if (beforeOrAfter == EventTimingEnum.kBefore)
 			{
-				if (documentObject is DrawingDocument dwgDoc && AddinServer.AppSettings.UpdateBeforeSave && dwgDoc.GetExistingSheetList() != null)
-                {
-                    AddinServer.AppAutomation.UpdateSheetList(AddinServer.AppSettings.SheetListSettings, dwgDoc);
-                }
+				if (documentObject is DrawingDocument dwgDoc && AddinServer.AppSettings.UpdateBeforeSave && dwgDoc.TryGetExistingSheetList(out var existingSheetList))
+				{
+					_ = AddinServer.AppAutomation.UpdateSheetList(existingSheetList, AddinServer.AppSettings.SheetListSettings, dwgDoc).Result;
+				}
 			}
 
 			handlingCode = HandlingCodeEnum.kEventHandled;
