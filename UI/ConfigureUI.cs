@@ -11,6 +11,7 @@ using System.Xml.Serialization;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Inventor;
+using SheetList.Enums;
 
 namespace SheetList
 {
@@ -73,6 +74,11 @@ namespace SheetList
                 txb_SectionNumber.Text = sheetListSettings.NumberOfSections.ToString();
                 rad_MaxRows.Checked = AddinServer.AppSettings.ControlMaxRows;
                 rad_NumberOfSections.Checked = AddinServer.AppSettings.ControlNumberOfSections;
+                
+                if (sheetListSettings.Anchor == TableAnchor.Top)
+                    rad_AnchorTop.Checked = true;
+                else
+                    rad_AnchorBtm.Checked = true;
 
 				ckb_UpdateBeforeSave.Checked = AddinServer.AppSettings.UpdateBeforeSave;
             }
@@ -98,7 +104,8 @@ namespace SheetList
                 WrapLeft = rad_WrapDirectionLeft.Checked,
                 EnableAutoWrap = ckb_EnableAutoWrap.Checked,
                 MaxRows = Convert.ToInt32(txb_MaxRows.Text),
-                NumberOfSections = Convert.ToInt32(txb_SectionNumber.Text)
+                NumberOfSections = Convert.ToInt32(txb_SectionNumber.Text),
+                Anchor = rad_AnchorTop.Checked ? TableAnchor.Top : TableAnchor.Bottom
             };
 
             AddinServer.AppSettings = new SheetListAddinSettings
