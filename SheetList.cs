@@ -16,13 +16,14 @@ namespace SheetList
                 .ToArray();
             ColumnWidths = existingSheetList.Columns.Cast<Column>()
                 .Select(c => c.Width).ToArray();
-            TranslatePosition = (sheetList) =>
+            OldSheetListHeight = existingSheetList.GetTableHeight();
+            TranslatePosition = (sheetList, oldTableHeight) =>
             {
                 //Adjust Table Location if table is bottom up
                 if (sheetList.TableDirection == TableDirectionEnum.kBottomUpDirection)
                 {
                     var tableHeight = sheetList.GetTableHeight();
-                    var oldNewHeightDiff = tableHeight - existingSheetList.GetTableHeight();
+                    var oldNewHeightDiff = tableHeight - oldTableHeight;
 
                     var newPosition = AddinServer.InventorApp.TransientGeometry.CreatePoint2d(Position.X, Position.Y + oldNewHeightDiff);
                     sheetList.Position = newPosition;
@@ -67,12 +68,13 @@ namespace SheetList
         private int NumberOfSections { get; set; }
         private Point2d Position { get; set; }
         private Sheet ParentSheet { get; }
+        
+        /// <summary>
+        /// Existing Sheet List Height
+        /// </summary>
+        private double OldSheetListHeight { get; }
 
-        private Action<CustomTable> TranslatePosition
-        {
-            get => sheetList => { };
-            set { }
-        }
+        private Action<CustomTable, double> TranslatePosition { get; }
 
         public CustomTable Create()
         {
@@ -87,8 +89,8 @@ namespace SheetList
             {
                 sheetList.NumberOfSections = NumberOfSections;
             }
-
-            TranslatePosition.Invoke(sheetList);
+            
+            TranslatePosition?.Invoke(sheetList, OldSheetListHeight);
 
             sheetList.SaveAttributesToTable();
 
