@@ -1,4 +1,5 @@
-﻿using Inventor;
+﻿using System.Threading.Tasks;
+using Inventor;
 using File = System.IO.File;
 using Newtonsoft.Json;
 using SheetList.Extensions;
@@ -9,14 +10,14 @@ namespace SheetList
     {
         public static void LoadSavedSettings()
 		{
-			if (System.IO.File.Exists(AddinGlobal.SettingsFilePath))
+			if (System.IO.File.Exists(AddinServer.SettingsFilePath))
 			{
-				var settingsJson = File.ReadAllText(AddinGlobal.SettingsFilePath);
-				AddinGlobal.AppSettings = JsonConvert.DeserializeObject<SheetListAddinSettings>(settingsJson);
+				var settingsJson = File.ReadAllText(AddinServer.SettingsFilePath);
+				AddinServer.AppSettings = JsonConvert.DeserializeObject<SheetListAddinSettings>(settingsJson);
 			}
             else
 			{
-				AddinGlobal.AppSettings = new SheetListAddinSettings
+				AddinServer.AppSettings = new SheetListAddinSettings
 				{
 					SheetListSettings = SheetListSettings.Default
 				};
@@ -26,18 +27,18 @@ namespace SheetList
         
         public static void SaveSettings()
         {
-			var json = JsonConvert.SerializeObject(AddinGlobal.AppSettings);
-			File.WriteAllText(AddinGlobal.SettingsFilePath, json);
+			var json = JsonConvert.SerializeObject(AddinServer.AppSettings);
+			File.WriteAllText(AddinServer.SettingsFilePath, json);
         }
 
 		public static void CreateEventListener()
 		{
-			if (AddinGlobal.AppSettings != null)
+			if (AddinServer.AppSettings != null)
 			{
-				if (AddinGlobal.AppSettings.UpdateBeforeSave)
-					AddinGlobal.InventorApp.ApplicationEvents.OnSaveDocument += ApplicationEvents_OnSaveDocument;
+				if (AddinServer.AppSettings.UpdateBeforeSave)
+					AddinServer.InventorApp.ApplicationEvents.OnSaveDocument += ApplicationEvents_OnSaveDocument;
 				else
-					AddinGlobal.InventorApp.ApplicationEvents.OnSaveDocument -= ApplicationEvents_OnSaveDocument;
+					AddinServer.InventorApp.ApplicationEvents.OnSaveDocument -= ApplicationEvents_OnSaveDocument;
 			}			
 		}
 
@@ -45,10 +46,10 @@ namespace SheetList
 		{
 			if (beforeOrAfter == EventTimingEnum.kBefore)
 			{
-				if (documentObject is DrawingDocument dwgDoc && AddinGlobal.AppSettings.UpdateBeforeSave && dwgDoc.GetExistingSheetList() != null)
-                {
-                    AddinGlobal.Automation.UpdateSheetList(AddinGlobal.AppSettings.SheetListSettings, dwgDoc);
-                }
+				if (documentObject is DrawingDocument dwgDoc && AddinServer.AppSettings.UpdateBeforeSave && dwgDoc.TryGetExistingSheetList(out var existingSheetList))
+				{
+					_ = AddinServer.AppAutomation.UpdateSheetList(existingSheetList, AddinServer.AppSettings.SheetListSettings, dwgDoc).Result;
+				}
 			}
 
 			handlingCode = HandlingCodeEnum.kEventHandled;

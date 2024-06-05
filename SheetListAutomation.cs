@@ -1,6 +1,7 @@
 ﻿using Inventor;
 using SheetList.Extensions;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SheetList
@@ -14,18 +15,12 @@ namespace SheetList
             {
                 var data = settings.TableDataBuilder.Invoke(dwgDoc);
 
-                SheetList sheetList;
-                if (dwgDoc.TryGetExistingSheetList(out var existingSheetList))
+                if (dwgDoc.TryGetExistingSheetList(out _))
                 {
-                    sheetList = new SheetList(existingSheetList, settings, data);
-
-                    //Delete Existing Sheet List to be replaced by a new one
-                    existingSheetList.Delete();
+                    return Task.FromException<CustomTable>(new Exception("Sheet list already exists on another sheet"));
                 }
-                else
-                {
-                    sheetList = new SheetList(settings, sheet, position, data);
-                }
+                
+                var sheetList = new SheetList(settings, sheet, position, data);
 
                 return Task.Run(sheetList.Create);
             }
@@ -37,15 +32,20 @@ namespace SheetList
         {
             if (dwgDoc.TryGetExistingSheetList(out var existingSheetList))
             {
-                var sheetList = new SheetList(existingSheetList, settings, dwgDoc.GetSheetListData());
-
-                //Delete Existing Sheet List to be replaced by a new one
-                existingSheetList.Delete();
-
-                return Task.Run(sheetList.Create);
+                return UpdateSheetList(existingSheetList, settings, dwgDoc);
             }
-
+            
             return Task.FromException<CustomTable>(new Exception("Existing sheet list not found"));
+        }
+        
+        public Task<CustomTable> UpdateSheetList(CustomTable existingSheetList, SheetListSettings settings, DrawingDocument dwgDoc)
+        {
+            var sheetList = new SheetList(existingSheetList, settings, dwgDoc.GetSheetListData());
+            
+            //Delete Existing Sheet List to be replaced by a new one
+            existingSheetList.Delete();
+
+            return Task.Run(sheetList.Create);
         }
     }
 }

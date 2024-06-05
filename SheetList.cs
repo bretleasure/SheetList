@@ -1,14 +1,18 @@
 using System;
 using System.Linq;
 using Inventor;
+using SheetList.Enums;
 using SheetList.Extensions;
 
 namespace SheetList
 {
     internal class SheetList
     {
+        private readonly SheetListSettings _settings;
+
         public SheetList(CustomTable existingSheetList, SheetListSettings settings, string[] data)
         {
+            _settings = settings;
             Position = existingSheetList.Position;
             ParentSheet = existingSheetList.Parent as Sheet;
             ColumnNames = existingSheetList.Columns.Cast<Column>()
@@ -16,26 +20,21 @@ namespace SheetList
                 .ToArray();
             ColumnWidths = existingSheetList.Columns.Cast<Column>()
                 .Select(c => c.Width).ToArray();
-            TranslatePosition = (sheetList) =>
-            {
-                //Adjust Table Location if table is bottom up
-                if (sheetList.TableDirection == TableDirectionEnum.kBottomUpDirection)
-                {
-                    var tableHeight = sheetList.GetTableHeight();
-                    var oldNewHeightDiff = tableHeight - existingSheetList.GetTableHeight();
-
-                    var newPosition = AddinGlobal.InventorApp.TransientGeometry.CreatePoint2d(Position.X, Position.Y + oldNewHeightDiff);
-                    sheetList.Position = newPosition;
-                }
-            };
+            
+            TranslationYModifier = existingSheetList.GetTableHeight();
+            
             Initialize(settings, data);
         }
 
         public SheetList(SheetListSettings settings, Sheet sheet, Point2d position, string[] data)
         {
+            _settings = settings;
             Position = position;
             ParentSheet = sheet;
             ColumnWidths = settings.ColumnWidths;
+            
+            //Set Modifier to 0 so that the table is translated using its own height
+            TranslationYModifier = 0;
             Initialize(settings, data);
         }
 
@@ -67,32 +66,40 @@ namespace SheetList
         private int NumberOfSections { get; set; }
         private Point2d Position { get; set; }
         private Sheet ParentSheet { get; }
-
-        private Action<CustomTable> TranslatePosition
-        {
-            get => sheetList => { };
-            set { }
-        }
+        private CustomTable SheetListTable { get; set; }
+        
+        /// <summary>
+        /// Translation in Y direction
+        /// </summary>
+        private double TranslationYModifier { get; }
 
         public CustomTable Create()
         {
-            var sheetList = ParentSheet.CustomTables.Add(Title, Position, 2, RowQty, ColumnNames, Data, ColumnWidths);
-            sheetList.ShowTitle = ShowTitle;
-            sheetList.TableDirection = TableDirection;
-            sheetList.HeadingPlacement = HeadingPlacement;
-            sheetList.WrapAutomatically = WrapAutomatically;
-            sheetList.WrapLeft = WrapLeft;
-            sheetList.MaximumRows = MaxRows;
+            SheetListTable = ParentSheet.CustomTables.Add(Title, Position, 2, RowQty, ColumnNames, Data, ColumnWidths);
+            SheetListTable.ShowTitle = ShowTitle;
+            SheetListTable.TableDirection = TableDirection;
+            SheetListTable.HeadingPlacement = HeadingPlacement;
+            SheetListTable.WrapAutomatically = WrapAutomatically;
+            SheetListTable.WrapLeft = WrapLeft;
+            SheetListTable.MaximumRows = MaxRows;
             if (NumberOfSections > 0)
             {
-                sheetList.NumberOfSections = NumberOfSections;
+                SheetListTable.NumberOfSections = NumberOfSections;
+            }
+            
+            SheetListTable.SaveAttributesToTable();
+            
+            //Translate Table Location
+            if (_settings.Anchor == TableAnchor.Bottom)
+            {
+                var tableHeight = SheetListTable.GetTableHeight();
+                var heightDiff = tableHeight - TranslationYModifier;
+
+                var newPosition = AddinServer.InventorApp.TransientGeometry.CreatePoint2d(Position.X, Position.Y + heightDiff);
+                SheetListTable.Position = newPosition;
             }
 
-            TranslatePosition.Invoke(sheetList);
-
-            sheetList.SaveAttributesToTable();
-
-            return sheetList;
+            return SheetListTable;
         }
     }
 }

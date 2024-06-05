@@ -60,6 +60,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.ckb_EnableAutoWrap = new System.Windows.Forms.CheckBox();
             this.ckb_UpdateBeforeSave = new System.Windows.Forms.CheckBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.rad_AnchorBtm = new System.Windows.Forms.RadioButton();
+            this.rad_AnchorTop = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -68,6 +71,7 @@
             this.pnl_AutoWrap.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel5.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_SaveSettings
@@ -396,18 +400,50 @@
             // ckb_UpdateBeforeSave
             // 
             this.ckb_UpdateBeforeSave.AutoSize = true;
-            this.ckb_UpdateBeforeSave.Location = new System.Drawing.Point(12, 396);
+            this.ckb_UpdateBeforeSave.Location = new System.Drawing.Point(234, 258);
             this.ckb_UpdateBeforeSave.Name = "ckb_UpdateBeforeSave";
             this.ckb_UpdateBeforeSave.Size = new System.Drawing.Size(173, 17);
             this.ckb_UpdateBeforeSave.TabIndex = 6;
             this.ckb_UpdateBeforeSave.Text = "Update Sheet List Before Save";
             this.ckb_UpdateBeforeSave.UseVisualStyleBackColor = true;
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.rad_AnchorBtm);
+            this.groupBox3.Controls.Add(this.rad_AnchorTop);
+            this.groupBox3.Location = new System.Drawing.Point(218, 191);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(213, 52);
+            this.groupBox3.TabIndex = 7;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Table Anchor";
+            // 
+            // rad_AnchorBtm
+            // 
+            this.rad_AnchorBtm.Location = new System.Drawing.Point(73, 19);
+            this.rad_AnchorBtm.Name = "rad_AnchorBtm";
+            this.rad_AnchorBtm.Size = new System.Drawing.Size(104, 24);
+            this.rad_AnchorBtm.TabIndex = 1;
+            this.rad_AnchorBtm.Text = "Bottom";
+            this.rad_AnchorBtm.UseVisualStyleBackColor = true;
+            // 
+            // rad_AnchorTop
+            // 
+            this.rad_AnchorTop.Checked = true;
+            this.rad_AnchorTop.Location = new System.Drawing.Point(16, 19);
+            this.rad_AnchorTop.Name = "rad_AnchorTop";
+            this.rad_AnchorTop.Size = new System.Drawing.Size(104, 24);
+            this.rad_AnchorTop.TabIndex = 0;
+            this.rad_AnchorTop.TabStop = true;
+            this.rad_AnchorTop.Text = "Top";
+            this.rad_AnchorTop.UseVisualStyleBackColor = true;
+            // 
             // ConfigureUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(438, 429);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.ckb_UpdateBeforeSave);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.panel3);
@@ -433,9 +469,14 @@
             this.panel6.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.RadioButton rad_AnchorTop;
+        private System.Windows.Forms.RadioButton rad_AnchorBtm;
 
         #endregion
 

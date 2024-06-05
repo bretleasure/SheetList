@@ -5,15 +5,15 @@ using System.Linq;
 
 namespace SheetList.Extensions
 {
-    internal static class DrawingDocumentExtensions
+    public static class DrawingDocumentExtensions
     {
-        public static bool TryGetExistingSheetList(this DrawingDocument dwgDoc, out CustomTable sheetList)
+        internal static bool TryGetExistingSheetList(this DrawingDocument dwgDoc, out CustomTable sheetList)
         {
             sheetList = dwgDoc.GetExistingSheetList();
             return sheetList != null;
         }
 
-        public static CustomTable GetExistingSheetList(this DrawingDocument dwgDoc)
+        internal static CustomTable GetExistingSheetList(this DrawingDocument dwgDoc)
         {
             var sheetListTables = dwgDoc.AllCustomTables()
                 .Where(t => t.IsSheetList())
@@ -27,14 +27,14 @@ namespace SheetList.Extensions
             return sheetListTables.FirstOrDefault();
         }
 
-        public static List<CustomTable> AllCustomTables(this DrawingDocument dwgDoc)
+        internal static List<CustomTable> AllCustomTables(this DrawingDocument dwgDoc)
         {
             return dwgDoc.Sheets.Cast<Sheet>()
                 .SelectMany(sh => sh.CustomTables.Cast<CustomTable>())
                 .ToList();
         }
 
-        public static string[] GetSheetListData(this DrawingDocument dwgDoc)
+        internal static string[] GetSheetListData(this DrawingDocument dwgDoc)
         {
             var sheetsData = dwgDoc.GetActiveSheets()
                 .Select(s => new string[] { s.GetSheetNumber(), s.GetSheetName() });
@@ -44,7 +44,7 @@ namespace SheetList.Extensions
                 .ToArray();
         }
 
-        public static List<Sheet> GetActiveSheets(this DrawingDocument dwgDoc)
+        internal static List<Sheet> GetActiveSheets(this DrawingDocument dwgDoc)
         {
             return dwgDoc.Sheets.Cast<Sheet>()
                 .Where(s => !s.ExcludeFromCount)

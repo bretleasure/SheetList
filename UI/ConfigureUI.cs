@@ -11,6 +11,7 @@ using System.Xml.Serialization;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Inventor;
+using SheetList.Enums;
 
 namespace SheetList
 {
@@ -34,9 +35,9 @@ namespace SheetList
         void ImportInputs()
         {
 
-            if (AddinGlobal.AppSettings != null)
+            if (AddinServer.AppSettings != null)
             {
-				var sheetListSettings = AddinGlobal.AppSettings.SheetListSettings;
+				var sheetListSettings = AddinServer.AppSettings.SheetListSettings;
 
 				ckb_ShowTitle.Checked = sheetListSettings.ShowTitle;
                 txb_Title.Text = sheetListSettings.Title;
@@ -71,10 +72,15 @@ namespace SheetList
 
                 txb_MaxRows.Text = sheetListSettings.MaxRows.ToString();
                 txb_SectionNumber.Text = sheetListSettings.NumberOfSections.ToString();
-                rad_MaxRows.Checked = AddinGlobal.AppSettings.ControlMaxRows;
-                rad_NumberOfSections.Checked = AddinGlobal.AppSettings.ControlNumberOfSections;
+                rad_MaxRows.Checked = AddinServer.AppSettings.ControlMaxRows;
+                rad_NumberOfSections.Checked = AddinServer.AppSettings.ControlNumberOfSections;
+                
+                if (sheetListSettings.Anchor == TableAnchor.Top)
+                    rad_AnchorTop.Checked = true;
+                else
+                    rad_AnchorBtm.Checked = true;
 
-				ckb_UpdateBeforeSave.Checked = AddinGlobal.AppSettings.UpdateBeforeSave;
+				ckb_UpdateBeforeSave.Checked = AddinServer.AppSettings.UpdateBeforeSave;
             }
         }
 
@@ -98,10 +104,11 @@ namespace SheetList
                 WrapLeft = rad_WrapDirectionLeft.Checked,
                 EnableAutoWrap = ckb_EnableAutoWrap.Checked,
                 MaxRows = Convert.ToInt32(txb_MaxRows.Text),
-                NumberOfSections = Convert.ToInt32(txb_SectionNumber.Text)
+                NumberOfSections = Convert.ToInt32(txb_SectionNumber.Text),
+                Anchor = rad_AnchorTop.Checked ? TableAnchor.Top : TableAnchor.Bottom
             };
 
-            AddinGlobal.AppSettings = new SheetListAddinSettings
+            AddinServer.AppSettings = new SheetListAddinSettings
             {
                 ControlMaxRows = rad_MaxRows.Checked,
                 ControlNumberOfSections = rad_NumberOfSections.Checked,

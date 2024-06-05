@@ -2,6 +2,7 @@
 using System.Security.Cryptography;
 using Inventor;
 using Newtonsoft.Json;
+using SheetList.Enums;
 using SheetList.Extensions;
 
 namespace SheetList
@@ -38,7 +39,10 @@ namespace SheetList
         public bool EnableAutoWrap { get; set; }
 
         public int MaxRows { get; set; }
+        
         public int NumberOfSections { get; set; }
+        
+        public TableAnchor Anchor { get; set; }
 
         [JsonIgnore]
         public Func<DrawingDocument, string[]> TableDataBuilder { get; set; } = dwgDoc => dwgDoc.GetSheetListData();
@@ -55,6 +59,7 @@ namespace SheetList
             EnableAutoWrap = false,
             MaxRows = 10,
             NumberOfSections = 1,
+            Anchor = TableAnchor.Top,
             TableDataBuilder = dwgDoc => dwgDoc.GetSheetListData()
         };
 

@@ -2,6 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
+    <LangVersion>latest</LangVersion>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
     <Authors>Bret Leasure</Authors>
     <Copyright>2023</Copyright>
@@ -24,6 +25,7 @@
 	<EmbeddedResource Include="Buttons\Icons\edit-light-16px.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Inventor.InternalNames" Version="0.1.3" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="stdole" Version="17.7.37355" />
     <PackageReference Include="System.Resources.Extensions" Version="4.7.1" />
