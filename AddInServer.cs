@@ -18,6 +18,21 @@ namespace SheetList
 	[GuidAttribute("3dc3068f-5de4-4b85-9efe-44b7ece560f3")]
 	public class AddinServer : Inventor.ApplicationAddInServer
     {
+        static AddinServer()
+        {
+            //Resolve assemblies to local directory if they are not found
+            AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
+            {
+                var assemblyName = new AssemblyName(args.Name).Name;
+                var assemblyPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), assemblyName + ".dll");
+                if (System.IO.File.Exists(assemblyPath))
+                {
+                    return Assembly.LoadFrom(assemblyPath);
+                }
+                return null;
+            };
+        }
+        
         // The Inventor application instance
         public static Inventor.Application InventorApp;
         
