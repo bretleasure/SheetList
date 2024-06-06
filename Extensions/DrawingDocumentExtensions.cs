@@ -1,9 +1,9 @@
-﻿using Inventor;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SheetList;
 
-namespace SheetList.Extensions
+namespace Inventor
 {
     public static class DrawingDocumentExtensions
     {
@@ -49,6 +49,11 @@ namespace SheetList.Extensions
             return dwgDoc.Sheets.Cast<Sheet>()
                 .Where(s => !s.ExcludeFromCount)
                 .ToList();
+        }
+        
+        public static void UpdateSheetList(this DrawingDocument dwgDoc, SheetListSettings settings)
+        {
+            _ = AddinServer.AppAutomation.UpdateSheetList(settings, dwgDoc);
         }
     }
 }

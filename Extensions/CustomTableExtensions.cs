@@ -1,11 +1,12 @@
 ﻿using Inventor;
 using System.Linq;
+using SheetList;
 
-namespace SheetList.Extensions
+namespace Inventor
 {
     internal static class CustomTableExtensions
     {
-        public static bool IsSheetList(this CustomTable table)
+        internal static bool IsSheetList(this CustomTable table)
         {
             var attributeSet = table.AttributeSets.Cast<AttributeSet>()
                 .FirstOrDefault(set => set.Name == AppConstants.TableAttributeSetName);
@@ -18,13 +19,13 @@ namespace SheetList.Extensions
             return false;
         }
         
-        public static double GetTableHeight(this CustomTable sheetList)
+        internal static double GetTableHeight(this CustomTable sheetList)
         {
             return sheetList.Rows.Cast<Row>()
                 .Sum(row => row.Height);
         }
 
-        public static void SaveAttributesToTable(this CustomTable table)
+        internal static void SaveAttributesToTable(this CustomTable table)
         {
             if (!table.AttributeSets.NameIsUsed[AppConstants.TableAttributeSetName])
             {

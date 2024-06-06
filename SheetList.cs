@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using Inventor;
 using SheetList.Enums;
-using SheetList.Extensions;
 
 namespace SheetList
 {

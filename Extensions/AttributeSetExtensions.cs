@@ -1,10 +1,10 @@
 ﻿using Inventor;
 
-namespace SheetList.Extensions
+namespace Inventor
 {
     internal static class AttributeSetExtensions
     {
-        public static void AssignAttributeValue(this AttributeSet attributeSet, string attributeName, string attributeValue)
+        internal static void AssignAttributeValue(this AttributeSet attributeSet, string attributeName, string attributeValue)
         {
             if (attributeSet.NameIsUsed[attributeName])
             {
