@@ -54,8 +54,6 @@
     <None Update="lib\Autodesk.Inventor.Interop.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
     <None Update="SheetList.Addin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
