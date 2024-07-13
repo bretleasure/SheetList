@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net472;net8.0-windows</TargetFrameworks>
     <LangVersion>latest</LangVersion>
+    <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
     <Authors>Bret Leasure</Authors>

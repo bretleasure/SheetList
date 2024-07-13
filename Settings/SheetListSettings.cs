@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Inventor;
 using Newtonsoft.Json;
 using SheetList.Enums;
@@ -10,6 +11,12 @@ namespace SheetList
         public string Title { get; set; }
         public bool ShowTitle { get; set; }
         public string[] ColumnNames { get; set; } = new string[] { "SHEET #", "SHEET NAME" };
+        public List<SheetProperty> SheetPropertyTypes { get; set; }
+        
+        /// <summary>
+        /// Column index of the revision table date (only used if SheetProperty <see cref="SheetProperty.RevisionDate"/> is used
+        /// </summary>
+        public int RevisionTableDateColumnIndex { get; set; }
 
         /// <summary>
         /// Columns widths provided in centimeters
@@ -43,13 +50,14 @@ namespace SheetList
         public TableAnchor Anchor { get; set; }
 
         [JsonIgnore]
-        public Func<DrawingDocument, string[]> TableDataBuilder { get; set; } = dwgDoc => dwgDoc.GetSheetListData();
+        public Func<DrawingDocument, SheetListSettings, string[]> TableDataBuilder { get; set; } = (dwgDoc, settings) => dwgDoc.GetSheetListData(settings);
 
-        public static readonly SheetListSettings Default = new SheetListSettings
+        public static readonly SheetListSettings Default = new()
         {
             Title = "SHEET LIST",
             ShowTitle = true,
-            ColumnNames = new string[] { "SHEET #", "SHEET NAME" },
+            ColumnNames = ["SHEET #", "SHEET NAME"],
+            SheetPropertyTypes = [SheetProperty.SheetNumber, SheetProperty.SheetName],
             ColumnWidths = new double[] { 2.5, 5 },
             Direction = TableDirectionEnum.kTopDownDirection,
             HeadingPlacement = HeadingPlacementEnum.kHeadingAtTop,
@@ -58,7 +66,7 @@ namespace SheetList
             MaxRows = 10,
             NumberOfSections = 1,
             Anchor = TableAnchor.Top,
-            TableDataBuilder = dwgDoc => dwgDoc.GetSheetListData()
+            // TableDataBuilder = (dwgDoc, settings) => dwgDoc.GetSheetListData(settings)
         };
 
     }

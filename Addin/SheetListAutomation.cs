@@ -12,7 +12,7 @@ namespace SheetList
         {
             if (sheet.Parent is DrawingDocument dwgDoc)
             {
-                var data = settings.TableDataBuilder.Invoke(dwgDoc);
+                var data = settings.TableDataBuilder.Invoke(dwgDoc, settings);
 
                 if (dwgDoc.TryGetExistingSheetList(out _))
                 {
@@ -39,7 +39,9 @@ namespace SheetList
         
         public Task<CustomTable> UpdateSheetList(CustomTable existingSheetList, SheetListSettings settings, DrawingDocument dwgDoc)
         {
-            var sheetList = new SheetList(existingSheetList, settings, dwgDoc.GetSheetListData());
+            var data = settings.TableDataBuilder.Invoke(dwgDoc, settings);
+            
+            var sheetList = new SheetList(existingSheetList, settings, data);
             
             //Delete Existing Sheet List to be replaced by a new one
             existingSheetList.Delete();
