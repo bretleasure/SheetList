@@ -30,6 +30,7 @@ namespace SheetList.UI
         public int NumberOfSections { get; set; }
         public bool ControlMaxRows { get; set; }
         public bool ControlNumberOfSections { get; set; }
+        public bool UpdateBeforeSave { get; set; }
 
         public ConfigUI(SheetListAddinSettings addinSettings)
         {
@@ -47,6 +48,7 @@ namespace SheetList.UI
             NumberOfSections = _sheetListSettings.NumberOfSections;
             ControlMaxRows = _addinSettings.ControlMaxRows;
             ControlNumberOfSections = _addinSettings.ControlNumberOfSections;
+            UpdateBeforeSave = _addinSettings.UpdateBeforeSave;
             
             InitializeComponent();
             DataContext = this;

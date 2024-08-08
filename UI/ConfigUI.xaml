@@ -6,80 +6,98 @@
         xmlns:local="clr-namespace:SheetList.UI"
         xmlns:inventor="clr-namespace:Inventor;assembly=Autodesk.Inventor.Interop"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterOwner"
+        WindowStartupLocation="CenterScreen"
         Title="Configure Sheet List" Height="450" Width="480" d:DataContext="{d:DesignData}">
-    <StackPanel>
-        <Grid Margin="10">
+    <Window.Resources>
+        <Style x:Key="ReadOnlyCell" TargetType="DataGridCell">
+            <Setter Property="Background" Value="LightGray"/>
+        </Style>
+    </Window.Resources>
+    <StackPanel Margin="10">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <GroupBox Header="Sheet List Headers and Settings" Padding="10" Margin="2.5">
+            <GroupBox Header="Table Settings" Padding="10" Margin="0 0 2.5 0">
                 <StackPanel>
                     <CheckBox Name="ckb_ShowTitle" IsChecked="{Binding ShowTitle, Mode=TwoWay}">Show Title</CheckBox>
                     <TextBox Name="tb_Title" Margin="0 5 0 0" Text="{Binding TableTitle}"/>
-                    <Label>Direction</Label>
+                    <Label Margin="0 5 0 0">Direction</Label>
                     <ComboBox ItemsSource="{Binding TableDirectionsWithTitles}" 
                               DisplayMemberPath="Value" SelectedValuePath="Key" 
                               SelectedValue="{Binding Direction, Mode=TwoWay}" >
                     </ComboBox>
-                    <Label>Heading Placement</Label>
+                    <Label Margin="0 5 0 0">Heading Placement</Label>
                     <ComboBox ItemsSource="{Binding HeadingPlacementWithTitles}" 
                               DisplayMemberPath="Value" SelectedValuePath="Key" 
                               SelectedValue="{Binding HeadingPlacement, Mode=TwoWay}" />
-                    <Label>Table Anchor Position</Label>
+                    <Label Margin="0 5 0 0">Table Anchor Position</Label>
                     <ComboBox ItemsSource="{Binding AnchorWithTitles}" 
                               DisplayMemberPath="Value" SelectedValuePath="Key" 
                               SelectedValue="{Binding Anchor, Mode=TwoWay}" />
                 </StackPanel>
             </GroupBox>
-            <GroupBox Grid.Column="1" Header="Table Wrapping" Padding="10" Margin="2.5">
-                <StackPanel>
-                    <CheckBox Name="EnableWrap"
-                              IsChecked="{Binding EnableAutomaticWrap}">Enable Automatic Wrap</CheckBox>
+            <StackPanel Grid.Column="1" Margin="2.5 0 0 0">
+                <GroupBox Header="Table Wrapping" Padding="10">
+                    <StackPanel>
+                        <CheckBox Name="EnableWrap"
+                                  IsChecked="{Binding EnableAutomaticWrap}">Enable Automatic Wrap</CheckBox>
 
-                    <StackPanel IsEnabled="{Binding ElementName=EnableWrap, Path=IsChecked}">
-                        <Label>Wrap Direction</Label>
-                        <ComboBox ItemsSource="{Binding WrapDirectionWithTitles}" 
-                                  DisplayMemberPath="Value" SelectedValuePath="Key" 
-                                  SelectedValue="{Binding WrapLeft, Mode=TwoWay}"/>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
+                        <StackPanel IsEnabled="{Binding ElementName=EnableWrap, Path=IsChecked}">
+                            <Label Margin="0 5 0 0">Wrap Direction</Label>
+                            <ComboBox ItemsSource="{Binding WrapDirectionWithTitles}" 
+                                      DisplayMemberPath="Value" SelectedValuePath="Key" 
+                                      SelectedValue="{Binding WrapLeft, Mode=TwoWay}"/>
+                            <Grid Margin="0 5 0 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
                     
-                            <RadioButton Grid.Column="0" Grid.Row="0" Margin="5"
-                                         IsChecked="{Binding ControlMaxRows}">Maximum Rows</RadioButton>
-                            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding MaxRows}" Width="50" Margin="5"/>
+                                <RadioButton Grid.Column="0" Grid.Row="0" Margin="0 5 0 0"
+                                             IsChecked="{Binding ControlMaxRows}">Maximum Rows</RadioButton>
+                                <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding MaxRows}" Width="30" Margin="5"/>
                     
-                            <RadioButton Grid.Column="0" Grid.Row="1" Margin="5"
-                                         IsChecked="{Binding ControlNumberOfSections}">Number of Sections</RadioButton>
-                            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding NumberOfSections}" Width="50" Margin="5"/>
+                                <RadioButton Grid.Column="0" Grid.Row="1" Margin="0 5 0 0"
+                                             IsChecked="{Binding ControlNumberOfSections}">Number of Sections</RadioButton>
+                                <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding NumberOfSections}" Width="30" Margin="5"/>
 
-                        </Grid>
+                            </Grid>
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
-            </GroupBox>
+                </GroupBox>
+                <GroupBox Header="Automatic Updates" Height="70" Padding="10">
+                    <CheckBox Content="Before Save" IsChecked="{Binding UpdateBeforeSave}"></CheckBox>
+                </GroupBox>
+            </StackPanel>
+            
             
         
         </Grid>
-        <GroupBox Header="Sheet List Columns" Padding="5 10">
-            <DataGrid x:Name="dataGrid" AutoGenerateColumns="False"
-                      PreviewMouseLeftButtonDown="DataGrid_PreviewMouseLeftButtonDown"
-                      PreviewMouseMove="DataGrid_PreviewMouseMove"
-                      AllowDrop="True"
-                      Drop="DataGrid_Drop">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Property" Binding="{Binding Property}" />
-                    <DataGridTextColumn Header="Column Name" Binding="{Binding ColumnName}" />
-                    <DataGridTextColumn Header="Column Width" Binding="{Binding ColumnWidth}" />
-                </DataGrid.Columns>
-            </DataGrid>
+        <GroupBox Header="Sheet List Columns" Padding="5" Margin="0 5 0 0">
+            <StackPanel>
+                <Button Content="Choose Columns" Width="100" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+                
+                <DataGrid x:Name="dataGrid" AutoGenerateColumns="False"
+                          PreviewMouseLeftButtonDown="DataGrid_PreviewMouseLeftButtonDown"
+                          PreviewMouseMove="DataGrid_PreviewMouseMove"
+                          AllowDrop="True"
+                          Drop="DataGrid_Drop">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Property" Width="150" Binding="{Binding Property}" IsReadOnly="true" CellStyle="{StaticResource ReadOnlyCell}"/>
+                        <DataGridTextColumn Header="Column Name" Width="150" Binding="{Binding ColumnName}" />
+                        <DataGridTextColumn Header="Column Width (cm)" Binding="{Binding ColumnWidth}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+                
+            </StackPanel>
+            
+            
         </GroupBox>
     </StackPanel>
     
