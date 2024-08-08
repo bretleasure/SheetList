@@ -1,6 +1,6 @@
 ﻿namespace SheetList
 {
-    internal class SheetListAddinSettings
+    public class SheetListAddinSettings
     {
         public bool UpdateBeforeSave { get; set; } = false;
         public bool ControlMaxRows { get; set; } = false;
