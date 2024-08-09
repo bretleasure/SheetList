@@ -53,13 +53,10 @@ namespace Inventor
         }
 
         internal static List<string> GetPropertyNames(this DrawingDocument dwgDoc)
-        {
-            return dwgDoc.PropertySets
-                .Cast<PropertySet>()
-                .SelectMany(ps => ps.Cast<Property>())
-                .Select(pd => pd.Name)
-                .ToList();
-        }
+            => ((Document)dwgDoc).GetPropertyNames();
+        
+        internal static string GetPropertyValue(this DrawingDocument dwgDoc, string propertyName)
+            => ((Document)dwgDoc).GetPropertyValue(propertyName);
         
         public static void UpdateSheetList(this DrawingDocument dwgDoc, SheetListSettings settings)
         {

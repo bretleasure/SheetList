@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Inventor;
 using System.Linq;
@@ -43,27 +44,37 @@ namespace Inventor
         internal static string[] GetSheetData(this Sheet sheet, SheetListSettings settings)
         {
             var data = new List<string>();
-            
-            foreach (var propType in settings.SheetPropertyTypes)
+
+            foreach (var prop in settings.ColumnPropertyData)
             {
-                switch (propType)
+                switch (prop.Source)
                 {
-                    case SheetProperty.SheetName:
-                        data.Add(sheet.GetSheetName());
+                    case PropertySource.Sheet:
+                        data.Add(sheet.GetPropertyValue(prop.PropertyName) ?? string.Empty);
                         break;
-                    case SheetProperty.SheetNumber:
-                        data.Add(sheet.GetSheetNumber());
+                    case PropertySource.Drawing:
+                        data.Add(((DrawingDocument)sheet.Parent).GetPropertyValue(prop.PropertyName) ?? string.Empty);
                         break;
-                    case SheetProperty.Revision:
-                        data.Add(sheet.GetRevision());
+                    case PropertySource.SheetDocument:
+                        data.Add(sheet.GetSheetDocument()?.GetPropertyValue(prop.PropertyName) ?? string.Empty);
                         break;
-                    case SheetProperty.RevisionDate:
-                        data.Add(sheet.GetLatestRevisionDate(0));
-                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
 
             return data.ToArray();
+        }
+
+        internal static string GetPropertyValue(this Sheet sheet, string propertyName)
+        {
+            return propertyName switch
+            {
+                SheetProperties.Name => sheet.GetSheetName(),
+                SheetProperties.Number => sheet.GetSheetNumber(),
+                SheetProperties.Revision => sheet.GetRevision(),
+                _ => string.Empty
+            };
         }
 
         internal static List<string> GetPropertyNames(this Sheet sheet)
@@ -74,6 +85,14 @@ namespace Inventor
                 SheetProperties.Number,
                 SheetProperties.Revision
             };
+        }
+        
+        internal static Document GetSheetDocument(this Sheet sheet)
+        {
+            return sheet.DrawingViews
+                .Cast<DrawingView>()
+                .FirstOrDefault()?
+                .ReferencedDocumentDescriptor.ReferencedDocument as Document;
         }
 
         public static Task<CustomTable> CreateSheetList(this Sheet sheet, Point2d position)

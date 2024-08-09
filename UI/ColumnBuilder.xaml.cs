@@ -24,13 +24,25 @@ namespace SheetList.UI
 
 		public PropertySource Source { get; set; }
 
-		public Dictionary<PropertySource, string> PropertySourceItems { get; } = new()
+		public Dictionary<PropertySource, string> PropertySourceItems
 		{
-			{ PropertySource.None, "Select Source" },
-			{ PropertySource.Sheet, PropertySource.Sheet.ToFriendlyString() },
-			{ PropertySource.Drawing, PropertySource.Drawing.ToFriendlyString() },
-			{ PropertySource.SheetDocument, PropertySource.SheetDocument.ToFriendlyString() }
-		};
+			get
+			{
+				var items = new Dictionary<PropertySource, string>()
+				{
+					{ PropertySource.None, "Select Source" },
+					{ PropertySource.Sheet, PropertySource.Sheet.ToFriendlyString() },
+					{ PropertySource.Drawing, PropertySource.Drawing.ToFriendlyString() }
+				};
+				
+				if (ActiveSheetReferenceDoc != null)
+				{
+					items.Add(PropertySource.SheetDocument, PropertySource.SheetDocument.ToFriendlyString());
+				}
+
+				return items;
+			}
+		}
 
 		private List<PropertyColumn> Properties
 			=> PropertyNames.Select(p => new PropertyColumn(Source, p))
@@ -58,10 +70,7 @@ namespace SheetList.UI
 			get
 			{
 				var dwgDoc = ActiveDrawingDoc as DrawingDocument;
-				return dwgDoc?.ActiveSheet.DrawingViews
-					.Cast<DrawingView>()
-					.FirstOrDefault()
-					?.ReferencedDocumentDescriptor.ReferencedDocument as Document;
+				return dwgDoc?.ActiveSheet.GetSheetDocument();
 			}
 		}
 
@@ -74,6 +83,7 @@ namespace SheetList.UI
 			}
 			catch
 			{
+				// ignored - workaround for when the window is not yet loaded
 			}
 		}
 

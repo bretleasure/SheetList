@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:SheetList.UI"
         mc:Ignorable="d"
-        Title="Sheet List - Columns Builder" Height="460" Width="630"
+        Title="Sheet List - Columns Builder" Height="480" Width="630"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
         d:DataContext="{d:DesignInstance }">
@@ -22,14 +22,17 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Column="0" Grid.Row="0" Margin="0 0 0 10">
+        <StackPanel Grid.Column="0" Grid.Row="0">
             <Label>Property Source</Label>
             <ComboBox Name="cb_Source" ItemsSource="{Binding PropertySourceItems}"
                       DisplayMemberPath="Value" SelectedValuePath="Key" 
                       SelectedValue="{Binding Source, Mode=TwoWay}"
                       SelectedIndex="0"
                       SelectionChanged="Cb_Source_OnSelectionChanged"/>
+            <Label VerticalAlignment="Bottom" Margin="0 5 0 0">Properties</Label>
         </StackPanel>
+        
+        <Label VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="2">Selected Properties</Label>
         
         <ListBox Name="lb_Properties" Grid.Column="0" Grid.Row="1" Width="200"
                  DisplayMemberPath="PropertyName"/>

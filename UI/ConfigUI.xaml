@@ -67,13 +67,13 @@
                                         <RowDefinition></RowDefinition>
                                     </Grid.RowDefinitions>
                         
-                                    <RadioButton Grid.Column="0" Grid.Row="0" Margin="0 5 0 0"
-                                                 IsChecked="{Binding ControlMaxRows}">Maximum Rows</RadioButton>
-                                    <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding MaxRows}" Width="30" Margin="5"/>
+                                    <RadioButton Name="rad_MaxRows" Grid.Column="0" Grid.Row="0" Margin="0 5 0 0"
+                                                 IsChecked="{Binding ControlMaxRows, Mode=TwoWay}">Maximum Rows</RadioButton>
+                                    <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding MaxRows}" IsEnabled="{Binding ElementName=rad_MaxRows, Path=IsChecked}" Width="30" Margin="5"/>
                         
-                                    <RadioButton Grid.Column="0" Grid.Row="1" Margin="0 5 0 0"
-                                                 IsChecked="{Binding ControlNumberOfSections}">Number of Sections</RadioButton>
-                                    <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding NumberOfSections}" Width="30" Margin="5"/>
+                                    <RadioButton Name="rad_NumSections" Grid.Column="0" Grid.Row="1" Margin="0 5 0 0"
+                                                 IsChecked="{Binding ControlNumberOfSections, Mode=TwoWay}">Number of Sections</RadioButton>
+                                    <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding NumberOfSections}" IsEnabled="{Binding ElementName=rad_NumSections, Path=IsChecked}" Width="30" Margin="5"/>
 
                                 </Grid>
                             </StackPanel>

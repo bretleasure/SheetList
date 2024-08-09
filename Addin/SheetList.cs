@@ -14,11 +14,16 @@ namespace SheetList
             _settings = settings;
             Position = existingSheetList.Position;
             ParentSheet = existingSheetList.Parent as Sheet;
-            ColumnNames = existingSheetList.Columns.Cast<Column>()
-                .Select(c => c.Title)
-                .ToArray();
-            ColumnWidths = existingSheetList.Columns.Cast<Column>()
-                .Select(c => c.Width).ToArray();
+            
+            if (existingSheetList.Columns.Count != settings.ColumnPropertyData.Count)
+            {
+                ColumnWidths = settings.ColumnPropertyData.Select(c => c.ColumnWidth).ToArray();
+            }
+            else
+            {
+                ColumnWidths = existingSheetList.Columns.Cast<Column>()
+                    .Select(c => c.Width).ToArray();
+            }
             
             TranslationYModifier = existingSheetList.GetTableHeight();
             
@@ -30,7 +35,7 @@ namespace SheetList
             _settings = settings;
             Position = position;
             ParentSheet = sheet;
-            ColumnWidths = settings.ColumnWidths;
+            ColumnWidths = settings.ColumnPropertyData.Select(c => c.ColumnWidth).ToArray();
             
             //Set Modifier to 0 so that the table is translated using its own height
             TranslationYModifier = 0;
@@ -41,7 +46,7 @@ namespace SheetList
         {
             Data = data;
             Title = settings.Title;
-            ColumnNames = settings.ColumnNames;
+            ColumnNames = settings.ColumnPropertyData.Select(c => c.ColumnName).ToArray();
             ShowTitle = settings.ShowTitle;
             TableDirection = settings.Direction;
             HeadingPlacement = settings.HeadingPlacement;
@@ -74,14 +79,14 @@ namespace SheetList
 
         public CustomTable Create()
         {
-            SheetListTable = ParentSheet.CustomTables.Add(Title, Position, 2, RowQty, ColumnNames, Data, ColumnWidths);
+            SheetListTable = ParentSheet.CustomTables.Add(Title, Position, ColumnNames.Length, RowQty, ColumnNames, Data, ColumnWidths);
             SheetListTable.ShowTitle = ShowTitle;
             SheetListTable.TableDirection = TableDirection;
             SheetListTable.HeadingPlacement = HeadingPlacement;
             SheetListTable.WrapAutomatically = WrapAutomatically;
             SheetListTable.WrapLeft = WrapLeft;
             SheetListTable.MaximumRows = MaxRows;
-            if (NumberOfSections > 0)
+            if (NumberOfSections > 0 && AddinServer.AppSettings.ControlNumberOfSections)
             {
                 SheetListTable.NumberOfSections = NumberOfSections;
             }
