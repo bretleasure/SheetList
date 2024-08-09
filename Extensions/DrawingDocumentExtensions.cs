@@ -51,6 +51,15 @@ namespace Inventor
                 .Where(s => !s.ExcludeFromCount)
                 .ToList();
         }
+
+        internal static List<string> GetPropertyNames(this DrawingDocument dwgDoc)
+        {
+            return dwgDoc.PropertySets
+                .Cast<PropertySet>()
+                .SelectMany(ps => ps.Cast<Property>())
+                .Select(pd => pd.Name)
+                .ToList();
+        }
         
         public static void UpdateSheetList(this DrawingDocument dwgDoc, SheetListSettings settings)
         {

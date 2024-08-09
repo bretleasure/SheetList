@@ -66,6 +66,16 @@ namespace Inventor
             return data.ToArray();
         }
 
+        internal static List<string> GetPropertyNames(this Sheet sheet)
+        {
+            return new List<string>
+            {
+                SheetProperties.Name,
+                SheetProperties.Number,
+                SheetProperties.Revision
+            };
+        }
+
         public static Task<CustomTable> CreateSheetList(this Sheet sheet, Point2d position)
             => sheet.CreateSheetList(position, SheetListSettings.Default);
         public static Task<CustomTable> CreateSheetList(this Sheet sheet, Point2d position, SheetListSettings settings)

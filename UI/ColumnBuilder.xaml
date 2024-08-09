@@ -1,0 +1,50 @@
+﻿<Window x:Class="SheetList.UI.ColumnBuilder"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:SheetList.UI"
+        mc:Ignorable="d"
+        Title="Sheet List - Columns Builder" Height="460" Width="630"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        d:DataContext="{d:DesignInstance }">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="300"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="0" Grid.Row="0" Margin="0 0 0 10">
+            <Label>Property Source</Label>
+            <ComboBox Name="cb_Source" ItemsSource="{Binding PropertySourceItems}"
+                      DisplayMemberPath="Value" SelectedValuePath="Key" 
+                      SelectedValue="{Binding Source, Mode=TwoWay}"
+                      SelectedIndex="0"
+                      SelectionChanged="Cb_Source_OnSelectionChanged"/>
+        </StackPanel>
+        
+        <ListBox Name="lb_Properties" Grid.Column="0" Grid.Row="1" Width="200"
+                 DisplayMemberPath="PropertyName"/>
+        <StackPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">
+            <Button Name="btn_AddProp" Content="Add >>" Width="100" Margin="10" Click="Btn_AddProp_OnClick"/>
+            <Button Name="btn_RemoveProp" Content="&lt;&lt; Remove" Width="100" Margin="10" Click="Btn_RemoveProp_OnClick"/>
+        </StackPanel>
+        <ListBox Name="lb_SelectedProperties" Grid.Column="2" Grid.Row="1" Width="200"
+                 ItemsSource="{Binding SelectedColumns}"
+                 DisplayMemberPath="DisplayValue"/>
+        <StackPanel Grid.Column="3" Grid.Row="1" VerticalAlignment="Center">
+            <Button Name="btn_MoveUp" Content="🡡" Width="50" Margin="10" Click="Btn_MoveUp_OnClick"/>
+            <Button Name="btn_MoveDown" Content="🡣" Width="50" Margin="10" Click="Btn_MoveDown_OnClick"/>
+        </StackPanel>
+        
+        <Button Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Right" Name="btn_OK" Content="OK" Width="100" Margin="0 20 0 0" Click="Btn_OK_OnClick"/>
+    </Grid>
+</Window>

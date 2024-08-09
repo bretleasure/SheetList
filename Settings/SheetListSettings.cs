@@ -49,6 +49,8 @@ namespace SheetList
         
         public TableAnchor Anchor { get; set; }
 
+        public List<PropertyColumn> ColumnPropertyData { get; set; }
+
         [JsonIgnore]
         public Func<DrawingDocument, SheetListSettings, string[]> TableDataBuilder { get; set; } = (dwgDoc, settings) => dwgDoc.GetSheetListData(settings);
 
@@ -66,7 +68,11 @@ namespace SheetList
             MaxRows = 10,
             NumberOfSections = 1,
             Anchor = TableAnchor.Top,
-            // TableDataBuilder = (dwgDoc, settings) => dwgDoc.GetSheetListData(settings)
+            ColumnPropertyData =
+            [
+                new PropertyColumn(PropertySource.Sheet, "SheetNumber", 2.5),
+                new PropertyColumn(PropertySource.Sheet, "SheetName", 5)
+            ]
         };
 
     }

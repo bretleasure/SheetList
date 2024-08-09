@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -14,7 +15,6 @@ namespace SheetList.UI
     public partial class ConfigUI : Window
     {
         public SheetListAddinSettings _addinSettings { get; }
-        private ObservableCollection<MyData> _data;
         private DataGridRow _draggedRow;
 
         private SheetListSettings _sheetListSettings { get; set; }
@@ -31,6 +31,7 @@ namespace SheetList.UI
         public bool ControlMaxRows { get; set; }
         public bool ControlNumberOfSections { get; set; }
         public bool UpdateBeforeSave { get; set; }
+        public ObservableCollection<PropertyColumn> ColumnData { get; set; }
 
         public ConfigUI(SheetListAddinSettings addinSettings)
         {
@@ -49,16 +50,12 @@ namespace SheetList.UI
             ControlMaxRows = _addinSettings.ControlMaxRows;
             ControlNumberOfSections = _addinSettings.ControlNumberOfSections;
             UpdateBeforeSave = _addinSettings.UpdateBeforeSave;
+            ColumnData = new ObservableCollection<PropertyColumn>(_sheetListSettings.ColumnPropertyData);
             
             InitializeComponent();
             DataContext = this;
-            _data = new ObservableCollection<MyData>
-            {
-                new MyData { ColumnName = "SHEET #", Property = "SheetNumber", ColumnWidth = 1 },
-                new MyData { ColumnName = "NAME", Property = "SheetName", ColumnWidth = 1 },
-                new MyData { ColumnName = "REVISION", Property = "SheetRevision", ColumnWidth = 1 }
-            };
-            dataGrid.ItemsSource = _data;
+            
+            dataGrid.ItemsSource = ColumnData;
         }
 
         public Dictionary<TableDirectionEnum, string> TableDirectionsWithTitles { get; } = new()
@@ -86,51 +83,39 @@ namespace SheetList.UI
             {TableAnchor.Bottom, "Bottom"},
         };
 
-        private void DataGrid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void Btn_ChooseColumns_OnClick(object sender, RoutedEventArgs e)
         {
-            _draggedRow = FindVisualParent<DataGridRow>(e.OriginalSource as DependencyObject);
-        }
-
-        private void DataGrid_PreviewMouseMove(object sender, MouseEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed && _draggedRow != null)
+            var colChooser = new ColumnBuilder(ColumnData)
             {
-                DragDrop.DoDragDrop(_draggedRow, _draggedRow.Item, DragDropEffects.Move);
-            }
+                Owner = this
+            };
+            colChooser.ShowDialog();
         }
 
-        private void DataGrid_Drop(object sender, DragEventArgs e)
+        private void Btn_Save_OnClick(object sender, RoutedEventArgs e)
         {
-            if (_draggedRow != null)
-            {
-                var targetRow = FindVisualParent<DataGridRow>(e.OriginalSource as DependencyObject);
-                if (targetRow != null)
-                {
-                    var draggedItem = _draggedRow.Item as MyData;
-                    var targetItem = targetRow.Item as MyData;
-
-                    int draggedIndex = _data.IndexOf(draggedItem);
-                    int targetIndex = _data.IndexOf(targetItem);
-
-                    _data.Move(draggedIndex, targetIndex);
-                }
-            }
+            _sheetListSettings.ShowTitle = ShowTitle;
+            _sheetListSettings.Title = TableTitle;
+            _sheetListSettings.Direction = Direction;
+            _sheetListSettings.HeadingPlacement = HeadingPlacement;
+            _sheetListSettings.Anchor = Anchor;
+            _sheetListSettings.EnableAutoWrap = EnableAutomaticWrap;
+            _sheetListSettings.WrapLeft = WrapLeft;
+            _sheetListSettings.MaxRows = MaxRows;
+            _sheetListSettings.NumberOfSections = NumberOfSections;
+            _sheetListSettings.ColumnPropertyData = ColumnData.ToList();
+            AddinServer.AppSettings.ControlMaxRows = ControlMaxRows;
+            AddinServer.AppSettings.ControlNumberOfSections = ControlNumberOfSections;
+            AddinServer.AppSettings.UpdateBeforeSave = UpdateBeforeSave;
+            AddinServer.AppSettings.SheetListSettings = _sheetListSettings;
+            SheetListTools.SaveSettings();
+            SheetListTools.CreateEventListener();
+            Close();
         }
 
-        private static T FindVisualParent<T>(DependencyObject child) where T : DependencyObject
+        private void Btn_Cancel_OnClick(object sender, RoutedEventArgs e)
         {
-            var parentObject = VisualTreeHelper.GetParent(child);
-            if (parentObject == null) return null;
-
-            if (parentObject is T parent) return parent;
-            return FindVisualParent<T>(parentObject);
+            Close();
         }
-    }
-
-    public class MyData
-    {
-        public string ColumnName { get; set; }
-        public string Property { get; set; }
-        public double ColumnWidth { get; set; }
     }
 }

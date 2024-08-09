@@ -1,4 +1,5 @@
-﻿using Inventor;
+﻿using System.Windows.Interop;
+using Inventor;
 using Inventor.InternalNames.Ribbon;
 using SheetList.UI;
 
@@ -9,6 +10,10 @@ namespace SheetList.Buttons
 		protected override void Execute(NameValueMap context, Inventor.Application inventor)
 		{
 			var oConfig = new ConfigUI(AddinServer.AppSettings);
+			oConfig.WindowStartupLocation = System.Windows.WindowStartupLocation.Manual;
+			var inventorWindowPosition = InventorWindowHelper.GetInventorWindowPosition(inventor);
+			oConfig.Left = inventorWindowPosition.X + 250; // Adjust the offset as needed
+			oConfig.Top = inventorWindowPosition.Y + 250;  // Adjust the offset as needed
 			oConfig.ShowDialog();
 		}
 

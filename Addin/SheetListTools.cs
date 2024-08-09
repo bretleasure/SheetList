@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Inventor;
 using File = System.IO.File;
 using Newtonsoft.Json;
@@ -13,6 +14,12 @@ namespace SheetList
 			{
 				var settingsJson = File.ReadAllText(AddinServer.SettingsFilePath);
 				AddinServer.AppSettings = JsonConvert.DeserializeObject<SheetListAddinSettings>(settingsJson);
+				
+				//Reset to default if no columns are set
+				if (AddinServer.AppSettings.SheetListSettings.ColumnPropertyData == null || !AddinServer.AppSettings.SheetListSettings.ColumnPropertyData.Any())
+				{
+					AddinServer.AppSettings.SheetListSettings = SheetListSettings.Default;
+				}
 			}
             else
 			{
