@@ -179,7 +179,7 @@ jobs:
           with:
             tag: ${{ needs.Build.outputs.gitversion_semver }}
             prerelease: false
-            artifacts: "./artifacts/*.zip"
+            artifacts: "./artifacts/**.zip"
             generateReleaseNotes: true
 
         - name: Create GitHub Pre-Release
@@ -188,5 +188,5 @@ jobs:
           with:
             tag: ${{ needs.Build.outputs.gitversion_semver }}
             prerelease: true
-            artifacts: "./artifacts/*.zip"
+            artifacts: "./artifacts/**.zip"
             generateReleaseNotes: true
