@@ -78,7 +78,7 @@ jobs:
         path: ./artifacts/*.zip
         retention-days: 1
         overwrite: true
-        error: true
+        if-no-files-found: error
         
   Deploy_GitHub_Packages:
     needs: Build
