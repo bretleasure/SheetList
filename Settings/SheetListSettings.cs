@@ -47,8 +47,8 @@ namespace SheetList
             Anchor = TableAnchor.Top,
             ColumnPropertyData =
             [
-                new PropertyColumn(PropertySource.Sheet, "SheetNumber", 2.5),
-                new PropertyColumn(PropertySource.Sheet, "SheetName", 5)
+                new PropertyColumn(PropertySource.Sheet, "Sheet Number", 2.5),
+                new PropertyColumn(PropertySource.Sheet, "Sheet Name", 5)
             ]
         };
 

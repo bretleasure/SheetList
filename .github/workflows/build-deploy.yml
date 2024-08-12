@@ -61,7 +61,7 @@ jobs:
         type: 'zip'
         directory: ./artifacts
         path: ../bin/release/net472/**
-        filename: InventorAddin-NET472-v${{ steps.gitversion.outputs.nugetversion }}.zip
+        filename: SheetListAddin-net472-v${{ steps.gitversion.outputs.nugetversion }}.zip
         
     - name: Create Addin Zip .NET 8
       uses: thedoctor0/zip-release@0.7.5
@@ -69,7 +69,7 @@ jobs:
         type: 'zip'
         directory: ./artifacts
         path: ../bin/release/net8.0-windows/**
-        filename: InventorAddin-NET8-v${{ steps.gitversion.outputs.nugetversion }}.zip
+        filename: SheetListAddin-net8-v${{ steps.gitversion.outputs.nugetversion }}.zip
 
     - name: Publish Addin to Build Artifacts
       uses: actions/upload-artifact@v4.3.4

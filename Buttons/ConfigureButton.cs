@@ -9,6 +9,7 @@ namespace SheetList.Buttons
 	{
 		protected override void Execute(NameValueMap context, Inventor.Application inventor)
 		{
+			SheetListTools.LoadSavedSettings();
 			var oConfig = new ConfigUI(AddinServer.AppSettings);
 			oConfig.WindowStartupLocation = System.Windows.WindowStartupLocation.Manual;
 			var inventorWindowPosition = InventorWindowHelper.GetInventorWindowPosition(inventor);
