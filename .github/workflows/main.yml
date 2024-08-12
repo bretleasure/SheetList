@@ -62,14 +62,6 @@ jobs:
         directory: ./artifacts
         path: ../bin/release/net472/**
         filename: ${{ github.repository }}Addin-NET472-v${{ steps.gitversion.outputs.nugetversion }}.zip
-
-    - name: Publish NET472 Addin to Build Artifacts
-      uses: actions/upload-artifact@v4.3.4
-      with:
-        name: addin
-        path: ./artifacts/${{ github.repository }}Addin-NET472-v${{ steps.gitversion.outputs.nugetversion }}.zip
-        retention-days: 1
-        overwrite: true
         
     - name: Create Addin Zip .NET 8
       uses: thedoctor0/zip-release@0.7.5
@@ -79,13 +71,14 @@ jobs:
         path: ../bin/release/net8.0-windows/**
         filename: ${{ github.repository }}Addin-NET8-v${{ steps.gitversion.outputs.nugetversion }}.zip
 
-    - name: Publish NET8 Addin to Build Artifacts
+    - name: Publish Addin to Build Artifacts
       uses: actions/upload-artifact@v4.3.4
       with:
         name: addin
-        path: ./artifacts/${{ github.repository }}Addin-NET8-v${{ steps.gitversion.outputs.nugetversion }}.zip
+        path: ./artifacts/*.zip
         retention-days: 1
         overwrite: true
+        error: true
         
   Deploy_GitHub_Packages:
     needs: Build
