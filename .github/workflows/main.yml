@@ -55,14 +55,21 @@ jobs:
         retention-days: 1
         overwrite: true
 
-    - name: Create Addin Zip
+    - name: Create Addin Zip .NET 4.7.2
       uses: thedoctor0/zip-release@0.7.5
       with:
         type: 'zip'
         directory: ./artifacts
         path: ../bin/release/net472/**
-        filename: ${{ github.repository }}-${{ steps.gitversion.outputs.nugetversion }}.zip
-        # exclusions: '*.git* /*node_modules/* .editorconfig'
+        filename: ${{ github.repository }}Addin-NET472-v${{ steps.gitversion.outputs.nugetversion }}.zip
+        
+    - name: Create Addin Zip .NET 8
+      uses: thedoctor0/zip-release@0.7.5
+      with:
+        type: 'zip'
+        directory: ./artifacts
+        path: ../bin/release/net8.0-windows/**
+        filename: ${{ github.repository }}Addin-NET8-v${{ steps.gitversion.outputs.nugetversion }}.zip
 
     - name: Publish Addin Build Artifacts
       uses: actions/upload-artifact@v4.3.4
