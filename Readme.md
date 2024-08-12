@@ -2,7 +2,24 @@
 
 [![NuGet version (SheetList)](https://buildstats.info/nuget/SheetList)](https://www.nuget.org/packages/SheetList)
 
-# Usage
+# SheetList
+
+SheetList is an Autodesk Inventor add-in that provides enhanced functionality for creating sheet lists within your Inventor drawings.
+
+## Features
+
+- Easily configurable by adding, removing, and reordering properties in your sheet lists.
+- Choose properties from the Sheet, Drawing Document, or the referenced model contained on the sheet.
+- Integrates seamlessly with Autodesk Inventor's UI.
+- Automate the creation of sheet lists using the API.
+
+## Getting Started
+
+### Installation
+
+Follow the instructions in the [Wiki](https://github.com/bretleasure/SheetList/wiki) to install and configure the add-in.
+
+### Usage
 
 The addin can either be used via the commmand buttons added to the Inventor UI or by using the API with your own code. 
 

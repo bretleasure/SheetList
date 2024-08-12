@@ -13,7 +13,7 @@ permissions:
 jobs:
         
   Build:
-    # if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
+    if: "!contains(github.event.head_commit.message, 'nobuild')"
     runs-on: windows-latest
 
     outputs:
