@@ -1,8 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFrameworks>net472;net8.0-windows</TargetFrameworks>
     <LangVersion>latest</LangVersion>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
     <Authors>Bret Leasure</Authors>
     <Copyright>2023</Copyright>
@@ -32,16 +34,27 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Autodesk.Inventor.Interop">
-      <HintPath>lib\Autodesk.Inventor.Interop.dll</HintPath>
-      <PackagePath>lib\net472\</PackagePath>
-      <Pack>true</Pack>
+      <HintPath>C:\Program Files\Autodesk\Inventor 2025\Bin\Public Assemblies\Autodesk.Inventor.Interop.dll</HintPath>
     </Reference>
-    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms" Condition="'$(TargetFramework)' == 'net472'"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="Readme.md" Pack="true" PackagePath="\" />
-  </ItemGroup>
-  <ItemGroup>
+    <None Update="img\capture-1.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="img\Configure Window.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="img\Ribbon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="img\Sheet List 120x120.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\Autodesk.Inventor.Interop.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="SheetList.Addin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

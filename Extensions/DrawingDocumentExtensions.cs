@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SheetList;
+using SheetList.Enums;
 
 namespace Inventor
 {
@@ -34,10 +35,10 @@ namespace Inventor
                 .ToList();
         }
 
-        internal static string[] GetSheetListData(this DrawingDocument dwgDoc)
+        internal static string[] GetSheetListData(this DrawingDocument dwgDoc, SheetListSettings settings)
         {
             var sheetsData = dwgDoc.GetActiveSheets()
-                .Select(s => new string[] { s.GetSheetNumber(), s.GetSheetName() });
+                .Select(sheet => sheet.GetSheetData(settings));
 
             return sheetsData
                 .SelectMany(value => value)
@@ -50,6 +51,12 @@ namespace Inventor
                 .Where(s => !s.ExcludeFromCount)
                 .ToList();
         }
+
+        internal static List<string> GetPropertyNames(this DrawingDocument dwgDoc)
+            => ((Document)dwgDoc).GetPropertyNames();
+        
+        internal static string GetPropertyValue(this DrawingDocument dwgDoc, string propertyName)
+            => ((Document)dwgDoc).GetPropertyValue(propertyName);
         
         public static void UpdateSheetList(this DrawingDocument dwgDoc, SheetListSettings settings)
         {

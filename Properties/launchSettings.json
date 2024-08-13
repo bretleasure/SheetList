@@ -2,7 +2,7 @@
   "profiles": {
     "SheetList": {
       "commandName": "Executable",
-      "executablePath": "C:\\Program Files\\Autodesk\\Inventor 2023\\Bin\\Inventor.exe"
+      "executablePath": "C:\\Program Files\\Autodesk\\Inventor 2025\\Bin\\Inventor.exe"
     }
   }
 }
