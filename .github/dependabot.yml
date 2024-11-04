@@ -12,4 +12,4 @@ updates:
     groups:
       nuget-dependencies:
         patterns:
-          - "*.nupkg"
+          - "*"
