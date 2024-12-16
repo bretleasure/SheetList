@@ -13,6 +13,7 @@ permissions:
 jobs:
         
   Build:
+    name: Build
     if: "!contains(github.event.head_commit.message, 'nobuild')"
     runs-on: windows-latest
 
@@ -81,6 +82,7 @@ jobs:
         if-no-files-found: error
         
   Deploy_GitHub_Packages:
+    name: Deploy to GitHub Packages
     needs: Build
     runs-on: windows-latest
     
@@ -111,6 +113,7 @@ jobs:
         done
 
   Deploy_NuGet-org:
+    name: Deploy to NuGet.org
     needs: Build
     runs-on: windows-latest
     
@@ -141,6 +144,7 @@ jobs:
         done
   
   Create_Release:
+      name: Create Release
       needs: Build
       runs-on: windows-latest
       steps:

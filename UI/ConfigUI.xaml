@@ -116,8 +116,8 @@
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             
-            <Button Grid.Column="0" Name="btn_Import" Content="Import" Width="100" Margin="0 0 10 0" Visibility="Hidden"/>
-            <Button Grid.Column="1" Name="btn_Export" Content="Export" Width="100" Margin="0 0 10 0" Visibility="Hidden"/>
+            <Button Grid.Column="0" Name="btn_Import" Content="Import" Width="100" Margin="0 0 10 0" Click="Btn_Import_OnClick" ToolTip="Imports addin saved settings"/>
+            <Button Grid.Column="1" Name="btn_Export" Content="Export" Width="100" Margin="0 0 10 0" Click="Btn_Export_OnClick" ToolTip="Exports addin settings to be shared with others"/>
             <Button Grid.Column="3" Name="btn_Save" Content="Save" Width="100" Margin="0 0 10 0" Click="Btn_Save_OnClick"/>
             <Button Grid.Column="4" Name="btn_Cancel" Content="Cancel" Width="100" Margin="0 0 0 0" Click="Btn_Cancel_OnClick"/>
         </Grid>
