@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SheetList", "SheetList.csproj", "{2764A8B0-7B46-49DB-845F-5664E6BAB00F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SheetList", "src/SheetList.Addin/SheetList.csproj", "{2764A8B0-7B46-49DB-845F-5664E6BAB00F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
