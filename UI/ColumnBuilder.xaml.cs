@@ -40,6 +40,11 @@ namespace SheetList.UI
 					items.Add(PropertySource.SheetDocument, PropertySource.SheetDocument.ToFriendlyString());
 				}
 
+				if (ActiveDrawingDoc.ActiveSheet.HasTitleBlock())
+				{
+					items.Add(PropertySource.TitleBlock, PropertySource.TitleBlock.ToFriendlyString());
+				}
+
 				return items;
 			}
 		}
@@ -58,6 +63,7 @@ namespace SheetList.UI
 					PropertySource.Drawing =>  ActiveDrawingDoc.GetPropertyNames(),
 					PropertySource.SheetDocument => ActiveSheetReferenceDoc.GetPropertyNames(),
 					PropertySource.Sheet => ActiveDrawingDoc.ActiveSheet.GetPropertyNames(),
+					PropertySource.TitleBlock => ActiveDrawingDoc.ActiveSheet.GetTitleBlockPromptedTextBoxes().Select(t => t.Key).ToList(),
 					_ => Enumerable.Empty<string>().ToList()
 				};
 			}

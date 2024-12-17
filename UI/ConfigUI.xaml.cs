@@ -139,7 +139,7 @@ namespace SheetList.UI
 
             try
             {
-                if (openDialog.FileName == null)
+                if (string.IsNullOrWhiteSpace(openDialog.FileName))
                 {
                     return;
                 }
