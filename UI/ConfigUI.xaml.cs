@@ -139,6 +139,10 @@ namespace SheetList.UI
 
             try
             {
+                if (openDialog.FileName == null)
+                {
+                    return;
+                }
                 var importedSettings = SheetListTools.ImportSettings(openDialog.FileName);
 
                 //reload Window settings
