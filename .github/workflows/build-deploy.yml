@@ -44,10 +44,7 @@ jobs:
 
     - name: Update VDProj Parameters
       run: |
-        ./update-vdproj.ps1
-        -filePath "src/SheetList.Addin.Setup/SheetList.Addin.Setup.vdproj" 
-        -newVersion ${{ steps.gitversion.outputs.semver }} 
-        -newProductName "Sheet List Inventor Add-in"
+        ./update-vdproj.ps1 -filePath "src/SheetList.Addin.Setup/SheetList.Addin.Setup.vdproj" -newVersion ${{ steps.gitversion.outputs.semver }} -newProductName "Sheet List Inventor Add-in"
       shell: pwsh
       
     - name: Build DotNet
