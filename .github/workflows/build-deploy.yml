@@ -50,15 +50,21 @@ jobs:
         ./update-vdproj.ps1 -filePath "src/SheetList.Addin.Setup/SheetList.Addin.Setup.vdproj" -newVersion ${{ steps.gitversion.outputs.semver }} -newProductName "Sheet List Inventor Add-in"
       shell: pwsh
 
-    - name: Install Visual Studio Community
-      uses: microsoft/setup-msbuild@v1.1
-      with:
-        vs-version: '[17.0,18.0)'  # Target VS 2022 Community Edition
-        require-community: true    # Ensures Community Edition is prioritized
+    - name: Install Visual Studio Community Edition
+      run: |
+        echo Installing Visual Studio Community Edition...
+        vs_installer_url=https://aka.ms/vs/17/release/vs_community.exe
+        curl -L -o vs_installer.exe %vs_installer_url%
+        .\vs_installer.exe --quiet --wait --norestart --nocache ^
+          --installPath "C:\Program Files\Microsoft Visual Studio\2022\Community" ^
+          --add Microsoft.VisualStudio.Workload.ManagedDesktop ^
+          --add Microsoft.VisualStudio.Workload.VisualStudioExtension ^
+          --add Microsoft.VisualStudio.Component.VC.CoreBuildTools ^
+          --includeRecommended
 
     - name: Build Setup Project (VDProj) with devenv
       run: |
-        "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\devenv.com" SheetList.sln /Build "Release" /Project "src/SheetList.Addin.Setup/SheetList.Addin.Setup.vdproj"
+        "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\devenv.com" SheetList.sln /Build "Release"
       shell: cmd
 
     - name: Pack Projects
