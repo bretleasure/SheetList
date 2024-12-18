@@ -42,8 +42,8 @@ jobs:
     - name: NuGet restore
       run: nuget restore    
       
-    - name: Build DotNet
-      run: dotnet build -c Release
+    # - name: Build DotNet
+    #   run: dotnet build -c Release
 
     - name: Update VDProj Parameters
       run: |
@@ -53,16 +53,11 @@ jobs:
     - name: Install Visual Studio Community Edition
       run: |
         echo Installing Visual Studio Community Edition...
-        vs_installer_url=https://aka.ms/vs/17/release/vs_community.exe
-        curl -L -o vs_installer.exe %vs_installer_url%
-        .\vs_installer.exe --quiet --wait --norestart --nocache ^
-          --installPath "C:\Program Files\Microsoft Visual Studio\2022\Community" ^
-          --add Microsoft.VisualStudio.Workload.ManagedDesktop ^
-          --add Microsoft.VisualStudio.Workload.VisualStudioExtension ^
-          --add Microsoft.VisualStudio.Component.VC.CoreBuildTools ^
-          --includeRecommended
+        $vs_installer_url = "https://aka.ms/vs/17/release/vs_community.exe"
+        Invoke-WebRequest -Uri $vs_installer_url -OutFile "vs_installer.exe"
+        Start-Process -Wait -FilePath "vs_installer.exe" -ArgumentList "--quiet", "--wait", "--norestart", "--nocache", "--installPath", "C:\Program Files\Microsoft Visual Studio\2022\Community", "--add", "Microsoft.VisualStudio.Workload.ManagedDesktop", "--add", "Microsoft.VisualStudio.Workload.VisualStudioExtension", "--add", "Microsoft.VisualStudio.Component.VC.CoreBuildTools", "--includeRecommended"
 
-    - name: Build Setup Project (VDProj) with devenv
+    - name: Build Solution with devenv
       run: |
         "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\devenv.com" SheetList.sln /Build "Release"
       shell: cmd
