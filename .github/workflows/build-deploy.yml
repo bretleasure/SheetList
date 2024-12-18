@@ -57,6 +57,11 @@ jobs:
         Invoke-WebRequest -Uri $vs_installer_url -OutFile "vs_installer.exe"
         Start-Process -Wait -FilePath "vs_installer.exe" -ArgumentList "--quiet", "--wait", "--norestart", "--nocache", "--installPath", "C:\Program Files\Microsoft Visual Studio\2022\Community", "--add", "Microsoft.VisualStudio.Workload.ManagedDesktop", "--add", "Microsoft.VisualStudio.Workload.VisualStudioExtension", "--add", "Microsoft.VisualStudio.Component.VC.CoreBuildTools", "--includeRecommended"
 
+    - name: Verify Installation
+      run: |
+        "C:\Program Files\Microsoft Visual Studio\Installer\vswhere.exe" -all
+      shell: cmd
+        
     - name: Build Solution with devenv
       run: |
         "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\devenv.com" SheetList.sln /Build "Release"
