@@ -57,7 +57,7 @@ jobs:
 
     - name: Build Setup Project (VDProj) with devenv
       run: |
-        "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\devenv.com" SheetList.sln /Build "Release" /project "src/SheetList.Addin.Setup/SheetList.Addin.Setup.vdproj"
+        "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\devenv.com" SheetList.sln /Build "Release" /Project "src/SheetList.Addin.Setup/SheetList.Addin.Setup.vdproj"
       shell: cmd
 
     - name: Pack Projects
