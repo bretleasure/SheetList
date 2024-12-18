@@ -14,7 +14,7 @@
     <RepositoryUrl>https://github.com/bretleasure/SheetList</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Description>Sheet List addin for Autodesk Inventor</Description>
-    <PackageReadmeFile>../../Readme.md</PackageReadmeFile>
+    <PackageReadmeFile>..\..\Readme.md</PackageReadmeFile>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="Buttons\Icons\add-dark-32px.bmp" />
@@ -39,20 +39,20 @@
     <Reference Include="System.Windows.Forms" Condition="'$(TargetFramework)' == 'net472'"/>
   </ItemGroup>
   <ItemGroup>
-    <None Include="../../Readme.md" Pack="true" PackagePath="\" />
-    <None Update="../../img\capture-1.PNG">
+    <None Include="..\..\Readme.md" Pack="true" PackagePath="\" />
+    <None Update="..\..\img\capture-1.PNG">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="../../img\Configure Window.png">
+    <None Update="..\..\img\Configure Window.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="../../img\Ribbon.png">
+    <None Update="..\..\img\Ribbon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="../../img\Sheet List 120x120.png">
+    <None Update="..\..\img\Sheet List 120x120.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="../../lib\Autodesk.Inventor.Interop.dll">
+    <None Update="lib\Autodesk.Inventor.Interop.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="SheetList.Addin">
