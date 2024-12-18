@@ -14,7 +14,7 @@
     <RepositoryUrl>https://github.com/bretleasure/SheetList</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Description>Sheet List addin for Autodesk Inventor</Description>
-    <PackageReadmeFile>..\..\Readme.md</PackageReadmeFile>
+    <PackageReadmeFile>Readme.md</PackageReadmeFile>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="Buttons\Icons\add-dark-32px.bmp" />
