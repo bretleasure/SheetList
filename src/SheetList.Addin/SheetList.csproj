@@ -59,4 +59,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Autodesk.Inventor.Interop" Condition="'$(TargetFramework)' == 'net472'">
+      <HintPath>lib\Autodesk.Inventor.Interop.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>
