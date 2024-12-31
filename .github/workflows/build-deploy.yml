@@ -15,7 +15,8 @@ jobs:
   Build:
     name: Build
     if: "!contains(github.event.head_commit.message, 'nobuild')"
-    runs-on: windows-latest
+    # runs-on: windows-latest
+    runs-on: self-hosted
 
     outputs:
       gitversion_semver: ${{ steps.gitversion.outputs.semver }}
@@ -50,17 +51,17 @@ jobs:
         ./update-vdproj.ps1 -filePath "src/SheetList.Addin.Setup/SheetList.Addin.Setup.vdproj" -newVersion ${{ steps.gitversion.outputs.semver }} -newProductName "Sheet List Inventor Add-in"
       shell: pwsh
 
-    - name: Install Visual Studio Community Edition
-      run: |
-        echo Installing Visual Studio Community Edition...
-        $vs_installer_url = "https://aka.ms/vs/17/release/vs_community.exe"
-        Invoke-WebRequest -Uri $vs_installer_url -OutFile "vs_installer.exe"
-        Start-Process -Wait -FilePath "vs_installer.exe" -ArgumentList "--quiet", "--wait", "--norestart", "--nocache", "--installPath", "C:\Program Files\Microsoft Visual Studio\2022\Community", "--add", "Microsoft.VisualStudio.Workload.ManagedDesktop", "--add", "Microsoft.VisualStudio.Workload.VisualStudioExtension", "--add", "Microsoft.VisualStudio.Component.VC.CoreBuildTools", "--includeRecommended"
+    # - name: Install Visual Studio Community Edition
+    #   run: |
+    #     echo Installing Visual Studio Community Edition...
+    #     $vs_installer_url = "https://aka.ms/vs/17/release/vs_community.exe"
+    #     Invoke-WebRequest -Uri $vs_installer_url -OutFile "vs_installer.exe"
+    #     Start-Process -Wait -FilePath "vs_installer.exe" -ArgumentList "--quiet", "--wait", "--norestart", "--nocache", "--installPath", "C:\Program Files\Microsoft Visual Studio\2022\Community", "--add", "Microsoft.VisualStudio.Workload.ManagedDesktop", "--add", "Microsoft.VisualStudio.Workload.VisualStudioExtension", "--add", "Microsoft.VisualStudio.Component.VC.CoreBuildTools", "--includeRecommended"
 
-    - name: Verify Installation
-      run: |
-        "C:\Program Files\Microsoft Visual Studio\Installer\vswhere.exe" -all
-      shell: cmd
+    # - name: Verify Installation
+    #   run: |
+    #     "C:\Program Files\Microsoft Visual Studio\Installer\vswhere.exe" -all
+    #   shell: cmd
         
     - name: Build Solution with devenv
       run: |
