@@ -7,6 +7,7 @@ namespace SheetList.Enums
 		Sheet,
 		Drawing,
 		SheetDocument,
+		TitleBlock,
 		None
 	}
 	
@@ -19,6 +20,7 @@ namespace SheetList.Enums
 				PropertySource.Sheet => "Sheet",
 				PropertySource.Drawing => "Drawing",
 				PropertySource.SheetDocument => "Sheet Document",
+				PropertySource.TitleBlock => "Title Block",
 				PropertySource.None => "None",
 				_ => throw new ArgumentOutOfRangeException(nameof(source), source, null)
 			};

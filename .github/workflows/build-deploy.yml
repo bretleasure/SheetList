@@ -13,6 +13,7 @@ permissions:
 jobs:
         
   Build:
+    name: Build
     if: "!contains(github.event.head_commit.message, 'nobuild')"
     runs-on: windows-latest
 
@@ -60,7 +61,7 @@ jobs:
       with:
         type: 'zip'
         directory: ./artifacts
-        path: ../bin/release/net472/**
+        path: ../src/SheetList.Addin/bin/release/net472/**
         filename: SheetListAddin-net472-v${{ steps.gitversion.outputs.nugetversion }}.zip
         
     - name: Create Addin Zip .NET 8
@@ -68,10 +69,10 @@ jobs:
       with:
         type: 'zip'
         directory: ./artifacts
-        path: ../bin/release/net8.0-windows/**
+        path: ../src/SheetList.Addin/bin/release/net8.0-windows/**
         filename: SheetListAddin-net8-v${{ steps.gitversion.outputs.nugetversion }}.zip
 
-    - name: Publish Addin to Build Artifacts
+    - name: Publish Addin Zips to Build Artifacts
       uses: actions/upload-artifact@v4.3.4
       with:
         name: addin
@@ -81,6 +82,7 @@ jobs:
         if-no-files-found: error
         
   Deploy_GitHub_Packages:
+    name: Deploy to GitHub Packages
     needs: Build
     runs-on: windows-latest
     
@@ -111,6 +113,7 @@ jobs:
         done
 
   Deploy_NuGet-org:
+    name: Deploy to NuGet.org
     needs: Build
     runs-on: windows-latest
     
@@ -141,6 +144,7 @@ jobs:
         done
   
   Create_Release:
+      name: Create Release
       needs: Build
       runs-on: windows-latest
       steps:

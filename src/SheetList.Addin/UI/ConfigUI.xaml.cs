@@ -1,10 +1,12 @@
 ﻿// ConfigWindow.xaml.cs
 
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using Inventor;
@@ -14,7 +16,7 @@ namespace SheetList.UI
 {
     public partial class ConfigUI : Window
     {
-        public SheetListAddinSettings _addinSettings { get; }
+        public SheetListAddinSettings _addinSettings { get; private set; }
         private DataGridRow _draggedRow;
 
         private SheetListSettings _sheetListSettings { get; set; }
@@ -35,6 +37,11 @@ namespace SheetList.UI
 
         public ConfigUI(SheetListAddinSettings addinSettings)
         {
+            ImportSettings(addinSettings);
+        }
+
+        void ImportSettings(SheetListAddinSettings addinSettings)
+        {
             _addinSettings = addinSettings;
             _sheetListSettings = addinSettings?.SheetListSettings;
 
@@ -54,7 +61,6 @@ namespace SheetList.UI
             
             InitializeComponent();
             DataContext = this;
-            
             dataGrid.ItemsSource = ColumnData;
         }
 
@@ -116,6 +122,52 @@ namespace SheetList.UI
         private void Btn_Cancel_OnClick(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void Btn_Import_OnClick(object sender, RoutedEventArgs e)
+        {
+            var openDialog = new OpenFileDialog
+            {
+                Title = "Import Settings",
+                Filter = "JSON Files (*.json)|*.json",
+                Multiselect = false,
+                CheckFileExists = true,
+                CheckPathExists = true,
+            };
+
+            openDialog.ShowDialog();
+
+            try
+            {
+                if (string.IsNullOrWhiteSpace(openDialog.FileName))
+                {
+                    return;
+                }
+                var importedSettings = SheetListTools.ImportSettings(openDialog.FileName);
+
+                //reload Window settings
+                ImportSettings(importedSettings);
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show("Could not import settings. " + ex.Message);
+            }
+        }
+
+        private void Btn_Export_OnClick(object sender, RoutedEventArgs e)
+        {
+            var saveDialog = new SaveFileDialog
+            {
+                Title = "Export Settings",
+                Filter = "JSON Files (*.json)|*.json",
+                FileName = "SheetListSettings.json",
+                OverwritePrompt = true,
+                AddExtension = true
+            };
+            
+            saveDialog.ShowDialog();
+            
+            SheetListTools.ExportSettings(saveDialog.FileName);
         }
     }
 }

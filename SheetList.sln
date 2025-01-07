@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2003
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35521.163 d17.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SheetList", "SheetList.csproj", "{2764A8B0-7B46-49DB-845F-5664E6BAB00F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SheetList", "src\SheetList.Addin\SheetList.csproj", "{2764A8B0-7B46-49DB-845F-5664E6BAB00F}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SheetList.Addin.Setup", "src\SheetList.Addin.Setup\SheetList.Addin.Setup.vdproj", "{447B3187-3904-4438-BFBA-11818F3A550E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,9 @@ Global
 		{2764A8B0-7B46-49DB-845F-5664E6BAB00F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2764A8B0-7B46-49DB-845F-5664E6BAB00F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2764A8B0-7B46-49DB-845F-5664E6BAB00F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{447B3187-3904-4438-BFBA-11818F3A550E}.Debug|Any CPU.ActiveCfg = Debug
+		{447B3187-3904-4438-BFBA-11818F3A550E}.Debug|Any CPU.Build.0 = Debug
+		{447B3187-3904-4438-BFBA-11818F3A550E}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

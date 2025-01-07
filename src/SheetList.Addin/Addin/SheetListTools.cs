@@ -10,9 +10,14 @@ namespace SheetList
     {
         public static void LoadSavedSettings()
 		{
-			if (System.IO.File.Exists(AddinServer.SettingsFilePath))
+			ImportSettings(AddinServer.SettingsFilePath);
+		}
+
+		public static SheetListAddinSettings ImportSettings(string settingsJsonFilePath)
+		{
+			if (System.IO.File.Exists(settingsJsonFilePath))
 			{
-				var settingsJson = File.ReadAllText(AddinServer.SettingsFilePath);
+				var settingsJson = File.ReadAllText(settingsJsonFilePath);
 				AddinServer.AppSettings = JsonConvert.DeserializeObject<SheetListAddinSettings>(settingsJson);
 				
 				//Reset to default if no columns are set
@@ -21,20 +26,27 @@ namespace SheetList
 					AddinServer.AppSettings.SheetListSettings = SheetListSettings.Default;
 				}
 			}
-            else
+			else
 			{
 				AddinServer.AppSettings = new SheetListAddinSettings
 				{
 					SheetListSettings = SheetListSettings.Default
 				};
 				SaveSettings();
-            }
+			}
+			
+			return AddinServer.AppSettings;
 		}
         
         public static void SaveSettings()
         {
-			var json = JsonConvert.SerializeObject(AddinServer.AppSettings);
-			File.WriteAllText(AddinServer.SettingsFilePath, json);
+	        ExportSettings(AddinServer.SettingsFilePath);
+        }
+
+        public static void ExportSettings(string destinationFilePath)
+        {
+	        var json = JsonConvert.SerializeObject(AddinServer.AppSettings);
+	        File.WriteAllText(destinationFilePath, json);
         }
 
 		public static void CreateEventListener()
