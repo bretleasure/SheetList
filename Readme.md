@@ -21,17 +21,11 @@ SheetList is an Autodesk Inventor add-in that provides enhanced functionality fo
 
 ## Getting Started
 
-### Installation
+1. [Installing the Addin](https://github.com/bretleasure/SheetList/wiki/Installation)
 
-Follow the instructions in the [Wiki](https://github.com/bretleasure/SheetList/wiki) to install and configure the add-in.
+2. [Configuring The Sheet List](https://github.com/bretleasure/SheetList/wiki/configuration)
 
-### Usage
-
-The addin can either be used via the commmand buttons added to the Inventor UI or by using the API with your own code. 
-
-# Documentation
-
-### [Check out the Wiki](https://github.com/bretleasure/SheetList/wiki)
+3. [Using the API](https://github.com/bretleasure/SheetList/wiki/Using-the-API)
 
 # Questions and Support
 
