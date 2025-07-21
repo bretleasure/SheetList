@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net472;net8.0-windows</TargetFrameworks>
@@ -29,14 +29,14 @@
   <ItemGroup>
     <PackageReference Include="Inventor.InternalNames" Version="0.4.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="stdole" Version="17.13.40008" />
-    <PackageReference Include="System.Resources.Extensions" Version="9.0.2" />
+    <PackageReference Include="stdole" Version="17.14.40260" />
+    <PackageReference Include="System.Resources.Extensions" Version="9.0.7" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Autodesk.Inventor.Interop">
       <HintPath>C:\Program Files\Autodesk\Inventor 2025\Bin\Public Assemblies\Autodesk.Inventor.Interop.dll</HintPath>
     </Reference>
-    <Reference Include="System.Windows.Forms" Condition="'$(TargetFramework)' == 'net472'"/>
+    <Reference Include="System.Windows.Forms" Condition="'$(TargetFramework)' == 'net472'" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Readme.md" Pack="true" PackagePath="\" />
