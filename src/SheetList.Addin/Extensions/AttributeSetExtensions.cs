@@ -18,5 +18,29 @@ namespace Inventor
                 newAttribute.Value = attributeValue;
             }
         }
+        
+        private static bool TryGetAttribute(this AttributeSet attributeSet, string attributeName, out Inventor.Attribute attribute)
+        {
+            if (attributeSet.NameIsUsed[attributeName])
+            {
+                attribute = attributeSet[attributeName];
+                return attribute != null;
+            }
+
+            attribute = null;
+            return false;
+        }
+
+        internal static bool TryGetAttributeValue(this AttributeSet attributeSet, string attributeName, out string attributeValue)
+        {
+           if (attributeSet.TryGetAttribute(attributeName, out var attribute))
+           {
+               attributeValue = attribute.Value.ToString();
+               return true;
+           }
+            
+           attributeValue = string.Empty;
+           return false;
+        }
     }
 }

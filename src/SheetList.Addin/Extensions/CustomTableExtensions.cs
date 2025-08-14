@@ -27,12 +27,7 @@ namespace Inventor
 
         internal static void SaveAttributesToTable(this CustomTable table)
         {
-            if (!table.AttributeSets.NameIsUsed[AppConstants.TableAttributeSetName])
-            {
-                table.AttributeSets.Add(AppConstants.TableAttributeSetName, true);
-            }
-
-            var attributeSet = table.AttributeSets[AppConstants.TableAttributeSetName];
+            var attributeSet = table.AttributeSets.GetAttributeSet(AppConstants.TableAttributeSetName);
 
             attributeSet.AssignAttributeValue(AppConstants.AttributeName, AppConstants.TableId);
         }

@@ -10,7 +10,12 @@ namespace SheetList.Buttons
 		protected override void Execute(NameValueMap context, Inventor.Application inventor)
 		{
 			SheetListTools.LoadSavedSettings();
-			var oConfig = new ConfigUI(AddinServer.AppSettings);
+
+			var documentSettings = inventor.ActiveDocument is DrawingDocument dwgDoc
+				? dwgDoc.GetSheetListAddinSettings()
+				: null;
+			
+			var oConfig = new ConfigUI(AddinServer.AppSettings, documentSettings);
 			oConfig.WindowStartupLocation = System.Windows.WindowStartupLocation.Manual;
 			var inventorWindowPosition = InventorWindowHelper.GetInventorWindowPosition(inventor);
 			oConfig.Left = inventorWindowPosition.X + 250; // Adjust the offset as needed

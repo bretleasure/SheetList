@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 using SheetList;
 using SheetList.Enums;
 
@@ -57,6 +58,18 @@ namespace Inventor
         
         internal static string GetPropertyValue(this DrawingDocument dwgDoc, string propertyName)
             => ((Document)dwgDoc).GetPropertyValue(propertyName);
+
+        internal static SheetListAddinSettings GetSheetListAddinSettings(this DrawingDocument dwgDoc)
+        {
+            var attributeSet = dwgDoc.AttributeSets.GetAttributeSet(AppConstants.DocumentAttributeSetName);
+
+            if (attributeSet.TryGetAttributeValue(AppConstants.AddinSettingsAttributeName, out var settingsJson))
+            {
+                return JsonConvert.DeserializeObject<SheetListAddinSettings>(settingsJson);
+            }
+
+            return null;
+        }
         
         public static void UpdateSheetList(this DrawingDocument dwgDoc, SheetListSettings settings)
         {

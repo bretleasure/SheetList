@@ -16,6 +16,7 @@ namespace SheetList.UI
 {
     public partial class ConfigUI : Window
     {
+        private readonly SheetListAddinSettings _documentSettings;
         public SheetListAddinSettings _addinSettings { get; private set; }
         private DataGridRow _draggedRow;
 
@@ -35,8 +36,9 @@ namespace SheetList.UI
         public bool UpdateBeforeSave { get; set; }
         public ObservableCollection<PropertyColumn> ColumnData { get; set; }
 
-        public ConfigUI(SheetListAddinSettings addinSettings)
+        public ConfigUI(SheetListAddinSettings addinSettings, SheetListAddinSettings documentSettings)
         {
+            _documentSettings = documentSettings;
             ImportSettings(addinSettings);
         }
 
